@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModelStacker.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ModelStackerStoreContainer">
+    <EntitySet Name="Products" EntityType="ModelStacker.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CellContents" EntityType="ModelStacker.Store.CellContents" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProductCellContent" Association="ModelStacker.Store.ProductCellContent">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="CellContent" EntitySet="CellContents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CellContents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StackerID" Type="int" Nullable="false" />
+    <Property Name="CellID" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="ChangeDate" Type="datetime" Nullable="false" />
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ProductCellContent">
+    <End Role="Product" Type="ModelStacker.Store.Products" Multiplicity="1" />
+    <End Role="CellContent" Type="ModelStacker.Store.CellContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CellContent">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

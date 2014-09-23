@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cellcontentModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="cellcontentEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cells" EntityType="cellcontentModel.Cells" />
+    <EntitySet Name="Products" EntityType="cellcontentModel.Products" />
+    <EntitySet Name="CellContents" EntityType="cellcontentModel.CellContent" />
+    <AssociationSet Name="ProductsCellContent" Association="cellcontentModel.ProductsCellContent">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="CellContent" EntitySet="CellContents" />
+    </AssociationSet>
+    <AssociationSet Name="CellsCellContent" Association="cellcontentModel.CellsCellContent">
+      <End Role="Cells" EntitySet="Cells" />
+      <End Role="CellContent" EntitySet="CellContents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cells">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="stacker_id" Nullable="false" />
+    <Property Type="Int32" Name="cellno" Nullable="false" />
+    <NavigationProperty Name="CellContents" Relationship="cellcontentModel.CellsCellContent" FromRole="Cells" ToRole="CellContent" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="name" Nullable="false" Unicode="true" />
+    <Property Type="String" Name="shifr" Nullable="false" Unicode="true" />
+    <NavigationProperty Name="CellContents" Relationship="cellcontentModel.ProductsCellContent" FromRole="Products" ToRole="CellContent" />
+  </EntityType>
+  <EntityType Name="CellContent">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="count" Nullable="false" />
+    <Property Type="DateTime" Name="changed" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="cellcontentModel.ProductsCellContent" FromRole="CellContent" ToRole="Products" />
+    <NavigationProperty Name="Cell" Relationship="cellcontentModel.CellsCellContent" FromRole="CellContent" ToRole="Cells" />
+  </EntityType>
+  <Association Name="ProductsCellContent">
+    <End Type="cellcontentModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="cellcontentModel.CellContent" Role="CellContent" Multiplicity="*" />
+  </Association>
+  <Association Name="CellsCellContent">
+    <End Type="cellcontentModel.Cells" Role="Cells" Multiplicity="1" />
+    <End Type="cellcontentModel.CellContent" Role="CellContent" Multiplicity="*" />
+  </Association>
+</Schema>

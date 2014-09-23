@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cellcontentModelStoreContainer" CdmEntityContainer="cellcontentEntities1">
+    <EntitySetMapping Name="Cells">
+      <EntityTypeMapping TypeName="IsTypeOf(cellcontentModel.Cells)">
+        <MappingFragment StoreEntitySet="Cells">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="stacker_id" ColumnName="stacker_id" />
+          <ScalarProperty Name="cellno" ColumnName="cellno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="IsTypeOf(cellcontentModel.Products)">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="shifr" ColumnName="shifr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CellContents">
+      <EntityTypeMapping TypeName="IsTypeOf(cellcontentModel.CellContent)">
+        <MappingFragment StoreEntitySet="CellContents">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="count" ColumnName="count" />
+          <ScalarProperty Name="changed" ColumnName="changed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProductsCellContent" TypeName="cellcontentModel.ProductsCellContent" StoreEntitySet="CellContents">
+      <EndProperty Name="Products">
+        <ScalarProperty Name="id" ColumnName="Product_id" />
+      </EndProperty>
+      <EndProperty Name="CellContent">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CellsCellContent" TypeName="cellcontentModel.CellsCellContent" StoreEntitySet="CellContents">
+      <EndProperty Name="Cells">
+        <ScalarProperty Name="id" ColumnName="Cell_id" />
+      </EndProperty>
+      <EndProperty Name="CellContent">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

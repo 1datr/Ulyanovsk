@@ -1,0 +1,12 @@
+D:\setups\c#\beeVNC Beta2\beeVNC\bin\beeVNC.dll
+D:\setups\c#\beeVNC Beta2\beeVNC\bin\beeVNC.pdb
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\ResolveAssemblyReference.cache
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\vncControl.baml
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\vncControl.g.cs
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\beeVNC_MarkupCompile.cache
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\beeVNC.g.resources
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\beeVNC.Properties.Resources.resources
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\GenerateResource.read.1.tlog
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\GenerateResource.write.1.tlog
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\beeVNC.dll
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\x64\Debug\beeVNC.pdb

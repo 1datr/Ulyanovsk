@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStackerStoreContainer" CdmEntityContainer="ModelStackerContainer">
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelStacker.Product)">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CellContents">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelStacker.CellContent)">
+        <MappingFragment StoreEntitySet="CellContents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StackerID" ColumnName="StackerID" />
+          <ScalarProperty Name="CellID" ColumnName="CellID" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProductCellContent" TypeName="ModelStacker.ProductCellContent" StoreEntitySet="CellContents">
+      <EndProperty Name="Product">
+        <ScalarProperty Name="Id" ColumnName="Product_Id" />
+      </EndProperty>
+      <EndProperty Name="CellContent">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

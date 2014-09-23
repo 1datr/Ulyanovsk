@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="WpfStackerLibrary.StackerManBNR"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="294" Initialized="UserControl_Initialized" xmlns:my="clr-namespace:WpfStackerLibrary">
+    <Grid Initialized="Grid_Initialized">
+        <Border HorizontalAlignment="Stretch" Padding="5,5,5,5" VerticalAlignment="Stretch" BorderThickness="1" CornerRadius="5" BorderBrush="#FF0C0C0C">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Name="dockPanel1" >
+                
+                <Button Content="OFF" HorizontalAlignment="Right" Width="75"  Margin="5,5,5,5" Background="#FF5A260D" FontSize="18" FontWeight="Bold" Foreground="#FFD6F00C" BorderBrush="{x:Null}" />
+                    <Button Height="25"  Content="Переподключить" Click="Button_Click"></Button>
+                <Button Content="Специальное управление" HorizontalAlignment="Right" Width="150"  Name="btnSpec" Height="25" Margin="5,5,5,5" Click="btnSpec_Click" />
+                    
+                </WrapPanel>
+
+                <WrapPanel >
+                    <StackPanel Orientation="Horizontal">
+                    <Label>X:</Label>
+                        <TextBlock Padding="0,5,0,5" Name="tbPosX" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=WorkParams.X}"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                    <Label>Y:</Label>
+                        <TextBlock  Padding="0,5,0,5" Name="tbPosY" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=WorkParams.Y}"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                    <Label>Z:</Label>
+                        <TextBlock Padding="0,5,0,5" Name="tbPosZ" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=WorkParams.Z}"></TextBlock>
+                    </StackPanel>
+                    </WrapPanel>
+
+                <WrapPanel>
+                    <Label>РЕЖИМ:</Label>
+                    <Label Content="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PLCMode}"></Label>
+                </WrapPanel>
+                
+            </StackPanel>
+            
+            
+            
+        </Border>
+    </Grid>
+</UserControl>

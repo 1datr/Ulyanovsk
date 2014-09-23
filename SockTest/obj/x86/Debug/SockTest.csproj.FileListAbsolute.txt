@@ -1,0 +1,59 @@
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\SockTest.csprojResolveAssemblyReference.cache
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\MainWindow.baml
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\MainWindow.g.cs
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\App.g.cs
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\SockTest_MarkupCompile.cache
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\SockTest.g.resources
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\SockTest.Properties.Resources.resources
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\SockTest.csproj.GenerateResource.Cache
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\SockTest.exe
+D:\Productions\#programming\beeVNC\SockTest\obj\x86\Debug\SockTest.pdb
+D:\Productions\#programming\beeVNC\SockTest\bin\SockTest.exe
+D:\Productions\#programming\beeVNC\SockTest\bin\SockTest.pdb
+D:\Productions\#programming\beeVNC\SockTest\bin\beeVNC.dll
+D:\Productions\#programming\beeVNC\SockTest\bin\beeVNC.pdb
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\SockTest.exe
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\SockTest.pdb
+D:\setups\c#\beeVNC Beta2\SockTest\bin\SockTest.exe
+D:\setups\c#\beeVNC Beta2\SockTest\bin\SockTest.pdb
+D:\setups\c#\beeVNC Beta2\SockTest\bin\beeVNC.dll
+D:\setups\c#\beeVNC Beta2\SockTest\bin\beeVNC.pdb
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\MainWindow.baml
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\MainWindow.g.cs
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\App.g.cs
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\SockTest_MarkupCompile.cache
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\SockTest.g.resources
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\SockTest.Properties.Resources.resources
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\setups\c#\beeVNC Beta2\SockTest\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\SockTest.exe
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\SockTest.pdb
+D:\программы\beeVNCKirishi\SockTest\bin\SockTest.exe
+D:\программы\beeVNCKirishi\SockTest\bin\SockTest.pdb
+D:\программы\beeVNCKirishi\SockTest\bin\beeVNC.dll
+D:\программы\beeVNCKirishi\SockTest\bin\beeVNC.pdb
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\MainWindow.baml
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\MainWindow.g.cs
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\App.g.cs
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\SockTest_MarkupCompile.cache
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\SockTest.g.resources
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\SockTest.Properties.Resources.resources
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\программы\beeVNCKirishi\SockTest\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\программы\beeVNCKirishi\SockTest\bin\WpfStackerLibrary.dll
+D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.WPF4.dll
+D:\программы\beeVNCKirishi\SockTest\bin\BR.AN.PVIServices.dll
+D:\программы\beeVNCKirishi\SockTest\bin\Microsoft.Practices.ServiceLocation.dll
+D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.Extras.WPF4.dll
+D:\программы\beeVNCKirishi\SockTest\bin\System.Windows.Interactivity.dll
+D:\программы\beeVNCKirishi\SockTest\bin\WpfStackerLibrary.pdb
+D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.WPF4.pdb
+D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.WPF4.xml
+D:\программы\beeVNCKirishi\SockTest\bin\BR.AN.PVIServices.xml
+D:\программы\beeVNCKirishi\SockTest\bin\Microsoft.Practices.ServiceLocation.pdb
+D:\программы\beeVNCKirishi\SockTest\bin\Microsoft.Practices.ServiceLocation.xml
+D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.Extras.WPF4.pdb
+D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.Extras.WPF4.xml
+D:\программы\beeVNCKirishi\SockTest\bin\System.Windows.Interactivity.xml

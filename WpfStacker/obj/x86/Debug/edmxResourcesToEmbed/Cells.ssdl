@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cellcontentModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="cellcontentModelStoreContainer">
+    <EntitySet Name="Cells" EntityType="cellcontentModel.Store.Cells" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="cellcontentModel.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CellContents" EntityType="cellcontentModel.Store.CellContents" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProductsCellContent" Association="cellcontentModel.Store.ProductsCellContent">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="CellContent" EntitySet="CellContents" />
+    </AssociationSet>
+    <AssociationSet Name="CellsCellContent" Association="cellcontentModel.Store.CellsCellContent">
+      <End Role="Cells" EntitySet="Cells" />
+      <End Role="CellContent" EntitySet="CellContents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cells">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stacker_id" Type="int" Nullable="false" />
+    <Property Name="cellno" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="shifr" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CellContents">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="count" Type="int" Nullable="false" />
+    <Property Name="changed" Type="datetime" Nullable="false" />
+    <Property Name="Product_id" Type="int" Nullable="false" />
+    <Property Name="Cell_id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ProductsCellContent">
+    <End Role="Products" Type="cellcontentModel.Store.Products" Multiplicity="1" />
+    <End Role="CellContent" Type="cellcontentModel.Store.CellContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CellContent">
+        <PropertyRef Name="Product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CellsCellContent">
+    <End Role="Cells" Type="cellcontentModel.Store.Cells" Multiplicity="1" />
+    <End Role="CellContent" Type="cellcontentModel.Store.CellContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cells">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CellContent">
+        <PropertyRef Name="Cell_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

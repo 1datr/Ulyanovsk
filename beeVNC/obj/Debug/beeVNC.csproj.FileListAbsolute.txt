@@ -1,0 +1,35 @@
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\vncControl.baml
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\vncControl.g.cs
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\beeVNC_MarkupCompile.cache
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\beeVNC.g.resources
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\beeVNC.Properties.Resources.resources
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\beeVNC.csproj.GenerateResource.Cache
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\beeVNC.dll
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\beeVNC.pdb
+D:\Productions\#programming\beeVNC\beeVNC\bin\beeVNC.dll
+D:\Productions\#programming\beeVNC\beeVNC\bin\beeVNC.pdb
+D:\Productions\#programming\beeVNC\beeVNC\obj\Debug\beeVNC.csprojResolveAssemblyReference.cache
+D:\setups\c#\beeVNC Beta2\beeVNC\bin\beeVNC.dll
+D:\setups\c#\beeVNC Beta2\beeVNC\bin\beeVNC.pdb
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\ResolveAssemblyReference.cache
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\vncControl.baml
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\vncControl.g.cs
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\beeVNC_MarkupCompile.cache
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\beeVNC.g.resources
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\beeVNC.Properties.Resources.resources
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\GenerateResource.read.1.tlog
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\GenerateResource.write.1.tlog
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\beeVNC.dll
+D:\setups\c#\beeVNC Beta2\beeVNC\obj\Debug\beeVNC.pdb
+D:\программы\beeVNCKirishi\beeVNC\bin\beeVNC.dll
+D:\программы\beeVNCKirishi\beeVNC\bin\beeVNC.pdb
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\ResolveAssemblyReference.cache
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\vncControl.baml
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\vncControl.g.cs
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\beeVNC_MarkupCompile.cache
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\beeVNC.g.resources
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\beeVNC.Properties.Resources.resources
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\GenerateResource.read.1.tlog
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\GenerateResource.write.1.tlog
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\beeVNC.dll
+D:\программы\beeVNCKirishi\beeVNC\obj\Debug\beeVNC.pdb
