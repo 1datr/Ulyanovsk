@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 
 
@@ -62,9 +63,11 @@ namespace WpfStackerLibrary
         void set_cell_styles()
         {
           // try {
+            if (DesignerProperties.GetIsInDesignMode(this)) return;
+            
 
                 if (cells_occupied == null)
-                cells_occupied = SDA.OccupiedCells(this.fStackerID);                
+                cells_occupied = SDA.OccupiedCells(this.StackerID);                
             
                 foreach (Button btn in rack_left.Children)
                 {
@@ -137,28 +140,96 @@ namespace WpfStackerLibrary
             set { fRackRight = value; }
         }
 
-        
-        private Int32 fRows;
+        public void SetParam(String propname, Object val, object oldval)
+        {
+            switch (propname)
+            {
+                case "Rows":
+                    rack_left.ColumnDefinitions.Clear();
+                    for (Int32 i = 0; i < Rows; i++)
+                    {
+                        rack_left.ColumnDefinitions.Add(new ColumnDefinition());
+                    }
+
+                    rack_right.ColumnDefinitions.Clear();
+                    for (Int32 i = 0; i < Rows; i++)
+                    {
+                        rack_right.ColumnDefinitions.Add(new ColumnDefinition());
+                    }
+
+                    make_cells();
+                    break;
+                case "Floors":
+                     
+                    rack_left.RowDefinitions.Clear();
+                    for (Int32 i = 0; i < Floors; i++)
+                    {
+                        rack_left.RowDefinitions.Add(new RowDefinition());
+                    
+                    }
+
+                    rack_right.RowDefinitions.Clear();
+                    for (Int32 i = 0; i < Floors; i++)
+                    {
+                        rack_right.RowDefinitions.Add(new RowDefinition());
+                    }
+
+                    make_cells();
+                    break;
+                case "StackerID":
+                    cells_occupied = null;
+                    set_cell_styles();
+                    break;
+                case "PointsEmptyLeft":
+                    restruct_left();
+                    set_cell_styles();
+                    break;
+                case "PointsEmptyRight":
+                    restruct_right();
+                    set_cell_styles();
+                    break;
+            }
+        }
+
+        private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            StackerControl ctrl = (StackerControl)d;
+            
+            ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
+             
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty RowsDP = DependencyProperty.Register("Rows", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(5, DepParamsChanged));
+        // .NET Property wrapper
         [Description("Row count"), Category("Stacker")]
         public Int32 Rows
         {
-            get { return fRows; }
+            get
+            {
+                return (Int32)GetValue(RowsDP);
+            }
             set
             {
-                fRows = value;
-                rack_left.ColumnDefinitions.Clear();
-                for (Int32 i = 0; i < fRows; i++)
-                {
-                    rack_left.ColumnDefinitions.Add(new ColumnDefinition());
-                }
+                SetValue(RowsDP, value);
 
-                rack_right.ColumnDefinitions.Clear();
-                for (Int32 i = 0; i < fRows; i++)
-                {
-                    rack_right.ColumnDefinitions.Add(new ColumnDefinition());
-                }
+            }
+        }
 
-                make_cells();
+        // Dependency Property
+        public static readonly DependencyProperty FloorsDP = DependencyProperty.Register("Floors", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(5, DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Floor count"), Category("Stacker")]
+        public Int32 Floors
+        {
+            get
+            {
+                return (Int32)GetValue(FloorsDP);
+            }
+            set
+            {
+                SetValue(FloorsDP, value);
+
             }
         }
 
@@ -167,45 +238,48 @@ namespace WpfStackerLibrary
         {
             if (PropertyChanged != null)
             {
-                if (propertyName == "PointsEmptyRight")
+                /*if (propertyName == "PointsEmptyRight")
                     restruct_right();
                 if (propertyName == "PointsEmptyLeft")
-                    restruct_left();
+                    restruct_left();*/
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
-        private ItemsChangeObservableCollection<GridPoint> fPointsEmptyLeft = new ItemsChangeObservableCollection<GridPoint>();
-        [Description("Points of left rack grid must be empty"), Category("Stacker")]
-        public ItemsChangeObservableCollection<GridPoint> PointsEmptyLeft
+        // Dependency Property
+        public static readonly DependencyProperty PointsEmptyLeftDP = DependencyProperty.Register("PointsEmptyLeft", typeof(ObservableCollection<GridPoint>), typeof(StackerControl), new FrameworkPropertyMetadata(new ObservableCollection<GridPoint>(),DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Free points in left rack"), Category("Stacker")]
+        public ObservableCollection<GridPoint> PointsEmptyLeft
         {
             get
             {
-                return fPointsEmptyLeft;
+                return (ObservableCollection<GridPoint>)GetValue(PointsEmptyLeftDP);
             }
             set
             {
-                fPointsEmptyLeft = value;
-                OnPropertyChanged("PointsEmptyLeft");
-                
+                SetValue(PointsEmptyLeftDP, value);
+
             }
         }
 
-        private ItemsChangeObservableCollection<GridPoint> fPointsEmptyRight = new ItemsChangeObservableCollection<GridPoint>();
-        [Description("Points of right rack grid must be empty"), Category("Stacker")]
+        // Dependency Property
+        public static readonly DependencyProperty PointsEmptyRightDP = DependencyProperty.Register("PointsEmptyRight", typeof(ItemsChangeObservableCollection<GridPoint>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<GridPoint>(), DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Free points in right rack"), Category("Stacker")]
         public ItemsChangeObservableCollection<GridPoint> PointsEmptyRight
         {
             get
             {
-                return fPointsEmptyRight;
+                return (ItemsChangeObservableCollection<GridPoint>)GetValue(PointsEmptyRightDP);
             }
             set
             {
-                fPointsEmptyRight = value;
-                OnPropertyChanged("PointsEmptyRight");
+                SetValue(PointsEmptyRightDP, value);
+
             }
-        }                   
-      
+        }
+   
         public List<string> AvailableItems     
         {         
             get { 
@@ -242,12 +316,12 @@ namespace WpfStackerLibrary
             if (fRackLeft)
             {
                 rack_left.Children.Clear();
-                for (Int32 x = 0; x < fRows; x++)
+                for (Int32 x = 0; x < Rows; x++)
                 {
-                    for (Int32 y = fFloors - 1; y >= 0; y--)
+                    for (Int32 y = Floors - 1; y >= 0; y--)
                     {
                         Point cp = new Point(x, y);
-                        IEnumerable<GridPoint> points = fPointsEmptyLeft.Where(p => ((p.X == cp.X) && (p.Y == cp.Y)));
+                        IEnumerable<GridPoint> points = PointsEmptyLeft.Where(p => ((p.X == cp.X) && (p.Y == cp.Y)));
                         if (points.Count() == 0)
                         {
                             Button b = new Button();
@@ -264,12 +338,12 @@ namespace WpfStackerLibrary
             if (fRackRight)
             {
                 rack_right.Children.Clear();
-                for (Int32 x = 0; x < fRows; x++)
+                for (Int32 x = 0; x < Rows; x++)
                 {
-                    for (Int32 y = 0; y < fFloors; y++)
+                    for (Int32 y = 0; y < Floors; y++)
                     {
                         Point cp = new Point(x, y);
-                        IEnumerable<GridPoint> pres = fPointsEmptyRight.Where(p => ((p.X == cp.X) && (p.Y == cp.Y)));
+                        IEnumerable<GridPoint> pres = PointsEmptyRight.Where(p => ((p.X == cp.X) && (p.Y == cp.Y)));
                         if (pres.Count() == 0)
                         {
                             Button b = new Button();
@@ -287,7 +361,8 @@ namespace WpfStackerLibrary
         // restruct left rack
         private void restruct_left()
         {
-            foreach (GridPoint p in fPointsEmptyLeft)
+            if (PointsEmptyLeft == null) return;
+            foreach (GridPoint p in PointsEmptyLeft)
             {
                 try
                 {
@@ -363,7 +438,7 @@ namespace WpfStackerLibrary
             fSelectedCell = Convert.ToInt32(btn.Content);
             SetValue(SelCellStrProperty, "Ячейка №"+fSelectedCell);            
           
-            List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, fStackerID);
+            List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
           
             SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl) );
             //throw new NotImplementedException();
@@ -372,7 +447,7 @@ namespace WpfStackerLibrary
         // restruct right rack
         private void restruct_right()
         {
-            foreach (GridPoint p in fPointsEmptyRight)
+            foreach (GridPoint p in PointsEmptyRight)
             {
                 try
                 {
@@ -404,33 +479,7 @@ namespace WpfStackerLibrary
         public Style CellOccupiedStyle;
         public Style CellUnloadStyle;
         public Style CellLoadStyle;
-
-        private Int32 fFloors;
-        [Description("Floor count"), Category("Stacker")]
-        public Int32 Floors
-        {
-            get { return fFloors; }
-            set
-            {
-                fFloors = value;
-                rack_left.RowDefinitions.Clear();
-                for (Int32 i = 0; i < fFloors; i++)
-                {
-                    rack_left.RowDefinitions.Add(new RowDefinition());
-                    
-                }
-
-                rack_right.RowDefinitions.Clear();
-                for (Int32 i = 0; i < fFloors; i++)
-                {
-                    rack_right.RowDefinitions.Add(new RowDefinition());
-                }
-
-                make_cells();
-            }
-        }
-
-        
+                
         /*
         // Property variables list
         // Dependency Property
@@ -482,20 +531,21 @@ namespace WpfStackerLibrary
                 }
             }
         }
-
         
-
         
-
        
-
-        Int32 fStackerID = 1;
-        public Int32 StackerID {
-            get { return fStackerID; }
-            set { 
-                fStackerID = value;
-                
-              
+        public static readonly DependencyProperty StackerIDDP = DependencyProperty.Register("StackerID", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(1, DepParamsChanged));
+        [Description("Stacker ID"), Category("Stacker")]
+        // .NET Property wrapper
+        public Int32 StackerID
+        {
+            get
+            {                    
+                return (Int32)GetValue(StackerIDDP);
+            }
+            set
+            {
+                SetValue(StackerIDDP, value);
             }
         }
 
@@ -512,10 +562,10 @@ namespace WpfStackerLibrary
                 this.SDA.OnDataAccessConnect += new OnDataAccessConnect(SDA_OnDataAccessConnect);
 
                 // Detect telezhka contnet
-                this.fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
-                this.fPointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
+               // this.fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
+                this.PointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
             
-                SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(fStackerID)));
+                SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
             }
             else
             {
@@ -734,18 +784,7 @@ namespace WpfStackerLibrary
             base.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        public void FromList(List<T> L)
-        {
-            
-          //  notnotify = true;
-            this.Clear();
-            
-            foreach (T item in L)
-            {
-                this.Add(item);
-            }
-          //  notnotify = false;
-        }
+        
     }
 
 

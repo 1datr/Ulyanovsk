@@ -29,6 +29,8 @@ namespace WpfStackerLibrary
         void take(object cellid);
         void put(object cellid);
         void transport(object cellfrom, object cellto);
+        void kvit();
+        void kvit_drives();
     }
 
 

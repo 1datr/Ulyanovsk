@@ -6,8 +6,19 @@
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PresentationFramework.Aero, Version=3.0.0.0, Culture=neutral, 
+    PublicKeyToken=31bf3856ad364e35, ProcessorArchitecture=MSIL;component/themes/aero.normalcolor.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <CollectionViewSource x:Key="VCellContentCount"  />
+            <Style x:Key="btnOccupied">
+                <Setter Property="Control.FontWeight" Value="Bold"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="228*"></ColumnDefinition>
@@ -22,10 +33,24 @@
 
         <TabControl Grid.Row="1" Grid.Column="1" Margin="2,5,2,2">
             <TabItem Header="Ошибки">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="394*"></ColumnDefinition>
+                        <ColumnDefinition Width="161*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,5,5"  Text="{Binding ElementName=stacker1_man, Path=Error}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,5,5"  Text="{Binding ElementName=stacker1_man, Path=DriveError}"></TextBlock>
+                    <Button Grid.Row="0" Grid.Column="1" Content="Квитировать" Margin="5,5,5,5" Click="Button_Click_1"></Button>
+                    <Button Grid.Row="1" Grid.Column="1" Content="Квитировать приводы" Margin="5,5,5,5" Click="Button_Click_2"></Button>
+                </Grid>
             </TabItem>
             <TabItem Header="Консоль">
-                <my:Console StringSrc1="{Binding ElementName=stacker2_man, Path=ConnStatus}"></my:Console>
+                <my:Console StringSrc1="{Binding ElementName=stacker1_man, Path=ConnStatus}"></my:Console>
             </TabItem>
             <TabItem Header="Переменные">
                 <DataGrid HorizontalAlignment="Stretch" DataContext="{Binding Path=VarList, ElementName=stacker1_man}"  Margin="2,2,5,2" ItemsSource="{Binding Path=/}" AutoGenerateColumns="True" IsReadOnly="True">
@@ -40,7 +65,7 @@
 
         <TabControl VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" >
 
-            <TabItem Header="{Binding Path=SelCellStr, ElementName=stacker2}">
+            <TabItem Header="{Binding Path=SelCellStr, ElementName=stacker1}">
                 <DataGrid ItemsSource="{Binding ElementName=stacker1, Path=SelectedCellContent}" HorizontalAlignment="Stretch" Margin="2,2,2,2" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
@@ -54,7 +79,7 @@
             </TabItem>
 
             <TabItem Header="Тележка">
-                <DataGrid ItemsSource="{Binding ElementName=stacker2, Path=Telezhka}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="2,2,2,2">
+                <DataGrid ItemsSource="{Binding ElementName=stacker1, Path=Telezhka}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="2,2,2,2">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Деталь" Binding="{Binding Product.Name}" >
@@ -69,51 +94,15 @@
         </TabControl>
 
 
-        <my:StackerControl HorizontalAlignment="Stretch" Grid.Column="1" x:Name="stacker2" Rows="22" Floors="12" CellOccupied="{StaticResource btnOccupied}" Margin="2,2,4,4">
-            <my:StackerControl.PointsEmptyLeft>
-                <my:GridPoint X="0" Y="0" />
-                <my:GridPoint Y="1" />
-                <my:GridPoint Y="2" />
-                <my:GridPoint Y="3" />
-                <my:GridPoint Y="4" />
-                <my:GridPoint Y="5" />
-                <my:GridPoint Y="6" />
-                <my:GridPoint Y="7" />
-                <my:GridPoint Y="8" />
-                <my:GridPoint Y="9" />
-                <my:GridPoint Y="10" />
-                <my:GridPoint Y="11" />
-            </my:StackerControl.PointsEmptyLeft>
-            <my:StackerControl.PointsEmptyRight>
-
-                <my:GridPoint Y="1" />
-
-                <my:GridPoint Y="2" />
-                <my:GridPoint Y="3" />
-                <my:GridPoint Y="4" />
-                <my:GridPoint Y="5" />
-                <my:GridPoint Y="6" />
-                <my:GridPoint Y="7" />
-                <my:GridPoint Y="8" />
-                <my:GridPoint Y="9" />
-                <my:GridPoint Y="10" />
-                <my:GridPoint Y="11" />
-                <my:GridPoint Y="12" />
-            </my:StackerControl.PointsEmptyRight>
-        </my:StackerControl>
+        <my:StackerControl HorizontalAlignment="Stretch" Grid.Column="1" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" CellOccupied="{StaticResource btnOccupied}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" PointsEmptyLeft="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=PointsEmptyLeft}" PointsEmptyRight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=PointsEmptyRight}"></my:StackerControl>
 
         <GridSplitter Grid.Column="1" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
         <GridSplitter Grid.Column="1" Grid.Row="0" Width="5"></GridSplitter>
-        <my:StackerManBNR x:Name="stacker2_man" StackerID="1"/>
+        <my:StackerManBNR x:Name="stacker1_man" Height="200" VerticalAlignment="Top" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}"  Grid.Column="0" Grid.Row="0" />
 
         <StatusBar  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
             <TextBlock Text="{Binding ElementName=stacker1_man, Path=ConnStatus, Mode=OneWay}"></TextBlock>
 
         </StatusBar>
-
     </Grid>
-
-
-
-
 </UserControl>

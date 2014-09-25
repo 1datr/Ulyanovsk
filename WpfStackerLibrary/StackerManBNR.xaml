@@ -4,14 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="294" Initialized="UserControl_Initialized" xmlns:my="clr-namespace:WpfStackerLibrary">
+             d:DesignHeight="200" d:DesignWidth="294" Initialized="UserControl_Initialized" 
+             xmlns:my="clr-namespace:WpfStackerLibrary"
+             xmlns:base="clr-namespace:System;assembly=mscorlib"
+             xmlns:core="System.Windows.Media">
+    <UserControl.Resources>                    
+        <ResourceDictionary x:Name="StackerErrors">
+            
+                <base:String x:Key="1">Ошибка привода</base:String>
+                <base:String x:Key="2">Превышение момента ось Х</base:String>
+                <base:String x:Key="3">Превышение момента ось Y</base:String>
+                <base:String x:Key="4">Превышение момента ось Z</base:String>
+                <base:String x:Key="5">Ошибка при референцировании</base:String>
+            
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid Initialized="Grid_Initialized">
         <Border HorizontalAlignment="Stretch" Padding="5,5,5,5" VerticalAlignment="Stretch" BorderThickness="1" CornerRadius="5" BorderBrush="#FF0C0C0C">
             <StackPanel Orientation="Vertical">
                 <WrapPanel  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Name="dockPanel1" >
-                
-                <Button Content="OFF" HorizontalAlignment="Right" Width="75"  Margin="5,5,5,5" Background="#FF5A260D" FontSize="18" FontWeight="Bold" Foreground="#FFD6F00C" BorderBrush="{x:Null}" />
-                    <Button Height="25"  Content="Переподключить" Click="Button_Click"></Button>
+
+                    <Button  HorizontalAlignment="Right" Width="75"  Margin="5,5,5,5" Background="#FF5A260D" FontSize="18" FontWeight="Bold" Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PowerBtnBrush}" BorderBrush="{x:Null}" >
+                        <Button.Resources>
+                            <ResourceDictionary x:Name="PowerBtnBrushes">
+                                <SolidColorBrush x:Key="true">Yellow</SolidColorBrush>
+                                <SolidColorBrush x:Key="false">Gray</SolidColorBrush>
+                            </ResourceDictionary>
+                        </Button.Resources>
+                        <TextBlock>
+                            <TextBlock.Resources>
+                                <ResourceDictionary x:Name="PowerBtnCaptions" >
+                                    <base:String x:Key="true">ON</base:String>
+                                    <base:String x:Key="false">OFF</base:String>           
+                                </ResourceDictionary>
+                            </TextBlock.Resources>
+                        </TextBlock>
+                    </Button>
+                        <Button Height="25"  Content="Переподключить" Click="Button_Click"></Button>
                 <Button Content="Специальное управление" HorizontalAlignment="Right" Width="150"  Name="btnSpec" Height="25" Margin="5,5,5,5" Click="btnSpec_Click" />
                     
                 </WrapPanel>
@@ -37,7 +68,10 @@
                     <Label>РЕЖИМ:</Label>
                     <Label Content="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PLCMode}"></Label>
                 </WrapPanel>
+
+                <TextBlock TextWrapping="Wrap" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=StackerState}"></TextBlock>
                 
+
             </StackPanel>
             
             

@@ -2011,9 +2011,16 @@ namespace beeVNC
         /// <returns></returns>
         private ServerMessageType GetServerMessageType()
         {
-            var recData = new Byte[1];
-            _DataStream.Read(recData, 0, 1);
-            return (GetServerMessageType(recData[0]));
+            try
+            {
+                var recData = new Byte[1];
+                _DataStream.Read(recData, 0, 1);
+                return (GetServerMessageType(recData[0]));
+            }
+            catch (System.Exception exc)
+            {
+                return ServerMessageType.Anthony_Liguori;
+            }
         }
 
         /// <summary>
