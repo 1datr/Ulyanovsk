@@ -22,5 +22,15 @@ namespace WpfStackerLibrary
         {
             InitializeComponent();
         }
+
+        public String Passw { get; set; }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (TBPassw.Text == Passw)
+                DialogResult = true;
+            else
+                DialogResult = false;
+        }
     }
 }

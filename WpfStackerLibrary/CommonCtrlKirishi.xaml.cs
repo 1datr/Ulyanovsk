@@ -53,6 +53,16 @@ namespace WpfStackerLibrary
             }
         }
 
+        private String fPassw = "";
+        public String Passw
+        {
+            get { return fPassw; }
+            set {
+                fPassw = value;
+                stacker1.Passw = fPassw;
+            }
+        }
+
         // Dependency Property
         public static readonly DependencyProperty RowsDP = DependencyProperty.Register("Rows", typeof(Int32), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(5 ));
         // .NET Property wrapper
@@ -161,5 +171,22 @@ namespace WpfStackerLibrary
             
             //DGR.DataContext
         }
+
+        private bool tedit = false;
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+
+            if (stacker1.SwitchMode())
+            {
+                tedit = !tedit;
+                if (tedit)
+                    BTNswitchmode.Content = "Обычное редактирование";
+                else
+                    BTNswitchmode.Content = "Тотальное редактирование";
+            }
+        }
+
+        
     }
 }

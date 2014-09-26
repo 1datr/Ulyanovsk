@@ -81,7 +81,7 @@
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <ComboBox Grid.Column="0" Margin="5,5,5,5" Name="CBProduct"  Grid.Row="1" ItemsSource="{Binding ElementName=stacker1, Path=Productlist}" DisplayMemberPath="Name" IsReadOnly="True" SelectedIndex="0" SelectedValuePath="Id" />
+                                <ComboBox Grid.Column="0" Margin="5,5,5,5" Name="CBProduct"  Grid.Row="1" ItemsSource="{Binding ElementName=stacker1, Path=Productlist}" DisplayMemberPath="Name" IsReadOnly="True" SelectedIndex="0" SelectedValuePath="Id" StaysOpenOnEdit="True" />
                                 <TextBox Grid.Column="1" Grid.Row="1" x:Name="PFilter" Margin="5,5,5,5"></TextBox>
                                 <Label Grid.Column="0" Grid.Row="0">Деталь</Label>
                                 <Label Grid.Column="1" Grid.Row="0">Фильтр</Label>
@@ -137,7 +137,7 @@
         <GridSplitter Grid.Column="1" Grid.Row="0" Width="5"></GridSplitter>
         <StackPanel Grid.Column="0" Grid.Row="0">
             <my:StackerManBNR x:Name="stacker1_man" Height="200" VerticalAlignment="Top" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}"   />
-            <Button Margin="10,10,10,10">Тотальное редактирование</Button>
+            <Button Margin="10,10,10,10" Click="Button_Click_4" Name="BTNswitchmode">Тотальное редактирование</Button>
         </StackPanel>
         
 

@@ -20,7 +20,7 @@
             <Setter Property="Control.FontWeight" Value="Bold"></Setter>
         </Style>
         <Style x:Key="PoddonCell" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="Azure"></Setter>
+            <Setter Property="Background" Value="LemonChiffon"></Setter>
         </Style>
 
         <Style x:Key="PoddonCell_Occupied" TargetType="{x:Type Button}" BasedOn="{StaticResource PoddonCell}">

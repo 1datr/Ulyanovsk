@@ -91,7 +91,8 @@ namespace WpfStackerLibrary
             
         }
 
-
+        private Dictionary<Int32, Button> GridPoints = new Dictionary<int, Button>();
+ 
 
         int SDA_OnDataAccessConnect()
         {
@@ -116,6 +117,28 @@ namespace WpfStackerLibrary
 
         private bool TMode = false;
 
+        public String Passw { get; set; }
+
+        public bool SwitchMode()
+        {
+            if (TMode)
+            {
+                TMode = false;
+                return true;
+            }
+            else
+            {
+                PasswWin w = new PasswWin();
+                w.Passw = Passw;
+                w.ShowDialog();
+                if (w.DialogResult == true)
+                {
+                    TMode = true;
+                    return true;
+                }
+                return false;
+            }
+        }
 
 
         private StackerDataAccess SDA;
@@ -188,13 +211,20 @@ namespace WpfStackerLibrary
                     if (!DesignerProperties.GetIsInDesignMode(this))
                         Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(Filter));
                     break;
-                case "Poddons":    
-                    if(Poddons!=null)
-                        foreach (int p in Poddons)
-                        {
-                            Button b = this.FindName("cell_" + p.ToString()) as Button;
-                            set_style_of_cell(b);
-                        }
+                case "Poddons":
+                    try
+                    {
+                       /* if (Poddons != null)
+                            foreach (int p in Poddons)
+                            {
+
+                                Button b = GridPoints[p];
+                                set_style_of_cell(b);
+                            }*/
+                        set_cell_styles();
+                    }
+                    catch (System.Exception ex)
+                    { }
                     break;
             }
         }
@@ -237,6 +267,23 @@ namespace WpfStackerLibrary
             set
             {
                 SetValue(FloorsDP, value);
+
+            }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty EditCurrentDP = DependencyProperty.Register("EditCurrent", typeof(bool), typeof(StackerControl), new FrameworkPropertyMetadata(false));
+        // .NET Property wrapper
+        [Description("Can edit current cell"), Category("Stacker")]
+        public bool EditCurrent
+        {
+            get
+            {
+                return (bool)GetValue(EditCurrentDP);
+            }
+            private set
+            {
+                SetValue(EditCurrentDP, value);
 
             }
         }
@@ -403,12 +450,14 @@ namespace WpfStackerLibrary
             if (fRackLeft)
             {
                 Int32 c = 0;
+                this.GridPoints.Clear();
                 foreach (Button btn in rack_left.Children)
                 {
                     btn.Content = c.ToString();
                     //btn.SetValue(Name, "cell_" + c.ToString());
                     btn.Name = "cell_" + c.ToString();
                     maxcell = c;
+                    this.GridPoints.Add(c, btn);
                     c++;
                 }
 
@@ -418,6 +467,7 @@ namespace WpfStackerLibrary
                     
                     btn.Name = "cell_" + c.ToString();
                     maxcell = c;
+                    this.GridPoints.Add(c, btn);
                     c++;
                 }
             }
@@ -452,15 +502,20 @@ namespace WpfStackerLibrary
             if (b == null) return;
             Int32 n = Convert.ToInt32(b.Content.ToString());
             String style_str = "RegCell";
-            if (Poddons.Exists(p => (p==n))) style_str = "PoddonCell";
+            if (Poddons.Exists(p => (p==n))) 
+                style_str = "PoddonCell";
             if (n == fSelectedCell) style_str = "CurrCell";
 
             if (cells_occupied.Exists(p => (p == n)))
             {
                 style_str = style_str + "_Occupied";
             }
-            b.Style = Resources[style_str] as Style;
+            Style s = Resources[style_str] as Style;
+            if(b.Style!=s)
+                b.Style = s;
         }
+
+       
 
         private ItemsChangeObservableCollection<CellContent> ccc;
         private Button currbtn = null;
@@ -850,7 +905,7 @@ namespace WpfStackerLibrary
             return Res;          
         }
 
-       
+        
         /*public List<Department> GetAllDepartments()
         {
             return objDataContext.Department.ToList<Department>();
@@ -866,12 +921,13 @@ namespace WpfStackerLibrary
         }*/
     }
 
-   
+    
 
     public class GridPoint : INotifyPropertyChanged
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public bool right { get; set; }
         public string FullName { get { return string.Format("{0} {1}", X, Y); } }
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
@@ -880,6 +936,20 @@ namespace WpfStackerLibrary
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
+        }
+
+        public GridPoint()
+        {
+            X = 0;
+            Y = 0;
+            right = false;
+        }
+
+        public GridPoint(int _x=0, int _y=0, bool _right=false)
+        {
+            X = _x; 
+            Y = _y; 
+            right = _right;
         }
     }
 
