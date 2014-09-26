@@ -5,7 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="228" d:DesignWidth="490" Initialized="UserControl_Initialized" Margin="2" Loaded="UserControl_Loaded_1">
-    
+    <UserControl.Resources>
+      
+        <Style x:Key="CurrCell" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Coral"></Setter>
+        </Style>
+        <Style x:Key="CurrCell_Occupied" TargetType="{x:Type Button}" BasedOn="{StaticResource CurrCell}">
+            <Setter Property="Control.FontWeight" Value="Bold"></Setter>
+        </Style>
+        <Style x:Key="RegCell" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="AliceBlue"></Setter>
+        </Style>
+        <Style x:Key="RegCell_Occupied" TargetType="{x:Type Button}" BasedOn="{StaticResource RegCell}">
+            <Setter Property="Control.FontWeight" Value="Bold"></Setter>
+        </Style>
+        <Style x:Key="PoddonCell" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Azure"></Setter>
+        </Style>
+
+        <Style x:Key="PoddonCell_Occupied" TargetType="{x:Type Button}" BasedOn="{StaticResource PoddonCell}">
+            <Setter Property="Control.FontWeight" Value="Bold"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Name="stacker_left_panel">

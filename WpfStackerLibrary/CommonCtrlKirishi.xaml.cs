@@ -126,5 +126,40 @@ namespace WpfStackerLibrary
 
             }
         }
+
+        // Dependency Property
+        public static readonly DependencyProperty PoddonsDP = DependencyProperty.Register("Poddons", typeof(List<int>), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(new List<int>()));
+        // .NET Property wrapper
+        [Description("Filter of products"), Category("Stacker")]
+        public List<int> Poddons
+        {
+            get
+            {
+                return (List<int>)GetValue(PoddonsDP);
+            }
+            set { SetValue(PoddonsDP, value); }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                stacker1.AddProduct(Convert.ToInt32(CBProduct.SelectedValue.ToString()), Convert.ToInt32(PCount.Text));
+            }
+            catch(System.Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            TakeProdWin TPW = new TakeProdWin();
+            TPW.ShowDialog();
+            CellContent cc = DGVProducts.SelectedItem as CellContent;
+            this.stacker1.TakeProduct(cc.Product.Id, TPW.COUNT);
+            
+            //DGR.DataContext
+        }
     }
 }

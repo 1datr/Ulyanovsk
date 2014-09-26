@@ -1,13 +1,14 @@
 ﻿<Window xmlns:my1="clr-namespace:WpfStackerLibrary;assembly=WpfStackerLibrary"  x:Class="WpfStacker.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="АРМ Кинеф" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" DataContext="{Binding}" xmlns:my="clr-namespace:WpfStacker" Loaded="Window_Loaded" Width="1131" Height="824" Icon="/WpfStacker;component/Images/favicon_kinef.ico">
     
 
     <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2,5,2,2">
         <TabItem Header="Штабелер 1">
 
-            <my1:CommonCtrlKirishi Rows="22" Floors="22">
+            <my1:CommonCtrlKirishi Rows="22" Floors="12">
                 <my1:CommonCtrlKirishi.PointsEmptyLeft>
                     <my1:GridPoint X="0" Y="0" />
                     <my1:GridPoint X="0" Y="1" />
@@ -21,7 +22,9 @@
                     <my1:GridPoint X="0" Y="9" />
                     <my1:GridPoint X="0" Y="10" />                    
                 </my1:CommonCtrlKirishi.PointsEmptyLeft>
-                
+                <my1:CommonCtrlKirishi.Poddons>
+                    <sys:Int32>0</sys:Int32>
+                </my1:CommonCtrlKirishi.Poddons>
                 
             </my1:CommonCtrlKirishi>
         </TabItem>

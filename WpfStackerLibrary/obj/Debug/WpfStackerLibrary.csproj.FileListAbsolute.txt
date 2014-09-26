@@ -80,3 +80,9 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\beeVNC.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\beeVNC.pdb
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\VNCWin.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\VNCWin.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\PasswWin.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\PasswWin.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\TakeProdWin.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\TakeProdWin.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\CmdQManager.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\CmdQManager.g.cs

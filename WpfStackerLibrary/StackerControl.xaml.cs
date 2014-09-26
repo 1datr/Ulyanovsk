@@ -71,35 +71,27 @@ namespace WpfStackerLibrary
             
                 foreach (Button btn in rack_left.Children)
                 {
+                    set_style_of_cell(btn);
+                    /*
                     if (cells_occupied.Exists(p => (p == Convert.ToInt32(btn.Content))))
-                        btn.Style = CellOccupied;
+                        btn.Style = Resources["RegCell_Occupied"] as Style;
                     else
-                        btn.Style = CellFree;
+                        btn.Style = Resources["RegCell"] as Style;*/
                 }
 
                 foreach (Button btn in rack_right.Children)
                 {
+                    set_style_of_cell(btn);
+                    /*
                     if (cells_occupied.Exists(p => (p == Convert.ToInt32(btn.Content))))
-                        btn.Style = CellOccupied;
+                        btn.Style = Resources["RegCell_Occupied"] as Style;
                     else
-                        btn.Style = CellFree;
+                        btn.Style = Resources["RegCell"] as Style;*/
                 }
             
         }
 
 
-        private IStackerMan fStackerman;
-        [Description("Stackerman object"), Category("Stacker")]
-        public IStackerMan StackerMan {
-            get { return fStackerman; }
-            set { 
-                fStackerman = value;
-                if (fStackerman != null)
-                { 
-                
-                }
-            }
-        }
 
         int SDA_OnDataAccessConnect()
         {
@@ -121,6 +113,10 @@ namespace WpfStackerLibrary
 
         private bool fRackLeft = true;
         private bool fRackRight = true;
+
+        private bool TMode = false;
+
+
 
         private StackerDataAccess SDA;
 
@@ -187,6 +183,18 @@ namespace WpfStackerLibrary
                 case "PointsEmptyRight":
                     restruct_right();
                     set_cell_styles();
+                    break;
+                case "Filter":
+                    if (!DesignerProperties.GetIsInDesignMode(this))
+                        Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(Filter));
+                    break;
+                case "Poddons":    
+                    if(Poddons!=null)
+                        foreach (int p in Poddons)
+                        {
+                            Button b = this.FindName("cell_" + p.ToString()) as Button;
+                            set_style_of_cell(b);
+                        }
                     break;
             }
         }
@@ -263,6 +271,8 @@ namespace WpfStackerLibrary
             }
         }
 
+        
+
         // Dependency Property
         public static readonly DependencyProperty PointsEmptyRightDP = DependencyProperty.Register("PointsEmptyRight", typeof(ItemsChangeObservableCollection<GridPoint>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<GridPoint>(), DepParamsChanged));
         // .NET Property wrapper
@@ -325,7 +335,10 @@ namespace WpfStackerLibrary
                         if (points.Count() == 0)
                         {
                             Button b = new Button();
+                            TextBlock t = new TextBlock();
+                            b.Content = t;                            
                             b.GotFocus += new RoutedEventHandler(Cell_Click);
+                            b.Style = Resources["RegCell"] as Style;
                             rack_left.Children.Add(b);
                             Grid.SetColumn(b, x);
                             Grid.SetRow(b, y);
@@ -347,7 +360,10 @@ namespace WpfStackerLibrary
                         if (pres.Count() == 0)
                         {
                             Button b = new Button();
+                            TextBlock t = new TextBlock();
+                            b.Content = t;    
                             b.GotFocus += new RoutedEventHandler(Cell_Click);
+                            b.Style = Resources["RegCell"] as Style;
                             rack_right.Children.Add(b);
                             Grid.SetColumn(b, x);
                             Grid.SetRow(b, y);
@@ -390,7 +406,7 @@ namespace WpfStackerLibrary
                 foreach (Button btn in rack_left.Children)
                 {
                     btn.Content = c.ToString();
-                    
+                    //btn.SetValue(Name, "cell_" + c.ToString());
                     btn.Name = "cell_" + c.ToString();
                     maxcell = c;
                     c++;
@@ -430,12 +446,33 @@ namespace WpfStackerLibrary
             DependencyProperty.Register("SelCellStr",
             typeof(string), typeof(StackerControl),
             new FrameworkPropertyMetadata( "Не выбрана ячейка"));
+        // set style of the cell
+        private void set_style_of_cell(Button b)
+        {
+            if (b == null) return;
+            Int32 n = Convert.ToInt32(b.Content.ToString());
+            String style_str = "RegCell";
+            if (Poddons.Exists(p => (p==n))) style_str = "PoddonCell";
+            if (n == fSelectedCell) style_str = "CurrCell";
+
+            if (cells_occupied.Exists(p => (p == n)))
+            {
+                style_str = style_str + "_Occupied";
+            }
+            b.Style = Resources[style_str] as Style;
+        }
 
         private ItemsChangeObservableCollection<CellContent> ccc;
+        private Button currbtn = null;
         void Cell_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)e.Source;
+                        
             fSelectedCell = Convert.ToInt32(btn.Content);
+            if(currbtn!=null)
+                set_style_of_cell(currbtn);
+            currbtn = btn;
+            set_style_of_cell(currbtn);
             SetValue(SelCellStrProperty, "Ячейка №"+fSelectedCell);            
           
             List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
@@ -465,6 +502,31 @@ namespace WpfStackerLibrary
             }
 
         }
+
+        // Dependency Property
+        public static readonly DependencyProperty PoddonsDP = DependencyProperty.Register("Poddons", typeof(List<int>), typeof(StackerControl), new FrameworkPropertyMetadata(new List<int>(),DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Filter of products"), Category("Stacker")]
+        public List<int> Poddons
+        {
+            get
+            {
+                return (List<int>)GetValue(PoddonsDP);
+            }
+            set { SetValue(PoddonsDP, value); }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(new StackerWorkData()));
+        // .NET Property wrapper
+        public StackerWorkData WorkParams
+        {
+            get
+            {
+                return (StackerWorkData)GetValue(WorkParamsDP);
+            }
+            private set { SetValue(WorkParamsDP, value); }
+        }
      
         private void restruct()
         {
@@ -487,8 +549,40 @@ namespace WpfStackerLibrary
        */
 
         private int fGroup = 0;
-        
-        
+
+        // Содержимое текущей выделенной ячейки
+        // Dependency Property
+        public static readonly DependencyProperty FilterDP = DependencyProperty.Register("Filter", typeof(String), typeof(StackerControl), new FrameworkPropertyMetadata("",DepParamsChanged));
+        [Description("Filter of products"), Category("Stacker data")]
+        // .NET Property wrapper
+        public String Filter
+        {
+            get
+            {
+                return (String)GetValue(FilterDP);
+            }
+            set
+            {
+                SetValue(FilterDP, value);
+            }
+        }
+
+        // Содержимое текущей выделенной ячейки
+        // Dependency Property
+        public static readonly DependencyProperty ProductlistDP = DependencyProperty.Register("Productlist", typeof(ItemsChangeObservableCollection<Product>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<Product>()));
+        [Description("Full list of products filtered by ProdFilter"), Category("Stacker data")]
+        // .NET Property wrapper
+        public ItemsChangeObservableCollection<Product> Productlist
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<Product>)GetValue(ProductlistDP);
+            }
+            private set
+            {
+                SetValue(ProductlistDP, value);
+            }
+        }
         
         // Содержимое текущей выделенной ячейки
         // Dependency Property
@@ -506,10 +600,12 @@ namespace WpfStackerLibrary
                 SetValue(SelectedCellContentDP, value);
             }
         }
+
+        private Int32 OldCurrCell = -1;
         // Содержимое тележки
         // Dependency Property
         public static readonly DependencyProperty TelezhkaDP = DependencyProperty.Register("Telezhka", typeof(ItemsChangeObservableCollection<CellContent>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<CellContent>()));
-        [Description("List of products in selected cell"), Category("Stacker")]
+        [Description("List of products in selected cell"), Category("Stacker data")]
         // .NET Property wrapper
         public ItemsChangeObservableCollection<CellContent> Telezhka
         {
@@ -553,13 +649,37 @@ namespace WpfStackerLibrary
         {
            
         }
+        // add som products to cell
+        public void AddProduct(Int32 prod, Int32 count, Int32 cell=-2)
+        {
+            if (cell == -2) cell = fSelectedCell;
+            SDA.AddProduct(prod, cell, count, this.StackerID);
+            List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
+
+            SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
+            cells_occupied = null;
+            set_cell_styles();
+        }
+        // take some products from cell
+        public void TakeProduct(Int32 prod, Int32 count, Int32 cell = -2)
+        {
+            if (cell == -2) cell = fSelectedCell;
+            SDA.TakeProduct(prod, cell, count, this.StackerID);
+            List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
+
+            SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
+            cells_occupied = null;
+            set_cell_styles();
+        }
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
+               
                 SDA = new StackerDataAccess();
                 this.SDA.OnDataAccessConnect += new OnDataAccessConnect(SDA_OnDataAccessConnect);
+                Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts());
 
                 // Detect telezhka contnet
                // this.fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
@@ -597,6 +717,71 @@ namespace WpfStackerLibrary
                 }
         }
 
+        public void AddProduct(Int32 ProdId, Int32 Cellid, Int32 ProdCount, Int32 stackerId = 1)
+        {
+            try
+            {
+                var Res = (from Prod in objDataContext.Products where Prod.Id == ProdId select Prod).ToList<Product>();
+                if (Res.Count() == 0) throw new Exception("Not exist product");
+                var Product = Res[0];
+
+                var Res_Cells = (from CC in objDataContext.CellContents where CC.Product.Id == ProdId && CC.CellID==Cellid && CC.StackerID == stackerId select CC).ToList<CellContent>();
+                if (Res_Cells.Count() > 0)
+                {
+                    Res_Cells[0].Count += ProdCount;
+                    Res_Cells[0].ChangeDate = DateTime.Now;
+                }
+                else
+                {
+                    CellContent ccitem = new CellContent();
+                    ccitem.Product = Res[0];
+                    ccitem.StackerID = stackerId;
+                    ccitem.Count = ProdCount;
+                    ccitem.CellID = Cellid;
+                    ccitem.ChangeDate = DateTime.Now;
+                    objDataContext.CellContents.AddObject(ccitem);
+                }
+                objDataContext.SaveChanges();
+
+            }
+            catch (System.Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        public void TakeProduct(Int32 ProdId, Int32 Cellid, Int32 ProdCount, Int32 stackerId = 1)
+        {
+            try
+            {
+                var Res = (from Prod in objDataContext.Products where Prod.Id == ProdId select Prod).ToList<Product>();
+                if (Res.Count() == 0) throw new Exception("Not exist product");
+                var Product = Res[0];
+
+                var Res_Cells = (from CC in objDataContext.CellContents where CC.Product.Id == ProdId && CC.CellID == Cellid && CC.StackerID == stackerId select CC).ToList<CellContent>();
+                if (Res_Cells[0].Count > ProdCount)
+                {
+                    Res_Cells[0].Count -= ProdCount;
+                    Res_Cells[0].ChangeDate = DateTime.Now;
+                }
+                else
+                {
+                    if (Res_Cells[0].Count == ProdCount)
+                    {
+                        objDataContext.CellContents.DeleteObject(Res_Cells[0]);
+                    }
+                    else
+                        throw new Exception("Нет такого количества продуктов в данной ячейке");
+                }
+                objDataContext.SaveChanges();
+
+            }
+            catch (System.Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
         private OnDataAccessConnect OnDataAccessConnect_hndlr;
         public event OnDataAccessConnect OnDataAccessConnect
         {
@@ -622,9 +807,15 @@ namespace WpfStackerLibrary
             objDataContext.SaveChanges();
         }
 
-        public List<Product> GetAllProducts()
+        public List<Product> GetAllProducts(String Filter="")
         {
-            return objDataContext.Products.ToList<Product>();
+            if (Filter == "")
+                return objDataContext.Products.ToList<Product>();
+            else
+            { 
+                var Res = (from Prod in objDataContext.Products where Prod.Name.Contains(Filter) select Prod).ToList<Product>();
+                return Res;
+            }
         }
         // содержимое ячейки
         public List<CellContent> GetProductsByCell(Int32 cell_id, Int32 stacker_id=1)

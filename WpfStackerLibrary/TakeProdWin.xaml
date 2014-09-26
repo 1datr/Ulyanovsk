@@ -1,0 +1,18 @@
+﻿<Window x:Class="WpfStackerLibrary.TakeProdWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Взять из ячейки" Height="112" Width="225" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Column="0" Grid.Row="0" x:Name="TBCount" Grid.ColumnSpan="2" Margin="5,7,5,7" />
+        <Button Margin="5,5,5,5" Grid.Column="0" Grid.Row="1" Click="Button_Click_1">ОК</Button>
+        <Button Margin="5,5,5,5" Grid.Column="1" Grid.Row="1" Click="Button_Click">Отмена</Button>
+    </Grid>
+</Window>
