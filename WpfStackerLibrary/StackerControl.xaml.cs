@@ -33,7 +33,31 @@ namespace WpfStackerLibrary
         public StackerControl()
         {
             InitializeComponent();
-            
+            this.fPoddons.CollectionChanged += new NotifyCollectionChangedEventHandler(fPoddons_CollectionChanged);
+            fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
+            fPointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
+            fFixedPoints.CollectionChanged += new NotifyCollectionChangedEventHandler(fFixedPoints_CollectionChanged);
+        }
+
+        void fFixedPoints_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            build_matr();
+            renum();
+        }
+
+        void fPointsEmptyRight_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            restruct_right();
+        }
+
+        void fPointsEmptyLeft_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            restruct_left();
+        }
+
+        void fPoddons_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            set_cell_styles();
         }
 
         [Description("Occupied cell style6"), Category("Stacker")]
@@ -71,22 +95,12 @@ namespace WpfStackerLibrary
             
                 foreach (Button btn in rack_left.Children)
                 {
-                    set_style_of_cell(btn);
-                    /*
-                    if (cells_occupied.Exists(p => (p == Convert.ToInt32(btn.Content))))
-                        btn.Style = Resources["RegCell_Occupied"] as Style;
-                    else
-                        btn.Style = Resources["RegCell"] as Style;*/
+                    set_style_of_cell(btn);                  
                 }
 
                 foreach (Button btn in rack_right.Children)
                 {
-                    set_style_of_cell(btn);
-                    /*
-                    if (cells_occupied.Exists(p => (p == Convert.ToInt32(btn.Content))))
-                        btn.Style = Resources["RegCell_Occupied"] as Style;
-                    else
-                        btn.Style = Resources["RegCell"] as Style;*/
+                    set_style_of_cell(btn);              
                 }
             
         }
@@ -95,21 +109,25 @@ namespace WpfStackerLibrary
  
 
         int SDA_OnDataAccessConnect()
-        {
-            
-           
+        {                       
             return 0;
-            //throw new NotImplementedException();
         }
 
-        private void fPointsEmptyLeft_CollectionChanged(Object sender,	NotifyCollectionChangedEventArgs e)
+        // Fixed points
+        private ObservableCollection<GridPoint> fFixedPoints = new ObservableCollection<GridPoint>();
+        //
+        [Description("Rack points with fixed points"), Category("Stacker")]
+        public ObservableCollection<GridPoint> FixedPoints
         {
-            restruct_left();
-        }
+            get
+            {
+                return fFixedPoints;
+            }
+            set
+            {
+                fFixedPoints = value;
 
-        private void fPointsEmptyRight_CollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)
-        {
-            restruct_right();
+            }
         }
 
         private bool fRackLeft = true;
@@ -119,11 +137,27 @@ namespace WpfStackerLibrary
 
         public String Passw { get; set; }
 
+        private void set_edit_mode()
+        {
+            if (TMode)
+                {
+                    EditCurrent = true;
+                    return;
+                }
+            if(fSelectedCell==-1) EditCurrent = false;
+            else
+            {
+                if(Poddons.Contains(fSelectedCell)) EditCurrent=true;
+                else EditCurrent = false;
+            }
+        }
+
         public bool SwitchMode()
         {
             if (TMode)
             {
                 TMode = false;
+                set_edit_mode();
                 return true;
             }
             else
@@ -134,6 +168,7 @@ namespace WpfStackerLibrary
                 if (w.DialogResult == true)
                 {
                     TMode = true;
+                    EditCurrent = true;
                     return true;
                 }
                 return false;
@@ -175,7 +210,7 @@ namespace WpfStackerLibrary
                     {
                         rack_right.ColumnDefinitions.Add(new ColumnDefinition());
                     }
-
+                    build_matr();
                     make_cells();
                     break;
                 case "Floors":
@@ -192,7 +227,7 @@ namespace WpfStackerLibrary
                     {
                         rack_right.RowDefinitions.Add(new RowDefinition());
                     }
-
+                    build_matr();
                     make_cells();
                     break;
                 case "StackerID":
@@ -250,6 +285,7 @@ namespace WpfStackerLibrary
             set
             {
                 SetValue(RowsDP, value);
+                
 
             }
         }
@@ -267,7 +303,7 @@ namespace WpfStackerLibrary
             set
             {
                 SetValue(FloorsDP, value);
-
+                build_matr();
             }
         }
 
@@ -302,37 +338,35 @@ namespace WpfStackerLibrary
         }
 
         // Dependency Property
-        public static readonly DependencyProperty PointsEmptyLeftDP = DependencyProperty.Register("PointsEmptyLeft", typeof(ObservableCollection<GridPoint>), typeof(StackerControl), new FrameworkPropertyMetadata(new ObservableCollection<GridPoint>(),DepParamsChanged));
+        public ObservableCollection<GridPoint> fPointsEmptyLeft = new System.Collections.ObjectModel.ObservableCollection<GridPoint>();
         // .NET Property wrapper
         [Description("Free points in left rack"), Category("Stacker")]
         public ObservableCollection<GridPoint> PointsEmptyLeft
         {
             get
             {
-                return (ObservableCollection<GridPoint>)GetValue(PointsEmptyLeftDP);
+                return fPointsEmptyLeft;
             }
             set
             {
-                SetValue(PointsEmptyLeftDP, value);
+                fPointsEmptyLeft = value;
 
             }
         }
 
-        
-
         // Dependency Property
-        public static readonly DependencyProperty PointsEmptyRightDP = DependencyProperty.Register("PointsEmptyRight", typeof(ItemsChangeObservableCollection<GridPoint>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<GridPoint>(), DepParamsChanged));
+        public ObservableCollection<GridPoint> fPointsEmptyRight = new System.Collections.ObjectModel.ObservableCollection<GridPoint>();
         // .NET Property wrapper
         [Description("Free points in right rack"), Category("Stacker")]
-        public ItemsChangeObservableCollection<GridPoint> PointsEmptyRight
+        public ObservableCollection<GridPoint> PointsEmptyRight
         {
             get
             {
-                return (ItemsChangeObservableCollection<GridPoint>)GetValue(PointsEmptyRightDP);
+                return fPointsEmptyRight;
             }
             set
             {
-                SetValue(PointsEmptyRightDP, value);
+                fPointsEmptyRight = value;
 
             }
         }
@@ -369,7 +403,8 @@ namespace WpfStackerLibrary
         private void make_cells()
         {
             Int32 c = 0;
-
+            if (PointsEmptyLeft == null)
+                PointsEmptyLeft = new ObservableCollection<GridPoint>();
             if (fRackLeft)
             {
                 rack_left.Children.Clear();
@@ -394,7 +429,8 @@ namespace WpfStackerLibrary
                     }
                 }
             }
-       
+            if (PointsEmptyRight == null)
+                PointsEmptyRight = new ObservableCollection<GridPoint>();
             if (fRackRight)
             {
                 rack_right.Children.Clear();
@@ -445,30 +481,173 @@ namespace WpfStackerLibrary
 
         private Int32 cell_right = 0;
         private Int32 maxcell = 0;
+
+        private int[,] Matr_Left;
+        private int[,] Matr_Right;
+
+        private void build_matr()
+        {
+            try
+            {
+            
+            Matr_Left = new int[this.Floors, this.Rows];
+            Matr_Right = new int[this.Floors, this.Rows];
+
+            int c = 0;
+            int x = 0;
+            int y = 0;
+
+            for (x = 0; x < Rows; x++)
+            {
+                for (y = 0; y < Floors; y++)
+                {
+                    Matr_Left[y, x] = -2;
+                    Matr_Right[y, x] = -2;
+                }
+            }
+
+            x = 0;
+            y = 0;
+            
+            bool stop = false;
+            // left walking
+            y = Floors - 1;
+            while (!stop)
+            {
+                bool move = true;
+                if (Matr_Left[y, x] > -2)
+                { }
+                else
+                {
+                    
+                    IEnumerable<GridPoint> Empty = fPointsEmptyLeft.Where(p => ((p.X == x) && (p.Y == y)));
+                    if (Empty.Count() > 0) // spend the cell
+                    {
+                        Matr_Left[y, x] = -1;
+                    }
+                    else
+                    {
+                        List<GridPoint> GP = fFixedPoints.Where(p => ((p.Cell == c) && (p.right == true))).ToList<GridPoint>();
+                        if (GP.Count() > 0) // point found - set it in matr
+                        {
+                            move = false;
+                            if ((GP[0] as GridPoint).right)
+                            {
+                                Matr_Right[(GP[0] as GridPoint).Y, (GP[0] as GridPoint).X] = c;
+                            }
+                            else
+                            {
+                                Matr_Left[(GP[0] as GridPoint).Y, (GP[0] as GridPoint).X] = c;
+                            }
+                        }
+                        else
+                        {
+                            Matr_Left[y, x] = c;
+                        }
+                        c++;
+                    }
+                }
+                if (move)
+                {
+                    y--;
+                    if (y < 0)
+                    {
+                        y = Floors - 1;
+                        x++;
+                        if (x >= Rows) 
+                            stop = true;
+                    }
+                }
+            }                           
+
+            stop = false;
+            // right walking
+            x = 0;
+            y = 0;
+            while (!stop)
+            {
+                bool move = true;
+                if (Matr_Right[y, x] > -2)
+                { }
+                else
+                {
+
+                    IEnumerable<GridPoint> Empty = fPointsEmptyRight.Where(p => ((p.X == x) && (p.Y == y)));
+                    if (Empty.Count() > 0) // spend the cell
+                    {
+                        Matr_Right[y, x] = -1;
+                    }
+                    else
+                    {
+                        List<GridPoint> GP = fFixedPoints.Where(p => ((p.Cell == c) && (p.right == false))).ToList<GridPoint>();
+                        if (GP.Count() > 0) // point found - set it in matr
+                        {
+                            move = false;
+                            if ((GP[0] as GridPoint).right)
+                            {
+                                Matr_Right[(GP[0] as GridPoint).Y, (GP[0] as GridPoint).X] = c;
+                            }
+                            else
+                            {
+                                Matr_Left[(GP[0] as GridPoint).Y, (GP[0] as GridPoint).X] = c;
+                            }
+                        }
+                        else
+                        {
+                            Matr_Right[y, x] = c;
+                        }
+                        c++;
+                    }
+                }
+                if (move)
+                {
+                    y++;
+                    if (y >= Floors)
+                    {
+                        y = 0;
+                        x++;
+                        if (x >= Rows) stop = true;
+                    }
+                }
+            }
+            }
+            catch (System.Exception exc)
+            {
+
+            }
+
+        }
+
         private void renum()
         {
+            if ((Matr_Left == null) || (Matr_Right == null))
+                build_matr();
             if (fRackLeft)
             {
                 Int32 c = 0;
                 this.GridPoints.Clear();
                 foreach (Button btn in rack_left.Children)
                 {
+                    c = Matr_Left[ Grid.GetRow(btn), Grid.GetColumn(btn)];
                     btn.Content = c.ToString();
                     //btn.SetValue(Name, "cell_" + c.ToString());
-                    btn.Name = "cell_" + c.ToString();
+                  //  btn.Name = "cell_" + c.ToString();
                     maxcell = c;
-                    this.GridPoints.Add(c, btn);
-                    c++;
+                    if (!this.GridPoints.ContainsKey(c))
+                        this.GridPoints.Add(c, btn);
+                    
                 }
 
                 foreach (Button btn in rack_right.Children)
                 {
+                    c = Matr_Right[Grid.GetRow(btn), Grid.GetColumn(btn)];
                     btn.Content = c.ToString();
                     
-                    btn.Name = "cell_" + c.ToString();
+                //    btn.Name = "cell_" + c.ToString();
                     maxcell = c;
-                    this.GridPoints.Add(c, btn);
-                    c++;
+                    if(!this.GridPoints.ContainsKey(c))
+                        this.GridPoints.Add(c, btn);
+                   
                 }
             }
             // set cells if occupied 
@@ -499,20 +678,26 @@ namespace WpfStackerLibrary
         // set style of the cell
         private void set_style_of_cell(Button b)
         {
-            if (b == null) return;
-            Int32 n = Convert.ToInt32(b.Content.ToString());
-            String style_str = "RegCell";
-            if (Poddons.Exists(p => (p==n))) 
-                style_str = "PoddonCell";
-            if (n == fSelectedCell) style_str = "CurrCell";
-
-            if (cells_occupied.Exists(p => (p == n)))
+            try
             {
-                style_str = style_str + "_Occupied";
+                if (b == null) return;
+                Int32 n = Convert.ToInt32(b.Content.ToString());
+                String style_str = "RegCell";
+                if (Poddons == null) Poddons = new ObservableCollection<Int32>();
+                if (Poddons.Where(p => (p == n)).Count() > 0)
+                    style_str = "PoddonCell";
+                if (n == fSelectedCell) style_str = "CurrCell";
+
+                if (cells_occupied.Exists(p => (p == n)))
+                {
+                    style_str = style_str + "_Occupied";
+                }
+                Style s = Resources[style_str] as Style;
+                if (b.Style != s)
+                    b.Style = s;
             }
-            Style s = Resources[style_str] as Style;
-            if(b.Style!=s)
-                b.Style = s;
+            catch (System.Exception exc)
+            { }
         }
 
        
@@ -528,8 +713,8 @@ namespace WpfStackerLibrary
                 set_style_of_cell(currbtn);
             currbtn = btn;
             set_style_of_cell(currbtn);
-            SetValue(SelCellStrProperty, "Ячейка №"+fSelectedCell);            
-          
+            SetValue(SelCellStrProperty, "Ячейка №"+fSelectedCell);
+            set_edit_mode();
             List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
           
             SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl) );
@@ -539,6 +724,7 @@ namespace WpfStackerLibrary
         // restruct right rack
         private void restruct_right()
         {
+            if (PointsEmptyRight == null) return;
             foreach (GridPoint p in PointsEmptyRight)
             {
                 try
@@ -558,29 +744,49 @@ namespace WpfStackerLibrary
 
         }
 
-        // Dependency Property
-        public static readonly DependencyProperty PoddonsDP = DependencyProperty.Register("Poddons", typeof(List<int>), typeof(StackerControl), new FrameworkPropertyMetadata(new List<int>(),DepParamsChanged));
         // .NET Property wrapper
-        [Description("Filter of products"), Category("Stacker")]
-        public List<int> Poddons
+        private ObservableCollection<Int32> fPoddons = new ObservableCollection<Int32>();
+        
+        [Bindable(true), Description("List of poddons"), Category("Stacker")]
+        public ObservableCollection<Int32> Poddons
         {
             get
             {
-                return (List<int>)GetValue(PoddonsDP);
+                return fPoddons;
             }
-            set { SetValue(PoddonsDP, value); }
+            set { 
+                fPoddons = value;
+                set_cell_styles();
+            }
         }
+        /*
+        private static readonly DependencyPropertyKey PoddonsPropertyKey = 
+        DependencyProperty.RegisterReadOnly(
+          "Poddons",
+          typeof(List<Int32>),
+          typeof(StackerControl),
+          new FrameworkPropertyMetadata(new List<Int32>())
+        );
+        public static readonly DependencyProperty PoddonsProperty = PoddonsPropertyKey.DependencyProperty;
+        [Description("Filter of products"), Category("Stacker")]
+        public List<Int32> Poddons
+        {
+            get { return (List<Int32>)GetValue(PoddonsProperty); }
+            set { SetValue(PoddonsProperty,value); }
+        }
+        */
 
         // Dependency Property
         public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(new StackerWorkData()));
         // .NET Property wrapper
+        [Description("Stacker parameters"), Category("Stacker")]
         public StackerWorkData WorkParams
         {
             get
             {
                 return (StackerWorkData)GetValue(WorkParamsDP);
             }
-            private set { SetValue(WorkParamsDP, value); }
+            set { SetValue(WorkParamsDP, value); }
         }
      
         private void restruct()
@@ -738,7 +944,7 @@ namespace WpfStackerLibrary
 
                 // Detect telezhka contnet
                // this.fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
-                this.PointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
+               // this.PointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
             
                 SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
             }
@@ -925,6 +1131,7 @@ namespace WpfStackerLibrary
 
     public class GridPoint : INotifyPropertyChanged
     {
+        public int Cell { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public bool right { get; set; }
@@ -968,8 +1175,16 @@ namespace WpfStackerLibrary
             return string.Format("Cell: {0}, Count: {1}", Cell, Count);
         }
 
-    }   
-
+    }
+    /*
+    public class EmptyCellsDefinition : DefinitionBase
+    {
+        public EmptyCellsDefinition()
+        { 
+        
+        }
+    }
+    */
     /// <summary>
     ///     This class adds the ability to refresh the list when any property of
     ///     the objects changes in the list which implements the INotifyPropertyChanged. 

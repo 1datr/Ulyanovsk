@@ -22,6 +22,7 @@ using System.Collections.Specialized;
 using System.Collections;
 using System.Data;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace WpfStackerLibrary
 {
@@ -57,6 +58,7 @@ namespace WpfStackerLibrary
         // Dependency Property
         public static readonly DependencyProperty StringSrc1DP = DependencyProperty.Register("StringSrc1", typeof(String), typeof(Console), new FrameworkPropertyMetadata("", InnerTextChanged));
         // .NET Property wrapper
+        [Description("String slot 1"), Category("Data slots")]
         public String StringSrc1
         {
             get
@@ -70,15 +72,10 @@ namespace WpfStackerLibrary
             }
         }
 
-        public void newline(String str)
-        {
-            tbConsole.Text = "["+DateTime.Now.ToString()+"] " + (String)GetValue(StringSrc1DP) + "\n" + tbConsole.Text;
-            
-        }
-
         // Dependency Property
         public static readonly DependencyProperty StringSrc2DP = DependencyProperty.Register("StringSrc2", typeof(String), typeof(Console), new FrameworkPropertyMetadata("", InnerTextChanged));
         // .NET Property wrapper
+        [Description("String slot 2"), Category("Data slots")]
         public String StringSrc2
         {
             get
@@ -91,6 +88,53 @@ namespace WpfStackerLibrary
 
             }
         }
+
+        public void newline(String str)
+        {
+            tbConsole.Text = "["+DateTime.Now.ToString()+"] " + (String)GetValue(StringSrc1DP) + "\n" + tbConsole.Text;
+            if (logfilepath != "")
+            {
+            /*    StreamWriter sw = File.CreateText(logfilepath);
+                sw.WriteLine(str);
+                sw.Close();      */         
+            }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty StringSrc3DP = DependencyProperty.Register("StringSrc3", typeof(String), typeof(Console), new FrameworkPropertyMetadata("", InnerTextChanged));
+        // .NET Property wrapper
+        [Description("String slot 3"), Category("Data slots")]
+        public String StringSrc3
+        {
+            get
+            {
+                return (String)GetValue(StringSrc3DP);
+            }
+            set
+            {
+                SetValue(StringSrc3DP, value);
+
+            }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty StringSrc4DP = DependencyProperty.Register("StringSrc4", typeof(String), typeof(Console), new FrameworkPropertyMetadata("", InnerTextChanged));
+        // .NET Property wrapper
+        [Description("String slot 4"), Category("Data slots")]
+        public String StringSrc4
+        {
+            get
+            {
+                return (String)GetValue(StringSrc4DP);
+            }
+            set
+            {
+                SetValue(StringSrc3DP, value);
+
+            }
+        }
+
+        public String logfilepath { get; set; }
 
         private void tbConsole_MouseDown(object sender, MouseButtonEventArgs e)
         {

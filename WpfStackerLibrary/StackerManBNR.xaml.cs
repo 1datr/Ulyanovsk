@@ -57,6 +57,7 @@ namespace WpfStackerLibrary
             private set { SetValue(WorkParamsDP, value); }
         }
 
+        [Description("Stacker state"), Category("Stacker")]
         // Dependency Property
         public static readonly DependencyProperty StackerStateDP = DependencyProperty.Register("StackerState", typeof(String), typeof(StackerManBNR), new FrameworkPropertyMetadata(""));
         // .NET Property wrapper
@@ -66,7 +67,7 @@ namespace WpfStackerLibrary
             {
                 return (String)GetValue(StackerStateDP);
             }
-            private set { SetValue(StackerStateDP, value); }
+            set { SetValue(StackerStateDP, value); }
         }
 
         // Dependency Property
@@ -80,19 +81,61 @@ namespace WpfStackerLibrary
             }
             private set { SetValue(PowerBtnCaptionDP, value); }
         }
-        /*
+
+        public void SetParam(String propname, Object val, object oldval)
+        {
+           try
+           {
+               
+               switch (propname)
+                    {                
+                
+                    case "CurrCmd":
+                            if (CmdReady)
+                            { 
+                        
+                            StackerCommand cmd = val as StackerCommand;
+                            //switch
+                                switch(cmd.CmdName)
+                                {
+                                    case "park" : this.park(); break;
+                                    case "take" : this.take(cmd.Op1); break;
+                                    case "push": this.put(cmd.Op2); break;
+                                    case "trans": this.transport(cmd.Op1, cmd.Op2); break;
+                                }
+                        
+                            }
+                            break;
+                    }
+            }
+            catch (System.Exception ex)
+            {
+
+            }
+           
+        }
+
+        private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            StackerManBNR ctrl = (StackerManBNR)d;
+
+            ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
+
+        }
+
         // Dependency Property
-        public static readonly DependencyProperty PowerBtnBrushDP = DependencyProperty.Register("PowerBtnBrush", typeof(LinearGradientBrush), typeof(StackerManBNR), new FrameworkPropertyMetadata(new  LinearGradientBrush()));
+        public static readonly DependencyProperty CurrCmdDP = DependencyProperty.Register("CurrCmd", typeof(StackerCommand), typeof(StackerManBNR), new FrameworkPropertyMetadata(null, DepParamsChanged));
         // .NET Property wrapper
-        public LinearGradientBrush PowerBtnBrush
+        [Description("Current command"), Category("Stacker")]
+        public StackerCommand CurrCmd
         {
             get
             {
-                return (LinearGradientBrush)GetValue(PowerBtnBrushDP);
+                return (StackerCommand)GetValue(CurrCmdDP);
             }
-            private set { SetValue(PowerBtnBrushDP, value); }
+            set { SetValue(CurrCmdDP, value); }
         }
-        */
+
         private bool cmdExecuting = false;
         public void park()
         {
@@ -126,7 +169,7 @@ namespace WpfStackerLibrary
 
         public void kvit()
         {
-
+            Varlist["gOPC.Input.ack"].Value = true;
         }
         public void kvit_drives()
         {
@@ -397,6 +440,29 @@ namespace WpfStackerLibrary
             private set { SetValue(ConnStatusDP, value); }
         }
 
+        // Dependency Property
+        public static readonly DependencyProperty CmdReadyDP = DependencyProperty.Register("CmdReady", typeof(bool), typeof(StackerManBNR), new FrameworkPropertyMetadata(false));
+        // .NET Property wrapper
+        public bool CmdReady
+        {
+            get
+            {
+                return (bool)GetValue(CmdReadyDP);
+            }
+            private set { SetValue(CmdReadyDP, value); }
+        }
+
+        public static readonly DependencyProperty PowerBtnBrushDP = DependencyProperty.Register("PowerBtnBrush", typeof(Style), typeof(StackerManBNR), new FrameworkPropertyMetadata(new Style()));
+        // .NET Property wrapper
+        public Style PowerBtnBrush
+        {
+            get
+            {
+                return (Style)GetValue(PowerBtnBrushDP);
+            }
+            private set { SetValue(PowerBtnBrushDP, value); }
+        }
+
         // Get variable value 
         private object VarVal(String Varname)
         {
@@ -427,13 +493,20 @@ namespace WpfStackerLibrary
                         {
                             case 0:
                                 StackerState = "Штабелер готов к выполнению команды";
+                                Error = "OK";
+                                CmdReady = true;
                                 break;
                             case 1: StackerState = "Штабелер находиться в состоянии выполнения команды";
+                                Error = "OK";
+                                CmdReady = false;
                                 break;
-                            case 2: StackerState = "Штабелер не готов выполненять команду"; 
+                            case 2: StackerState = "Штабелер не готов выполненять команду";
+                                CmdReady = false;
+                                Error = "OK";
                                 break;
                             default:
                                 {
+                                    CmdReady = false;
                                     StackerState = "Ошибка " + status.ToString();
                                     String ertext = "Неизвестная ошибка";
                                     if(StackerErrors.Contains(status.ToString()))
@@ -445,10 +518,31 @@ namespace WpfStackerLibrary
                                 }
                         }
                     break;
+                case "gOPC.Output.drivestatus":
+                    if (VarVal("gOPC.Output.drivestatus").ToString() == "0")
+                        DriveError = "";
+                    else {
+                        String errstr = "";
+                        if (DriveErrors.Contains(VarVal("gOPC.Output.drivestatus").ToString()))
+                            errstr = DriveErrors[VarVal("gOPC.Output.drivestatus").ToString()].ToString();
+                        DriveError = "Drive error (" + VarVal("gOPC.Output.drivestatus") + ") "+errstr;
+                    }
+                    break;                
                 case "gOPC.Output.power":
                     bool power = Convert.ToBoolean(VarVal("gOPC.Output.power").ToString());
-                    //PowerBtnBrush = (LinearGradientBrush)PowerBtnBrushes[power.ToString()];
+                    PowerBtnBrush = (Style)this.PowerBtnBrushes[power.ToString()];
                     PowerBtnCaption = PowerBtnCaptions[power.ToString().ToLower()].ToString();
+                    break;
+                case "gOPC.Output.load":
+
+                    break;
+                case "gOPC.Output.Xpos":
+
+                    break;
+                case "gOPC.Output.Ypos":
+
+                    break;
+                case "gOPC.Output.Zpos":
                     break;
             }
         }
@@ -563,6 +657,40 @@ namespace WpfStackerLibrary
             {
               //  MessageBox.Show("Fatal error: " + exc.Message, "Ошибка");
             } 
+        }
+
+        private bool power = false;
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (power)
+                {
+                    if (Varlist["gOPC.Input.power"].Value == false)
+                    {
+                        Varlist["gOPC.Input.power"].Value = true;
+                        System.Threading.Thread.Sleep(1000);
+                        Varlist["gOPC.Input.power"].Value = false;
+                    }
+                    else
+                        Varlist["gOPC.Input.power"].Value = false;
+
+                }
+                else
+                {
+                    if (Varlist["gOPC.Input.power"].Value == true)
+                    {
+                        Varlist["gOPC.Input.power"].Value = false;
+                        System.Threading.Thread.Sleep(1000);
+                        Varlist["gOPC.Input.power"].Value = true;
+                    }
+                    else
+                        Varlist["gOPC.Input.power"].Value = true;
+                }
+            }
+            catch (System.Exception exc)
+            { }
         }
     }
 

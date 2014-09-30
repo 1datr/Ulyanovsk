@@ -13,17 +13,45 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace WpfStackerLibrary
 {
     /// <summary>
     /// Логика взаимодействия для CommonCtrlKirishi.xaml
     /// </summary>
-    public partial class CommonCtrlKirishi : UserControl
+    public partial class CommonCtrlKirishi : UserControl, INotifyPropertyChanged
     {
         public CommonCtrlKirishi()
         {
             InitializeComponent();
+            // Poddons changed
+            fPoddons.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPoddons_CollectionChanged);
+            // Left and Right emptypoints
+            fPointsEmptyLeft.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
+            fPointsEmptyRight.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
+            // Fixed points
+            fFixedPoints.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fFixedPoints_CollectionChanged);
+        }
+
+        void fFixedPoints_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            stacker1.FixedPoints = fFixedPoints;
+        }
+
+        void fPointsEmptyRight_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.stacker1.PointsEmptyRight = PointsEmptyRight;
+        }
+
+        void fPointsEmptyLeft_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.stacker1.PointsEmptyLeft = PointsEmptyLeft;
+        }
+
+        void fPoddons_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.stacker1.Poddons = fPoddons;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -103,52 +131,87 @@ namespace WpfStackerLibrary
            // DateTime time = (DateTime)e.NewValue;
             // Put some update logic here...
         }
+
+        // Fixed points
+        private ObservableCollection<GridPoint> fFixedPoints = new ObservableCollection<GridPoint>();
+        //
+        [Description("Rack points with fixed points"), Category("Stacker")]
+        public ObservableCollection<GridPoint> FixedPoints
+        {
+            get
+            {
+                return fFixedPoints;
+            }
+            set
+            {
+                fFixedPoints = value;
+
+            }
+        }
+
         // Dependency Property
-        public static readonly DependencyProperty PointsEmptyLeftDP = DependencyProperty.Register("PointsEmptyLeft", typeof(ObservableCollection<GridPoint>), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(new ObservableCollection<GridPoint>(), OnCurrentTimePropertyChanged));
+        private ObservableCollection<GridPoint> fPointsEmptyLeft = new ObservableCollection<GridPoint>();    
         // .NET Property wrapper
         [Description("Free points in left rack"), Category("Stacker")]
         public ObservableCollection<GridPoint> PointsEmptyLeft
         {
             get
             {
-                return (ObservableCollection<GridPoint>)GetValue(PointsEmptyLeftDP);
+                return fPointsEmptyLeft;
             }
             set
             {
-                SetValue(PointsEmptyLeftDP, value);
+                fPointsEmptyLeft = value;
 
             }
         }
 
         // Dependency Property
-        public static readonly DependencyProperty PointsEmptyRightDP = DependencyProperty.Register("PointsEmptyRight", typeof(ItemsChangeObservableCollection<GridPoint>), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<GridPoint>()));
+        private ObservableCollection<GridPoint> fPointsEmptyRight = new ObservableCollection<GridPoint>();
         // .NET Property wrapper
         [Description("Free points in right rack"), Category("Stacker")]
-        public ItemsChangeObservableCollection<GridPoint> PointsEmptyRight
+        public ObservableCollection<GridPoint> PointsEmptyRight
         {
             get
             {
-                return (ItemsChangeObservableCollection<GridPoint>)GetValue(PointsEmptyRightDP);
+                return fPointsEmptyRight;
             }
             set
             {
-                SetValue(PointsEmptyRightDP, value);
+                fPointsEmptyRight = value;
 
             }
         }
 
-        // Dependency Property
-        public static readonly DependencyProperty PoddonsDP = DependencyProperty.Register("Poddons", typeof(List<int>), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(new List<int>()));
-        // .NET Property wrapper
-        [Description("Filter of products"), Category("Stacker")]
-        public List<int> Poddons
+        private ObservableCollection<Int32> fPoddons = new ObservableCollection<Int32>();
+        [Bindable(true), Description("List of poddons"), Category("Stacker")]
+        public ObservableCollection<Int32> Poddons
         {
             get
             {
-                return (List<int>)GetValue(PoddonsDP);
+                return fPoddons;
             }
-            set { SetValue(PoddonsDP, value); }
+            set
+            {
+                fPoddons = value;
+                this.stacker1.Poddons = fPoddons;
+            }
         }
+        /*
+        public static DependencyProperty ValidationErrorsProperty =
+           DependencyProperty.Register("ValidationErrors",
+           typeof(object), typeof(CommonCtrlKirishi),
+           new PropertyMetadata(null, OnValidationErrorsChanged
+        ));
+        */
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }      
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -187,6 +250,12 @@ namespace WpfStackerLibrary
             }
         }
 
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         
     }
+    
 }

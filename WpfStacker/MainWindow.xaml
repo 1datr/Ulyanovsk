@@ -8,8 +8,10 @@
     <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2,5,2,2">
         <TabItem Header="Штабелер 1">
 
-            <my1:CommonCtrlKirishi Rows="22" Floors="12" Passw="1234">
+            <my1:CommonCtrlKirishi Rows="22" Floors="12" Passw="1234">   
+                
                 <my1:CommonCtrlKirishi.PointsEmptyLeft>
+
                     <my1:GridPoint X="0" Y="0" />
                     <my1:GridPoint X="0" Y="1" />
                     <my1:GridPoint X="0" Y="2" />
@@ -20,18 +22,37 @@
                     <my1:GridPoint X="0" Y="7" />
                     <my1:GridPoint X="0" Y="8" />
                     <my1:GridPoint X="0" Y="9" />
-                    <my1:GridPoint X="0" Y="10" />                    
+                    <my1:GridPoint X="0" Y="10" />
                 </my1:CommonCtrlKirishi.PointsEmptyLeft>
+                <my1:CommonCtrlKirishi.PointsEmptyRight>
+                    <my1:GridPoint X="0" Y="0" />
+                    <my1:GridPoint X="0" Y="1" />
+                    <my1:GridPoint X="0" Y="2" />
+                    <my1:GridPoint X="0" Y="3" />
+                    <my1:GridPoint X="0" Y="4" />
+                    <my1:GridPoint X="0" Y="5" />
+                    <my1:GridPoint X="0" Y="6" />
+                    <my1:GridPoint X="0" Y="7" />
+                    <my1:GridPoint X="0" Y="8" />
+                    <my1:GridPoint X="0" Y="9" />
+                    <my1:GridPoint X="0" Y="10" />
+                    <my1:GridPoint X="0" Y="11" />
+                </my1:CommonCtrlKirishi.PointsEmptyRight>
                 <my1:CommonCtrlKirishi.Poddons>
                     <sys:Int32>0</sys:Int32>
                 </my1:CommonCtrlKirishi.Poddons>
-                
+               
             </my1:CommonCtrlKirishi>
         </TabItem>
         <TabItem Header="Штабелер 2">
 
             <my1:CommonCtrlKirishi StackerID="2" Rows="22" Floors="12" Passw="1234">
-
+                <my1:CommonCtrlKirishi.FixedPoints>
+                    <my1:GridPoint X="0" Y="0" right="True"></my1:GridPoint>
+                </my1:CommonCtrlKirishi.FixedPoints>                
+                <my1:CommonCtrlKirishi.Poddons>
+                    <sys:Int32>0</sys:Int32>
+                </my1:CommonCtrlKirishi.Poddons>
                 <my1:CommonCtrlKirishi.PointsEmptyLeft>
                     <my1:GridPoint X="0" Y="0" />
                     <my1:GridPoint X="0" Y="1" />

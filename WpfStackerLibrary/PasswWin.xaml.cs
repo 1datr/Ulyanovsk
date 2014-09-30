@@ -27,10 +27,29 @@ namespace WpfStackerLibrary
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (TBPassw.Text == Passw)
+            if (TBPassw.Password == Passw)
                 DialogResult = true;
             else
-                DialogResult = false;
+                MessageBox.Show("Неверный пароль");
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            TBPassw.Focus();
+        }
+
+        private void TBPassw_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (TBPassw.Password!="")
+                    Button_Click(sender, e);
+            }
+        }
+
+        private void TBPassw_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

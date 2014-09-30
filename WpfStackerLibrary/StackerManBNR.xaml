@@ -10,27 +10,1571 @@
              xmlns:core="System.Windows.Media">
     <UserControl.Resources>                    
         <ResourceDictionary x:Name="StackerErrors">
-            
-                <base:String x:Key="1">Ошибка привода</base:String>
-                <base:String x:Key="2">Превышение момента ось Х</base:String>
-                <base:String x:Key="3">Превышение момента ось Y</base:String>
-                <base:String x:Key="4">Превышение момента ось Z</base:String>
-                <base:String x:Key="5">Ошибка при референцировании</base:String>
-            
-            
+            <base:String x:Key="1">Ошибка привода</base:String>
+            <base:String x:Key="2">Превышение момента ось X</base:String>
+            <base:String x:Key="3">Превышение момента ось Y</base:String>
+            <base:String x:Key="4">Превышение момента ось Z</base:String>
+            <base:String x:Key="5">Ошибка при референцировании</base:String>
+            <base:String x:Key="6">Ошибка при перемещение в ноль</base:String>
+            <base:String x:Key="7">Ошибка при взятие тары</base:String>
+            <base:String x:Key="8">Ошибка при уладывании тары</base:String>
+            <base:String x:Key="10">Ошибка оборудования X2X</base:String>
+            <base:String x:Key="11">Ошибка установки IP адрес</base:String>
+            <base:String x:Key="12">Ошибка считывания настроек из XML</base:String>
+            <base:String x:Key="13">Превышение веса</base:String>
+            <base:String x:Key="14">Ошибка определение режима</base:String>
+            <base:String x:Key="20">Неверный номер команды</base:String>
+            <base:String x:Key="21">Неверный номер ячейки</base:String>
+            <base:String x:Key="22">На столе есть груз</base:String>
+            <base:String x:Key="23">На столе нет груза</base:String>
+            <base:String x:Key="24">В операции перекладывания 0 точка запрещена</base:String>
+            <base:String x:Key="25">Система не готова</base:String>
+            <base:String x:Key="26">Неправильно размещен груз (слева)</base:String>
+            <base:String x:Key="27">Неправильно размещен груз (справа)</base:String>
+            <base:String x:Key="30">Нет гуза на приемном столе</base:String>
+            <base:String x:Key="31">Приемный стол занят</base:String>
+            <base:String x:Key="32">Нет груза на устройстве выгрузки.</base:String>
+            <base:String x:Key="33">Устройство выгрузки занято</base:String>
+            <base:String x:Key="40">Референцирование Ось Z не в нуле</base:String>
+            <base:String x:Key="51">Нет груза</base:String>
+            <base:String x:Key="52">Ось Z не в нуле</base:String>
+            <base:String x:Key="53">Ячейка занята</base:String>
+            <base:String x:Key="54">Ось Z не в нуле</base:String>
+            <base:String x:Key="55">Есть груз</base:String>
+            <base:String x:Key="56">Груз неправильно установлен на столе (слево)</base:String>
+            <base:String x:Key="57">Груз неправильно установлен на столе (справо)</base:String>
+            <base:String x:Key="58">Ошибка останова по Y (слево)</base:String>
+            <base:String x:Key="59">Ошибка останова по Y (справо)</base:String>
+            <base:String x:Key="61">Ось Z не в нуле</base:String>
+            <base:String x:Key="62">Груз на столе</base:String>
+            <base:String x:Key="63">Ось Z не в нуле</base:String>
+            <base:String x:Key="64">Нет груза</base:String>
+            <base:String x:Key="65">Груз неправильно установлен на столе (слево)</base:String>
+            <base:String x:Key="66">Груз неправильно установлен на столе (справо)</base:String>
+            <base:String x:Key="67">Ячейка пустая</base:String>
+            <base:String x:Key="68">Ошибка движения по оси Z</base:String>
+            <base:String x:Key="69">Ошибка останова по Y (слево)</base:String>
+            <base:String x:Key="70">Ошибка останова по Y (справо)</base:String>
+            <base:String x:Key="71">Ось Z не в нуле</base:String>
+            <base:String x:Key="72">Ось Z не в нуле</base:String>
+            <base:String x:Key="73">Ось Z не в нуле</base:String>
+            <base:String x:Key="74">Ось Z не в нуле</base:String>
+            <base:String x:Key="75">Ось Z не в нуле</base:String>
+            <base:String x:Key="76">Ось Z не в нуле</base:String>
+            <base:String x:Key="77">Превышение момента на оси Z</base:String>
+            <base:String x:Key="78">Ошибка при движении по оси Z в ноль</base:String>
+            <base:String x:Key="79">Ось Z не в нуле</base:String>
+            <base:String x:Key="80">Ось Z не в нуле</base:String>
+            <base:String x:Key="82">Груз неправильно установлен на столе (слево)</base:String>
+            <base:String x:Key="83">Груз неправильно установлен на столе (справо)</base:String>
+            <base:String x:Key="91">Вне рабочей зоны</base:String>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Initialized="Grid_Initialized">
+        <Grid.Resources>
+            <ResourceDictionary x:Name="DriveErrors">
+                <base:String x:Key="1">Invalid parameter ID
+                </base:String>
+                <base:String x:Key="2">Data block for upload is not available
+                </base:String>
+                <base:String x:Key="3">Write access for a read-only parameter
+                </base:String>
+                <base:String x:Key="4">Read access for a write-only parameter
+                </base:String>
+                <base:String x:Key="8">Data block read access already initialized
+                </base:String>
+                <base:String x:Key="9">Data block write access already initialized
+                </base:String>
+                <base:String x:Key="10">Data block read access not initialized
+                </base:String>
+                <base:String x:Key="11">Data block write access not initialized
+                </base:String>
+                <base:String x:Key="16">The data segment is already the last when reading the data block
+                </base:String>
+                <base:String x:Key="17">The data segment is already the last when writing the data block
+                </base:String>
+                <base:String x:Key="18">The data segment is not yet the last when reading the data block
+                </base:String>
+                <base:String x:Key="19">The data segment is not yet the last when writing the data block
+                </base:String>
+                <base:String x:Key="21">Checksum after data block write is invalid
+                </base:String>
+                <base:String x:Key="23">Parameter ID in data block is invalid (data block write)
+                </base:String>
+                <base:String x:Key="25">Burn system module only allowed immediately after download
+                </base:String>
+                <base:String x:Key="27">Operating system not able to be started (operating system is not on the FPROM)
+                </base:String>
+                <base:String x:Key="40">Value of parameter higher than maximum value
+                </base:String>
+                <base:String x:Key="41">Value of parameter higher than maximum value
+                </base:String>
+                <base:String x:Key="42">Value of parameter higher than maximum value
+                </base:String>
+                <base:String x:Key="52">Value of parameter lower than minimum value
+                </base:String>
+                <base:String x:Key="53">Value of parameter lower than minimum value
+                </base:String>
+                <base:String x:Key="54">Value of parameter lower than minimum value
+                </base:String>
+                <base:String x:Key="64">Hardware ID in BR module is invalid (data block write)
+                </base:String>
+                <base:String x:Key="65">Hardware version in BR module is invalid (data block write)
+                </base:String>
+                <base:String x:Key="66">The operating system on the drive is incompatible to the existing network
+                </base:String>
+                <base:String x:Key="67">Necessary parameter is missing or is invalid
+                </base:String>
+                <base:String x:Key="68">Data block length invalid
+                </base:String>
+                <base:String x:Key="69">Command interface is occupied
+                </base:String>
+                <base:String x:Key="70">Value of a necessary parameter too high
+                </base:String>
+                <base:String x:Key="71">Value of a necessary parameter too low
+                </base:String>
+                <base:String x:Key="1001">Error-FIFO overflow
+                </base:String>
+                <base:String x:Key="1002">Parameter outside the valid range
+                </base:String>
+                <base:String x:Key="1003">Parameter cannot be written while loop control is active
+                </base:String>
+                <base:String x:Key="1004">Timeout in network life sign monitor
+                </base:String>
+                <base:String x:Key="1005">Parameter cannot be written while a movement is active
+                </base:String>
+                <base:String x:Key="1006">Invalid parameter for trigger event (digital input + edge)
+                </base:String>
+                <base:String x:Key="1007">Master for network coupling deactivated - one master is already sending
+                </base:String>
+                <base:String x:Key="1008">Master for network coupling deactivated - Encoder error
+                </base:String>
+                <base:String x:Key="1009">Error during memory allocation
+                </base:String>
+                <base:String x:Key="1011">Quickstop input active
+                </base:String>
+                <base:String x:Key="1012">Breakdown of cyclic network communication
+                </base:String>
+                <base:String x:Key="1013">Station is not available for network communication
+                </base:String>
+                <base:String x:Key="1014">Network command interface is occupied
+                </base:String>
+                <base:String x:Key="1016">Maximum cycle time exceeded - CPU load too high
+                </base:String>
+                <base:String x:Key="1017">Invalid parameter ID for cyclic read access
+                </base:String>
+                <base:String x:Key="1018">Invalid parameter ID for cyclic write access
+                </base:String>
+                <base:String x:Key="1021">Parameter cannot be written: Function block active
+                </base:String>
+                <base:String x:Key="1022">Timeout in life sign monitoring of cyclic data to drive
+                </base:String>
+                <base:String x:Key="1023">Network coupling with the cyclic communication mode not allowed
+                </base:String>
+                <base:String x:Key="1024">Cyclic communication mode with current network configuration not possible
+                </base:String>
+                <base:String x:Key="1025">Value of parameter in connection with holding brake not allowed
+                </base:String>
+                <base:String x:Key="2001">Upload of trace data not allowed: Recording active
+                </base:String>
+                <base:String x:Key="2003">Trace start not allowed: Recording active
+                </base:String>
+                <base:String x:Key="2006">Initialization of trace parameters not allowed: Recording active
+                </base:String>
+                <base:String x:Key="4005">Controller cannot be switched on: Drive in error state
+                </base:String>
+                <base:String x:Key="4007">Lag error stop limit exceeded
+                </base:String>
+                <base:String x:Key="4008">Positive limit switch reached
+                </base:String>
+                <base:String x:Key="4009">Negative limit switch reached
+                </base:String>
+                <base:String x:Key="4010">Controller cannot be switched on: Both limit switches are closed
+                </base:String>
+                <base:String x:Key="4011">Controller cannot be switched off: Movement active
+                </base:String>
+                <base:String x:Key="4012">Controller cannot be switched on: Init parameters missing or not valid
+                </base:String>
+                <base:String x:Key="4014">Two encoder control: Stop limit of positions difference exceeded
+                </base:String>
+                <base:String x:Key="5001">Target position exceeds positive SW limit
+                </base:String>
+                <base:String x:Key="5002">Target position exceeds negative SW limit
+                </base:String>
+                <base:String x:Key="5003">Positive SW limit reached
+                </base:String>
+                <base:String x:Key="5004">Negative SW limit reached
+                </base:String>
+                <base:String x:Key="5005">Start of movement not possible: Position controller inactive
+                </base:String>
+                <base:String x:Key="5006">Start of movement not possible: Axis not referenced
+                </base:String>
+                <base:String x:Key="5010">Move in pos. direction not possible: Pos. limit switch is closed
+                </base:String>
+                <base:String x:Key="5011">Move in neg. direction not possible: Neg. limit switch is closed
+                </base:String>
+                <base:String x:Key="5012">Start of movement not possible: Stop ramp active
+                </base:String>
+                <base:String x:Key="5013">Cyclic set value mode cannot be switched on: Movement active
+                </base:String>
+                <base:String x:Key="5015">Start of movement not possible: Homing procedure active
+                </base:String>
+                <base:String x:Key="5016">Parameter cannot be written: Homing procedure active
+                </base:String>
+                <base:String x:Key="5017">Homing procedure mode not possible: Position controller inactive
+                </base:String>
+                <base:String x:Key="5018">Homing procedure not possible: Movement active
+                </base:String>
+                <base:String x:Key="5019">Homing parameter outside the valid range
+                </base:String>
+                <base:String x:Key="5020">Homing procedure not possible: Both limit switches are closed
+                </base:String>
+                <base:String x:Key="5021">Limit switch closed: No direction change for this homing mode
+                </base:String>
+                <base:String x:Key="5022">Second limit switch signal received: Reference switch not found
+                </base:String>
+                <base:String x:Key="5023">Incorrect limit switch signal received for current movement direction
+                </base:String>
+                <base:String x:Key="5024">Cyclic set value mode aborted: Set positions missing
+                </base:String>
+                <base:String x:Key="5025">Homing offset with counting range correction cannot be set
+                </base:String>
+                <base:String x:Key="5026">Basis movement parameters (with override) exceed speed limit value
+                </base:String>
+                <base:String x:Key="5027">Basis movement parameters (with override) exceed acceleration limit value
+                </base:String>
+                <base:String x:Key="5028">Current movement is not a basis movement
+                </base:String>
+                <base:String x:Key="5029">Trigger ignored - remaining distance exceeds SW limit
+                </base:String>
+                <base:String x:Key="5030">Homing procedure mode not possible: Position controller active
+                </base:String>
+                <base:String x:Key="5031">Homing procedure mode not possible: Cyclic set values mode is off
+                </base:String>
+                <base:String x:Key="5032">Acceleration too low - braking distance exceeds positive SW limit
+                </base:String>
+                <base:String x:Key="5033">Acceleration too low - braking distance exceeds negative SW limit
+                </base:String>
+                <base:String x:Key="5034">Homing procedure not possible: Encoder error
+                </base:String>
+                <base:String x:Key="5035">Reference marks not detected
+                </base:String>
+                <base:String x:Key="5036">Acceleration stop limit exceeded
+                </base:String>
+                <base:String x:Key="5101">Cam profile compensation gears: Limit values exceeded
+                </base:String>
+                <base:String x:Key="5102">Too many changes of cam profile per cycle (master period too short)
+                </base:String>
+                <base:String x:Key="5103">Slave trigger FIFO full
+                </base:String>
+                <base:String x:Key="5104">Slave trigger FIFO empty
+                </base:String>
+                <base:String x:Key="5105">Master trigger FIFO full
+                </base:String>
+                <base:String x:Key="5106">Master trigger FIFO empty
+                </base:String>
+                <base:String x:Key="5107">Cam coupling cannot be started: Parameter outside the valid range
+                </base:String>
+                <base:String x:Key="5108">Master compensation trigger FIFO full
+                </base:String>
+                <base:String x:Key="5109">Master compensation trigger FIFO empty
+                </base:String>
+                <base:String x:Key="5110">Cam coupling aborted: Cyclic set positions missing
+                </base:String>
+                <base:String x:Key="5111">Cam coupling aborted: Encoder error
+                </base:String>
+                <base:String x:Key="5112">Command not allowed: Cam profile coupling not active
+                </base:String>
+                <base:String x:Key="5113">Command not allowed: Controller is already active
+                </base:String>
+                <base:String x:Key="5114">Parameter cannot be written: Cam coupling active
+                </base:String>
+                <base:String x:Key="5115">Restart command not possible: The cam automat is not active
+                </base:String>
+                <base:String x:Key="5201">Parameter cannot be written: Drumsequencer active
+                </base:String>
+                <base:String x:Key="5202">Cam Control: Switch positions not in ascending order
+                </base:String>
+                <base:String x:Key="5300">Data block for upload is not available
+                </base:String>
+                <base:String x:Key="5301">Start cam automat linkage not possible: Parameter outside the valid range
+                </base:String>
+                <base:String x:Key="5302">Parameter cannot be written: Cam automat active
+                </base:String>
+                <base:String x:Key="5303">Cam profile data not available at index
+                </base:String>
+                <base:String x:Key="5304">Format error in cam profile data
+                </base:String>
+                <base:String x:Key="5311">Cam automat: Event leads to non initialized state
+                </base:String>
+                <base:String x:Key="5315">Download error: Cam profile data in use by cam automat or function block
+                </base:String>
+                <base:String x:Key="5316">Event type is not possible for entry in compensation gears
+                </base:String>
+                <base:String x:Key="5319">Cam profile data not allowed for state 0
+                </base:String>
+                <base:String x:Key="5329">No valid cam profile data or state deactivated
+                </base:String>
+                <base:String x:Key="6000">Master sampling time is not a multiple of position controller sampling time
+                </base:String>
+                <base:String x:Key="6001">Sync controller: Timeout for sync telegram occurred
+                </base:String>
+                <base:String x:Key="6002">Sync controller: Error tolerance of system time difference exceeded
+                </base:String>
+                <base:String x:Key="6008">Controller is already active
+                </base:String>
+                <base:String x:Key="6011">Controller is not in speed mode
+                </base:String>
+                <base:String x:Key="6014">Drive initialization active
+                </base:String>
+                <base:String x:Key="6015">CAN controller: CAN bus disturbance (receive error counter greater 96)
+                </base:String>
+                <base:String x:Key="6016">CAN controller: CAN bus disturbance (transmit error counter greater 96)
+                </base:String>
+                <base:String x:Key="6017">Software: Watchdog active
+                </base:String>
+                <base:String x:Key="6018">Hardware: 15V power supply fail
+                </base:String>
+                <base:String x:Key="6019">ACOPOS: Overcurrent
+                </base:String>
+                <base:String x:Key="6020">Hardware: 24V power supply fail
+                </base:String>
+                <base:String x:Key="6021">Low level at controller enable input
+                </base:String>
+                <base:String x:Key="6023">Voltage sag at controller enable input
+                </base:String>
+                <base:String x:Key="6024">Current was latched before conversion (OpSys error in ABLS)
+                </base:String>
+                <base:String x:Key="6025">Temperature was latched before conversion (OpSys error in ABLS)
+                </base:String>
+                <base:String x:Key="6026">Holding brake: Stator current limit exceeded during release
+                </base:String>
+                <base:String x:Key="6027">Holding brake: Manual operation not permitted
+                </base:String>
+                <base:String x:Key="6028">Holding brake: Undervoltage/-current (wire breakage, check 24V supply)
+                </base:String>
+                <base:String x:Key="6029">Holding brake: Control signal on and output status off
+                </base:String>
+                <base:String x:Key="6030">Holding brake: Brake output is active, but no brake entered in motor data
+                </base:String>
+                <base:String x:Key="6031">System module already deleted
+                </base:String>
+                <base:String x:Key="6032">Interface: FPGA configuration error
+                </base:String>
+                <base:String x:Key="6033">Type of servo amplifier is not supported by ACOPOS-firmware
+                </base:String>
+                <base:String x:Key="6034">Cyclic set value mode aborted: Set speeds missing
+                </base:String>
+                <base:String x:Key="6036">Motor parameters missing or invalid
+                </base:String>
+                <base:String x:Key="6038">Torque limit higher than peak motor torque
+                </base:String>
+                <base:String x:Key="6040">Operating system version is less than allowed minimum version
+                </base:String>
+                <base:String x:Key="6041">Operating system version is greater than allowed maximum version
+                </base:String>
+                <base:String x:Key="6042">Operating system version is not in the allowed range
+                </base:String>
+                <base:String x:Key="6043">PHASING_MODE is not valid
+                </base:String>
+                <base:String x:Key="6044">Phasing: Rotational direction or position not valid
+                </base:String>
+                <base:String x:Key="6045">Power stage: Connection X5: No current flow
+                </base:String>
+                <base:String x:Key="6046">Phasing: No rotor movement
+                </base:String>
+                <base:String x:Key="6047">Holding brake: Control signal off and output status on
+                </base:String>
+                <base:String x:Key="6048">Motor holding brake movement monitor: Position error too large
+                </base:String>
+                <base:String x:Key="6049">Power stage: Connection X5: Current measurement faulty
+                </base:String>
+                <base:String x:Key="6050">Write parameter not allowed: Set current filter or notch filter active
+                </base:String>
+                <base:String x:Key="6051">Phasing: Speed to high
+                </base:String>
+                <base:String x:Key="6052">Power stage: High-side: Overcurrent
+                </base:String>
+                <base:String x:Key="6053">Power stage: Low-side: Overcurrent
+                </base:String>
+                <base:String x:Key="6054">Power stage: Overcurrent
+                </base:String>
+                <base:String x:Key="6055">Holding brake: Low voltage
+                </base:String>
+                <base:String x:Key="6056">Holding brake: Low current
+                </base:String>
+                <base:String x:Key="6057">Position loop controller: Load encoder error
+                </base:String>
+                <base:String x:Key="6058">Enable1: Voltage sag
+                </base:String>
+                <base:String x:Key="6059">Enable2: Voltage sag
+                </base:String>
+                <base:String x:Key="6060">Power stage: Limit speed exceeded
+                </base:String>
+                <base:String x:Key="6061">CTRL Speed controller: Limit speed exceeded
+                </base:String>
+                <base:String x:Key="6062">CTRL Speed controller: Speed error stop limit exceeded
+                </base:String>
+                <base:String x:Key="6063">Holding brake: External voltage on output over 24V
+                </base:String>
+                <base:String x:Key="7012">Encoder: Hiperface error bit
+                </base:String>
+                <base:String x:Key="7013">Encoder: Status message
+                </base:String>
+                <base:String x:Key="7014">Encoder: CRC error during parameter transfer
+                </base:String>
+                <base:String x:Key="7015">Encoder: Timeout error during parameter transfer
+                </base:String>
+                <base:String x:Key="7016">Encoder: Busy error during parameter transfer
+                </base:String>
+                <base:String x:Key="7017">Encoder: Error while reading encoder parameter
+                </base:String>
+                <base:String x:Key="7020">OEM data: Data write error
+                </base:String>
+                <base:String x:Key="7021">Encoder: Timeout error while reading absolute position
+                </base:String>
+                <base:String x:Key="7022">Encoder: Initialization is active
+                </base:String>
+                <base:String x:Key="7023">Encoder: Parameter transfer is active
+                </base:String>
+                <base:String x:Key="7029">Encoder: Incremental signal amplitude too small
+                </base:String>
+                <base:String x:Key="7030">Encoder: Incremental signal amplitude too large
+                </base:String>
+                <base:String x:Key="7031">Encoder: Incremental signal amplitude too large (Disturbance)
+                </base:String>
+                <base:String x:Key="7032">Encoder: Incremental signal amplitude too small (Disturbance, no connection)
+                </base:String>
+                <base:String x:Key="7033">Encoder: Incremental position step too large
+                </base:String>
+                <base:String x:Key="7036">Encoder: Interface ID invalid (Check slot and Interface EEPROM data)
+                </base:String>
+                <base:String x:Key="7038">Encoder: Position value not synchronous with absolute value
+                </base:String>
+                <base:String x:Key="7039">Incremental encoder: Cable disturbance track A
+                </base:String>
+                <base:String x:Key="7040">Incremental encoder: Cable disturbance track B
+                </base:String>
+                <base:String x:Key="7041">Incremental encoder: Cable disturbance track R
+                </base:String>
+                <base:String x:Key="7042">Incremental encoder: Edge distance of quadrature signal too small
+                </base:String>
+                <base:String x:Key="7043">Encoder: Cable disturbance track D
+                </base:String>
+                <base:String x:Key="7044">Encoder: Parity
+                </base:String>
+                <base:String x:Key="7045">Resolver: Signal disturbance (plausibility check)
+                </base:String>
+                <base:String x:Key="7046">Resolver: Cable disturbance
+                </base:String>
+                <base:String x:Key="7047">Invalid distance of reference marks
+                </base:String>
+                <base:String x:Key="7048">Error during the reading of encoder memory
+                </base:String>
+                <base:String x:Key="7049">Abnormal encoder current consumption
+                </base:String>
+                <base:String x:Key="7050">Incremental encoder: Illegal AB signal change
+                </base:String>
+                <base:String x:Key="7051">Encoder: Acceleration too large (Disturbance)
+                </base:String>
+                <base:String x:Key="7052">Encoder: Encoder is not Supported
+                </base:String>
+                <base:String x:Key="7053">Encoder: Power failure
+                </base:String>
+                <base:String x:Key="7054">Encoder: Position in channel already defined
+                </base:String>
+                <base:String x:Key="7055">Encoder: Invalid content type 'frame end'
+                </base:String>
+                <base:String x:Key="7056">Encoder: Register read forbidden or not implemented
+                </base:String>
+                <base:String x:Key="7057">Encoder: Register write forbidden or not implemented
+                </base:String>
+                <base:String x:Key="7058">Encoder: Alarm bit is set
+                </base:String>
+                <base:String x:Key="7059">Virtual Encoder: Error state
+                </base:String>
+                <base:String x:Key="7100">Parameter function not supported. (Module ?)
+                </base:String>
+                <base:String x:Key="7200">DC bus: Overvoltage
+                </base:String>
+                <base:String x:Key="7210">DC bus: Charging: Voltage unstable
+                </base:String>
+                <base:String x:Key="7211">DC bus: Voltage drop
+                </base:String>
+                <base:String x:Key="7212">DC bus: High voltage drop
+                </base:String>
+                <base:String x:Key="7214">DC bus: Charging resistor hot (too many power line fails)
+                </base:String>
+                <base:String x:Key="7215">Power mains: At least one phase of the power line failed
+                </base:String>
+                <base:String x:Key="7217">DC bus: Nominal voltage detection: Voltage too high
+                </base:String>
+                <base:String x:Key="7218">DC bus: Nominal voltage detection: Voltage too low
+                </base:String>
+                <base:String x:Key="7219">DC bus: Charging: Voltage too low
+                </base:String>
+                <base:String x:Key="7220">DC bus: Nominal voltage detection: Voltage not allowed
+                </base:String>
+                <base:String x:Key="7221">Mains: Failure
+                </base:String>
+                <base:String x:Key="7222">Power stage: Summation current connection X5: Overcurrent (Ground fault)
+                </base:String>
+                <base:String x:Key="7223">DC bus: Overvoltage DC-GND
+                </base:String>
+                <base:String x:Key="7224">Connector to back plane: 24V-GND contact monitoring: Voltage too low
+                </base:String>
+                <base:String x:Key="7225">DC bus: Overvoltage
+                </base:String>
+                <base:String x:Key="7226">DC bus: Overcurrent
+                </base:String>
+                <base:String x:Key="7227">Bleeder: Overcurrent
+                </base:String>
+                <base:String x:Key="7300">Digital IO: IO Configuration invalid
+                </base:String>
+                <base:String x:Key="7401">Parameter position exceeds maximum data length
+                </base:String>
+                <base:String x:Key="7402">Processing of parameter sequence aborted: Write error
+                </base:String>
+                <base:String x:Key="7403">Processing of parameter sequence is still active
+                </base:String>
+                <base:String x:Key="7404">Parameter sequence not available at index
+                </base:String>
+                <base:String x:Key="8001">EEPROM select not valid
+                </base:String>
+                <base:String x:Key="8003">Table index not valid
+                </base:String>
+                <base:String x:Key="8004">EEPROM variable type not valid
+                </base:String>
+                <base:String x:Key="8005">EEPROM type not valid
+                </base:String>
+                <base:String x:Key="8006">Value of EEPROM parameter is zero
+                </base:String>
+                <base:String x:Key="8007">Value of EEPROM parameter is not valid
+                </base:String>
+                <base:String x:Key="8011">EPROM: Data not valid
+                </base:String>
+                <base:String x:Key="8020">Invalid switch frequency
+                </base:String>
+                <base:String x:Key="9000">Heatsink temperature sensor: Overtemperature - Movement stopped
+                </base:String>
+                <base:String x:Key="9001">Heatsink temperature sensor: Overtemperature - Limiter active
+                </base:String>
+                <base:String x:Key="9002">Heatsink temperature sensor: Not connected or destroyed
+                </base:String>
+                <base:String x:Key="9003">Heatsink temperature sensor: Not connected or destroyed
+                </base:String>
+                <base:String x:Key="9010">Temperature sensor (Motor|Choke|External): Overtemperature
+                </base:String>
+                <base:String x:Key="9011">Temperature sensor (Motor|Choke|External): Overtemperature - Limiter active
+                </base:String>
+                <base:String x:Key="9012">Temperature sensor (Motor|Choke|External): Not connected or destroyed
+                </base:String>
+                <base:String x:Key="9013">Temperature sensor (Motor|Choke|External): Short circuit
+                </base:String>
+                <base:String x:Key="9030">Junction temperature model: Overtemperature - Movement stopped
+                </base:String>
+                <base:String x:Key="9031">Junction temperature model: Overtemperature - Limiter active
+                </base:String>
+                <base:String x:Key="9040">Bleeder temperature model: Overtemperature - Movement stopped
+                </base:String>
+                <base:String x:Key="9041">Bleeder temperature model: Overtemperature - Limiter active
+                </base:String>
+                <base:String x:Key="9050">ACOPOS peak current: Overload - Movement stopped
+                </base:String>
+                <base:String x:Key="9051">ACOPOS peak current: Overload - Limiter active
+                </base:String>
+                <base:String x:Key="9060">ACOPOS continuous current: Overload - Movement stopped
+                </base:String>
+                <base:String x:Key="9061">ACOPOS continuous current: Overload - Limiter active
+                </base:String>
+                <base:String x:Key="9070">Motor temperature model: Overload - Movement stopped
+                </base:String>
+                <base:String x:Key="9071">Motor temperature model: Overload - Limiter active
+                </base:String>
+                <base:String x:Key="9075">ACOPOS continuous power: Overload - Movement stopped
+                </base:String>
+                <base:String x:Key="9076">ACOPOS continuous power: Overload - Limiter active
+                </base:String>
+                <base:String x:Key="9078">ACOPOS temperature sensor: Overtemperature - Movement stopped
+                </base:String>
+                <base:String x:Key="9079">ACOPOS temperature sensor: Overtemperature - Limiter active
+                </base:String>
+                <base:String x:Key="9300">Current controller: Overcurrent
+                </base:String>
+                <base:String x:Key="10000">Identification parameter(s) missing
+                </base:String>
+                <base:String x:Key="10001">Parameter identification: Invalid sub-mode
+                </base:String>
+                <base:String x:Key="10100">Parameter identification: Quality factor not fulfilled
+                </base:String>
+                <base:String x:Key="10101">No ISQ-filter free
+                </base:String>
+                <base:String x:Key="10102">No resonance-frequency for ISQ-filter (band-stop) found
+                </base:String>
+                <base:String x:Key="10103">Autotuning: Maximum lag error exceeded
+                </base:String>
+                <base:String x:Key="10500">Induction stop was terminated
+                </base:String>
+                <base:String x:Key="31201">Di/Do Interface: Drive not ready
+                </base:String>
+                <base:String x:Key="31220">Encoder error: Encoder not configured
+                </base:String>
+                <base:String x:Key="31221">Encoder error: Cable disturbance or signal disturbance
+                </base:String>
+                <base:String x:Key="31224">Encoder Interface: HW Module not OK
+                </base:String>
+                <base:String x:Key="31240">Homing procedure mode not allowed with current HW Type
+                </base:String>
+                <base:String x:Key="31247">Drive Interface: DrvOK not set from HW Module
+                </base:String>
+                <base:String x:Key="31248">Trigger Interface: HW Module not OK
+                </base:String>
+                <base:String x:Key="31249">Drive Interface: HW Module not OK
+                </base:String>
+                <base:String x:Key="31250">Di/Do Interface: HW Module not OK
+                </base:String>
+                <base:String x:Key="31260">Current axis configuration only possible in simulation mode
+                </base:String>
+                <base:String x:Key="31261">Change mode for servo drive adjustment not allowed
+                </base:String>
+                <base:String x:Key="32001">Error calling CAN_xopen()
+                </base:String>
+                <base:String x:Key="32002">Error defining Write COB for Broadcast Command
+                </base:String>
+                <base:String x:Key="32003">Error defining Write COB for Parameter Read Request
+                </base:String>
+                <base:String x:Key="32004">Error defining Write COB for Parameter Write Request
+                </base:String>
+                <base:String x:Key="32005">Error defining Read COB for Parameter Read Response
+                </base:String>
+                <base:String x:Key="32006">Error defining Read COB for Parameter Write Response
+                </base:String>
+                <base:String x:Key="32007">Error defining Read COB for Monitor Data from the drive
+                </base:String>
+                <base:String x:Key="32008">Error sending Read Request (network error ?)
+                </base:String>
+                <base:String x:Key="32009">Error sending Write Request (network error ?)
+                </base:String>
+                <base:String x:Key="32010">Drive not responding to Read Request (is the drive in the network ?)
+                </base:String>
+                <base:String x:Key="32011">Drive not responding to Write Request (is the drive in the network ?)
+                </base:String>
+                <base:String x:Key="32012">Error reading module description of system module
+                </base:String>
+                <base:String x:Key="32013">No operating system present on the drive
+                </base:String>
+                <base:String x:Key="32014">Operating system version on the drive not compatible with NC manager version
+                </base:String>
+                <base:String x:Key="32015">Error creating message queue
+                </base:String>
+                <base:String x:Key="32016">Error sending an idle time command to the NC Manager Task
+                </base:String>
+                <base:String x:Key="32017">Wrong boot state after start of operating system
+                </base:String>
+                <base:String x:Key="32018">Invalid Parameter ID in system module
+                </base:String>
+                <base:String x:Key="32019">Download of NC system module not allowed (the module is on the PLC)
+                </base:String>
+                <base:String x:Key="32020">System module data could not be read from the drive during NC manager INIT
+                </base:String>
+                <base:String x:Key="32021">System module data could not be read from the drive after download
+                </base:String>
+                <base:String x:Key="32022">Error aborting data block access before download
+                </base:String>
+                <base:String x:Key="32023">Error reading boot state before download
+                </base:String>
+                <base:String x:Key="32025">Wrong boot state after SW Reset before download
+                </base:String>
+                <base:String x:Key="32026">Error during INIT of data block write access for download
+                </base:String>
+                <base:String x:Key="32027">Error sending data segment for download
+                </base:String>
+                <base:String x:Key="32029">Response error after sending data segment for download
+                </base:String>
+                <base:String x:Key="32030">Error at command for system module burn after download
+                </base:String>
+                <base:String x:Key="32031">Error reading status for system module burn after download
+                </base:String>
+                <base:String x:Key="32032">Error while burning system module after download
+                </base:String>
+                <base:String x:Key="32033">Timeout while burning system module after download
+                </base:String>
+                <base:String x:Key="32034">Error at SW Reset before download
+                </base:String>
+                <base:String x:Key="32035">Error at SW Reset after download
+                </base:String>
+                <base:String x:Key="32036">Different system module data after download
+                </base:String>
+                <base:String x:Key="32037">Error message(s) lost because of FIFO overflow (acknowledge errors)
+                </base:String>
+                <base:String x:Key="32038">Error searching for INIT parameter module
+                </base:String>
+                <base:String x:Key="32039">Error reading INIT parameter module
+                </base:String>
+                <base:String x:Key="32040">Version of INIT parameter module is not compatible to NC manager
+                </base:String>
+                <base:String x:Key="32041">The module acp10cfg does not exist
+                </base:String>
+                <base:String x:Key="32042">The module acp10cfg is not an NC data module
+                </base:String>
+                <base:String x:Key="32043">The NC module type of the module acp10cfg is invalid
+                </base:String>
+                <base:String x:Key="32044">The NC module type of the module acp10cfg cannot be read
+                </base:String>
+                <base:String x:Key="32045">The data address in module acp10cfg cannot be read
+                </base:String>
+                <base:String x:Key="32046">The data section of module acp10cfg is empty
+                </base:String>
+                <base:String x:Key="32047">A CAN node number in module acp10cfg is invalid
+                </base:String>
+                <base:String x:Key="32048">A CAN node number in module acp10cfg is used repeatedly
+                </base:String>
+                <base:String x:Key="32049">This NC action is not allowed during Trace is active
+                </base:String>
+                <base:String x:Key="32050">A Trace Data Upload is already active
+                </base:String>
+                <base:String x:Key="32051">Invalid Trace Status for Trace Data Upload
+                </base:String>
+                <base:String x:Key="32053">Error defining Write COB for Parameter Read Request 2
+                </base:String>
+                <base:String x:Key="32054">Error defining Write COB for Parameter Write Request 2
+                </base:String>
+                <base:String x:Key="32055">Error defining Read COB for Parameter Read Response 2
+                </base:String>
+                <base:String x:Key="32056">Error defining Read COB for Parameter Write Response 2
+                </base:String>
+                <base:String x:Key="32057">Error accessing HS task class table
+                </base:String>
+                <base:String x:Key="32058">Error accessing task class table
+                </base:String>
+                <base:String x:Key="32059">Parameter tk_no invalid for access to task class table
+                </base:String>
+                <base:String x:Key="32060">Timeout for cyclic data from drive - Indications invalid (network error ?)
+                </base:String>
+                <base:String x:Key="32061">Timeout sending a Read Request telegram (network error ?)
+                </base:String>
+                <base:String x:Key="32062">Timeout sending a Write Request telegram (network error ?)
+                </base:String>
+                <base:String x:Key="32063">Data address zero (set/read parameter via service interface)
+                </base:String>
+                <base:String x:Key="32064">Convert text into binary data is not possible for this parameter data type
+                </base:String>
+                <base:String x:Key="32065">Convert binary data into text is not possible for this parameter data type
+                </base:String>
+                <base:String x:Key="32066">Parameter ID zero (set/read parameter via service interface)
+                </base:String>
+                <base:String x:Key="32067">Parameter ID invalid (set/read parameter with option ncDATA_TEXT)
+                </base:String>
+                <base:String x:Key="32069">The data address of the ACOPOS parameters in module acp10cfg cannot be read
+                </base:String>
+                <base:String x:Key="32070">Drive for ACOPOS parameters in module acp10cfg not found
+                </base:String>
+                <base:String x:Key="32071">The ACOPOS parameters are invalid (an update of AutomationStudio is necessary)
+                </base:String>
+                <base:String x:Key="32072">Wrong boot state after SW Reset
+                </base:String>
+                <base:String x:Key="32073">Download of NC system module: Error reading NC hardware version of BsLoader
+                </base:String>
+                <base:String x:Key="32074">Incompatible NC hardware version: Download of BsLoader not possible
+                </base:String>
+                <base:String x:Key="32075">Incompatible NC hardware version: Download of operating system not possible
+                </base:String>
+                <base:String x:Key="32076">FIFO for messages with high priority to NC Manager Task is full
+                </base:String>
+                <base:String x:Key="32077">A POWERLINK node number in module acp10cfg is invalid
+                </base:String>
+                <base:String x:Key="32078">A POWERLINK node number in module acp10cfg is used repeatedly
+                </base:String>
+                <base:String x:Key="32079">With this version one CAN interface must be in module acp10cfg
+                </base:String>
+                <base:String x:Key="32080">With this version one POWERLINK interface must be in module acp10cfg
+                </base:String>
+                <base:String x:Key="32081">With this version only one POWERLINK interface is allowed in module acp10cfg
+                </base:String>
+                <base:String x:Key="32082">Module acp10cfg contains a CAN interface without any drive node
+                </base:String>
+                <base:String x:Key="32083">Module acp10cfg contains a POWERLINK interface without any drive node
+                </base:String>
+                <base:String x:Key="32084">The NC configuration does not contain any ACOPOS module
+                </base:String>
+                <base:String x:Key="32085">Module acp10cfg invalid (AutomationStudio V2.2 or higher necessary)
+                </base:String>
+                <base:String x:Key="32086">With this version no CAN interface is allowed in module acp10cfg
+                </base:String>
+                <base:String x:Key="32087">With this version no POWERLINK interface is allowed in module acp10cfg
+                </base:String>
+                <base:String x:Key="32088">The INIT parameter module specified in the NC Mapping Table does not exist
+                </base:String>
+                <base:String x:Key="32089">NC-HW-ID of INIT parameter module is not compatible to NC manager
+                </base:String>
+                <base:String x:Key="32090">NC object type of INIT parameter module is not equal to NC object
+                </base:String>
+                <base:String x:Key="32091">Invalid block data in INIT parameter module (data range exceeded)
+                </base:String>
+                <base:String x:Key="32092">Error sending a command to the NC Idle Task
+                </base:String>
+                <base:String x:Key="32093">NcManCtrl is defined repeatedly with different values
+                </base:String>
+                <base:String x:Key="32094">NetworkInit is defined repeatedly for ncMANAGER with different values
+                </base:String>
+                <base:String x:Key="32095">Value of drive group in CAN-CFG-Module higher than maximum value
+                </base:String>
+                <base:String x:Key="32096">Size of data buffer for trace data upload in module acp10cfg too small
+                </base:String>
+                <base:String x:Key="32097">All counts of used network interfaces in module acp10cfg are zero
+                </base:String>
+                <base:String x:Key="32098">Version of the module acp10cfg is not compatible with NC manager
+                </base:String>
+                <base:String x:Key="32099">Length of data section of module acp10cfg is too small
+                </base:String>
+                <base:String x:Key="32100">Memory for NC error text management cannot be allocated
+                </base:String>
+                <base:String x:Key="32101">Error accessing NC error text module in BR module table
+                </base:String>
+                <base:String x:Key="32102">Version ID of error text module not equal to that of NC manager
+                </base:String>
+                <base:String x:Key="32103">Data section of error text module cannot be read
+                </base:String>
+                <base:String x:Key="32104">Data section of error text module is empty
+                </base:String>
+                <base:String x:Key="32105">Length of data section of error text module is too small
+                </base:String>
+                <base:String x:Key="32106">Error list of error text module not equal with that of NC manager
+                </base:String>
+                <base:String x:Key="32107">Parameter list of error text module not equal with that of NC manager
+                </base:String>
+                <base:String x:Key="32108">The last error number of error text module is not equal to 65535
+                </base:String>
+                <base:String x:Key="32109">The last parameter ID of error text module is not equal to 65535
+                </base:String>
+                <base:String x:Key="32110">Length of data section of CAN-CFG-Module cannot be read
+                </base:String>
+                <base:String x:Key="32111">Length of data section of CAN-CFG-Module is too small
+                </base:String>
+                <base:String x:Key="32112">The data address in the CAN-CFG-Module cannot be read
+                </base:String>
+                <base:String x:Key="32113">The enable code in the CAN-CFG-Module is invalid
+                </base:String>
+                <base:String x:Key="32114">Values not equal to zero in reserved area of CAN-CFG-Module
+                </base:String>
+                <base:String x:Key="32115">The basis CAN ID for WR/RD channel1 in the CAN-CFG-Module is invalid
+                </base:String>
+                <base:String x:Key="32116">The basis CAN ID for WR/RD channel2 in the CAN-CFG-Module is invalid
+                </base:String>
+                <base:String x:Key="32117">The basis CAN ID for WR/RD channel3 in the CAN-CFG-Module is invalid
+                </base:String>
+                <base:String x:Key="32118">The basis CAN ID for monitor data in the CAN-CFG-Module is invalid
+                </base:String>
+                <base:String x:Key="32119">Invalid basis CAN ID for cyclic data to the drive in CAN-CFG-Module
+                </base:String>
+                <base:String x:Key="32120">Invalid basis CAN ID for cyclic data from the drive in CAN-CFG-Module
+                </base:String>
+                <base:String x:Key="32121">The CAN ID for the SYNC telegram in the CAN-CFG-Module is invalid
+                </base:String>
+                <base:String x:Key="32122">The CAN ID for the broadcast command in the CAN-CFG-Module is invalid
+                </base:String>
+                <base:String x:Key="32123">Error defining Read COB for WR2 Request (external set position mode)
+                </base:String>
+                <base:String x:Key="32124">Error defining Read COB for WR2 Response (external set position mode)
+                </base:String>
+                <base:String x:Key="32125">Error defining Read COB for RD2 Request (external set position mode)
+                </base:String>
+                <base:String x:Key="32126">Error defining Read COB for RD2 Response (external set position mode)
+                </base:String>
+                <base:String x:Key="32127">Error deleting Write COB for Broadcast Command (external set position mode)
+                </base:String>
+                <base:String x:Key="32128">Error defining Read COB for Broadcast Command (external set position mode)
+                </base:String>
+                <base:String x:Key="32129">Error defining Read COB for cyclic user data from drive (ext. set pos. mode)
+                </base:String>
+                <base:String x:Key="32130">This external set position mode is only allowed with one CAN interface
+                </base:String>
+                <base:String x:Key="32131">The specified NC data module does not exist
+                </base:String>
+                <base:String x:Key="32132">The specified module is not an NC data module
+                </base:String>
+                <base:String x:Key="32133">The NC module type of the specified NC data module is invalid
+                </base:String>
+                <base:String x:Key="32134">The NC module type of the specified NC data module cannot be read
+                </base:String>
+                <base:String x:Key="32135">The data address of the specified NC data module cannot be read
+                </base:String>
+                <base:String x:Key="32136">The Data section of the specified NC data module is empty
+                </base:String>
+                <base:String x:Key="32137">Data address of structure for a data block operation is zero
+                </base:String>
+                <base:String x:Key="32138">Data address zero (user data for data block operation)
+                </base:String>
+                <base:String x:Key="32139">Data length zero (user data for data block operation)
+                </base:String>
+                <base:String x:Key="32140">Data block operation: Data module name or data address must be zero
+                </base:String>
+                <base:String x:Key="32141">Invalid data format in a parameter sequence
+                </base:String>
+                <base:String x:Key="32142">ID or type of a parameter invalid in parameter sequence with text format
+                </base:String>
+                <base:String x:Key="32143">Data of a parameter in a parameter sequence longer than 6 bytes
+                </base:String>
+                <base:String x:Key="32144">Error for an ACOPOS Parameter Table specified in the NC Mapping Table
+                </base:String>
+                <base:String x:Key="32145">The ACOPOS Parameter Table does not exist
+                </base:String>
+                <base:String x:Key="32146">The ACOPOS Parameter Table is not an NC data module
+                </base:String>
+                <base:String x:Key="32147">The NC module type of the ACOPOS Parameter Table is invalid
+                </base:String>
+                <base:String x:Key="32148">The NC module type of the ACOPOS Parameter Table cannot be read
+                </base:String>
+                <base:String x:Key="32149">The data address in the ACOPOS Parameter Table cannot be read
+                </base:String>
+                <base:String x:Key="32150">The data section of the ACOPOS Parameter Table is empty
+                </base:String>
+                <base:String x:Key="32151">Error initializing memory buffer for XML parser
+                </base:String>
+                <base:String x:Key="32152">No XML elements present in an ACOPOS Parameter Table
+                </base:String>
+                <base:String x:Key="32153">The first XML element is invalid in the ACOPOS Parameter Table
+                </base:String>
+                <base:String x:Key="32154">The ACOPOS Parameter Table does not contain any ACOPOS parameters
+                </base:String>
+                <base:String x:Key="32155">Nesting depth for ACOPOS parameter groups exceeded
+                </base:String>
+                <base:String x:Key="32156">ID or type of an ACOPOS parameter invalid for text conversion
+                </base:String>
+                <base:String x:Key="32157">Length of parameter data too large for ACOPOS parameter in XML data
+                </base:String>
+                <base:String x:Key="32158">ACOPOS parameter: An attribute is not defined (ID)
+                </base:String>
+                <base:String x:Key="32159">ACOPOS parameter: An attribute is not defined (Value)
+                </base:String>
+                <base:String x:Key="32160">Basis movements with mode ncTRG_STOP are not allowed for ncV_AXIS
+                </base:String>
+                <base:String x:Key="32161">ncNC_SYS_RESTART,ncACKNOWLEDGE is not allowed (network.init=ncFALSE)
+                </base:String>
+                <base:String x:Key="32162">Internal task class number wrong (from now on operation is blocked !!!)
+                </base:String>
+                <base:String x:Key="32163">A system module download to all drives is not possible with SwNodeSelect
+                </base:String>
+                <base:String x:Key="32164">The text defined with NetworkInit (global) is invalid
+                </base:String>
+                <base:String x:Key="32165">A CAN node number is equal to NodeNr_SwNodeSelect
+                </base:String>
+                <base:String x:Key="32166">Network initialization during active network initialization not allowed
+                </base:String>
+                <base:String x:Key="32167">The text defined with NetworkInit is invalid
+                </base:String>
+                <base:String x:Key="32168">NodeNr_SwNodeSelect is defined repeatedly with different values
+                </base:String>
+                <base:String x:Key="32169">The node number defined with NodeNr_SwNodeSelect is invalid
+                </base:String>
+                <base:String x:Key="32170">A data module name has to be entered for this data block operation
+                </base:String>
+                <base:String x:Key="32171">Index zero is not allowed (user data for data block operation)
+                </base:String>
+                <base:String x:Key="32172">The specified data module name is not valid for a BR module
+                </base:String>
+                <base:String x:Key="32173">Memory for data module creation cannot be allocated
+                </base:String>
+                <base:String x:Key="32174">Error with installation of data module into BR module table
+                </base:String>
+                <base:String x:Key="32175">Error with installation of data module into BR module table
+                </base:String>
+                <base:String x:Key="32176">Text for parameter data too large for parameter sequence with text format
+                </base:String>
+                <base:String x:Key="32177">Text for parameter data too large for parameter list with text format
+                </base:String>
+                <base:String x:Key="32178">This NC object is not enabled for this ACOPOS (channel number too high)
+                </base:String>
+                <base:String x:Key="32179">ID or type of a parameter invalid in parameter list with text format
+                </base:String>
+                <base:String x:Key="32180">Data address of structure for a parameter list operation is zero
+                </base:String>
+                <base:String x:Key="32181">Data address zero (user data for parameter list operation)
+                </base:String>
+                <base:String x:Key="32182">Data length zero (user data for parameter list operation)
+                </base:String>
+                <base:String x:Key="32183">Data length invalid (user data for parameter list operation)
+                </base:String>
+                <base:String x:Key="32184">Invalid data format in a parameter list
+                </base:String>
+                <base:String x:Key="32185">Data of a parameter in a parameter list longer than 6 bytes
+                </base:String>
+                <base:String x:Key="32186">NetBasisInitNr is defined repeatedly for ncMANAGER with different values
+                </base:String>
+                <base:String x:Key="32187">Error for synchronization of network initialization (details in Logger)
+                </base:String>
+                <base:String x:Key="32188">This NC object is defined in hardware configuration and NC Mapping Table
+                </base:String>
+                <base:String x:Key="32189">Timeout for cyclic data from drive - Indications invalid (network error ?)
+                </base:String>
+                <base:String x:Key="32190">Error defining Write COB for selection of node number via software
+                </base:String>
+                <base:String x:Key="32191">This parameter ID is reserved for the PLCopen MC library
+                </base:String>
+                <base:String x:Key="32192">The specified data module is not an INIT Parameter module
+                </base:String>
+                <base:String x:Key="32193">For this NC object type no INIT parameter module is present
+                </base:String>
+                <base:String x:Key="32194">This function is not implemented for this NC object type
+                </base:String>
+                <base:String x:Key="32195">Error downloading BsLoader to ACOPOS
+                </base:String>
+                <base:String x:Key="32196">Error downloading operating system to ACOPOS
+                </base:String>
+                <base:String x:Key="32197">Error downloading BsLoader to ACOPOS (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32198">Error downloading operating system to ACOPOS (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32200">Error calling plAcycWrite() (read parameter)
+                </base:String>
+                <base:String x:Key="32201">Error calling plAcycWrite() (write parameter)
+                </base:String>
+                <base:String x:Key="32202">Error calling plAcycRead() (read parameter)
+                </base:String>
+                <base:String x:Key="32203">Error calling plAcycRead() (write parameter)
+                </base:String>
+                <base:String x:Key="32204">Timeout while reading par. via acyclic channel (is the drive in the network ?)
+                </base:String>
+                <base:String x:Key="32205">Timeout while writing par. via acyclic channel (is the drive in the network ?)
+                </base:String>
+                <base:String x:Key="32206">Cyclic channel: Read Request in spite of Wait for Response
+                </base:String>
+                <base:String x:Key="32207">Cyclic channel: Write Request in spite of Wait for Response
+                </base:String>
+                <base:String x:Key="32208">Error using plAction(DEVICE_TO_BUS_NR) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32209">Error using plAction(GET_IDENT) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32210">Wrong interface ident when calling plState() (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32211">Interface not available when calling plState() (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32212">Fatal interface error when calling plState() (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32213">Timeout for POWERLINK interface (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32214">Error calling plAcycOpen() (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32215">Error calling plCECreate() (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32216">Error using plAction(GET_IF_PAR) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32217">Broadcast channel: Error calling plAcycWrite() (read parameter)
+                </base:String>
+                <base:String x:Key="32218">Broadcast channel: Error calling plAcycWrite() (write parameter)
+                </base:String>
+                <base:String x:Key="32219">Error using plAction(GET_IF_MUXPRESCALE) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32220">Error using plAction(GET_IF_CYCLE_TIME) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32221">Error using plAction(GET_IF_PRESCALE) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32222">Error using plAction(GET_STATIONFLAG) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32223">Error calling plGetNodeInfo() (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32224">Error calling plAction(GET_PROTOCOL_VERSION) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32225">This ACOPOS POWERLINK node does not exist in the AR Configuration
+                </base:String>
+                <base:String x:Key="32226">A SDC node number in module acp10cfg is invalid
+                </base:String>
+                <base:String x:Key="32227">A SDC node number in module acp10cfg is used repeatedly
+                </base:String>
+                <base:String x:Key="32228">There is no network interface (POWERLINK or SDC) contained in acp10cfg
+                </base:String>
+                <base:String x:Key="32229">The object acp10sdc does not exist (necessary for SDC NC objects)
+                </base:String>
+                <base:String x:Key="32230">Error at initialization of ACP10SDC or ACP10SIM (see Logger)
+                </base:String>
+                <base:String x:Key="32231">Error at SDC configuration (see Logger)
+                </base:String>
+                <base:String x:Key="32232">The object acp10sim does not exist (necessary for ACOPOS simulation)
+                </base:String>
+                <base:String x:Key="32233">The object acp10bsl contains no NC system module
+                </base:String>
+                <base:String x:Key="32234">The object acp10sys contains no NC system module
+                </base:String>
+                <base:String x:Key="32235">Data address zero for parameter in parameter sequence
+                </base:String>
+                <base:String x:Key="32236">Data address zero for parameter in parameter list
+                </base:String>
+                <base:String x:Key="32237">Channel index for ACOPOS parameters in module acp10cfg is invalid
+                </base:String>
+                <base:String x:Key="32238">This function is not implemented at this time
+                </base:String>
+                <base:String x:Key="32239">Basic memory for INIT parameter modules could not be allocated
+                </base:String>
+                <base:String x:Key="32240">NC object data invalid (PV with INIT value in variable declaration ?)
+                </base:String>
+                <base:String x:Key="32241">Data block operation: Data module name must be zero
+                </base:String>
+                <base:String x:Key="32242">Conditions for cam profile transfer via Systick-Task are not fullfilled
+                </base:String>
+                <base:String x:Key="32243">Error using plAction(GET_PDO_INFO) (additional info in Logger)
+                </base:String>
+                <base:String x:Key="32244">No PDO defined in the cyclic frame for this channel: NC object is disabled
+                </base:String>
+                <base:String x:Key="32245">The Memory for operating the broadcast channel cannot be allocated
+                </base:String>
+                <base:String x:Key="32246">'Direction' of the POWERLINK broadcast channel is not 'Output'
+                </base:String>
+                <base:String x:Key="32251">NcNetCyc: Response timeout
+                </base:String>
+                <base:String x:Key="32252">NcNetCyc: Unexpected Response (invalid counter value)
+                </base:String>
+                <base:String x:Key="32253">The task class for POWERLINK output cycle trigger is invalid
+                </base:String>
+                <base:String x:Key="32260">Trace: No valid test data point is defined
+                </base:String>
+                <base:String x:Key="32261">Trace trigger: The NC object is invalid
+                </base:String>
+                <base:String x:Key="32262">Trace test data point: The NC object is invalid
+                </base:String>
+                <base:String x:Key="32263">Trace trigger: The NC object is not enabled for this ACOPOS
+                </base:String>
+                <base:String x:Key="32264">Trace test data point: The NC object is not enabled for this ACOPOS
+                </base:String>
+                <base:String x:Key="32265">Trace trigger: Trace for this NC object already active at trace start
+                </base:String>
+                <base:String x:Key="32266">Trace test data point: Trace for this NC object already active at trace start
+                </base:String>
+                <base:String x:Key="32267">Trace trigger: The NC object is not enabled for trace commands
+                </base:String>
+                <base:String x:Key="32268">Trace test data point: The NC object is not enabled for trace commands
+                </base:String>
+                <base:String x:Key="32269">Trace: Too many test data points defined for one trace channel
+                </base:String>
+                <base:String x:Key="32270">ACOPOS coupling: The channel number of send data is invalid
+                </base:String>
+                <base:String x:Key="32271">ACOPOS coupling: The channel number of receive data is invalid
+                </base:String>
+                <base:String x:Key="32272">ACOPOS coupling: Send data with this channel number are not configured
+                </base:String>
+                <base:String x:Key="32273">ACOPOS coupling: The NC object of send data is invalid
+                </base:String>
+                <base:String x:Key="32274">Network coupling: The broadcast channel was not configured
+                </base:String>
+                <base:String x:Key="32275">Network coupling: The broadcast channel was not successfully initialized
+                </base:String>
+                <base:String x:Key="32276">Network coupling: Cycle times not equal (network interfaces, NC task class)
+                </base:String>
+                <base:String x:Key="32277">Network coupling: In the broadcast channel no more data record has place
+                </base:String>
+                <base:String x:Key="32278">ACOPOS coupling: Zero as Parameter ID of send data is not allowed
+                </base:String>
+                <base:String x:Key="32279">Service interface: Data address zero
+                </base:String>
+                <base:String x:Key="32280">Timeout for enable of acyclic network communication
+                </base:String>
+                <base:String x:Key="32281">Version of SafeMC lower than minimum version (see Logger)
+                </base:String>
+                <base:String x:Key="32282">Network coupling: Incompatible cycle times (network interfaces, NC task class)
+                </base:String>
+                <base:String x:Key="32294">NC Manager error: Pointer of function nctune_sequ() is zero
+                </base:String>
+                <base:String x:Key="32295">NC Manager error: Data structure address zero when calling nctune_sequ()
+                </base:String>
+                <base:String x:Key="32296">NC Manager error: Data structure size invalid when calling nctune_sequ()
+                </base:String>
+                <base:String x:Key="32297">NC Manager error: NC object address zero when calling nctune_sequ()
+                </base:String>
+                <base:String x:Key="32298">NC Manager error: Unknown error number when calling nctune_sequ()
+                </base:String>
+                <base:String x:Key="32300">For controller setup the library acp10tun must be transferred to the target
+                </base:String>
+                <base:String x:Key="32301">Setup start not allowed: 'count.error' is greater than zero
+                </base:String>
+                <base:String x:Key="32302">Start setup not possible: A setup operation is already active
+                </base:String>
+                <base:String x:Key="32303">Setup start not possible: The axis is not global initialized
+                </base:String>
+                <base:String x:Key="32304">Setup start not possible: The controller is not switched off
+                </base:String>
+                <base:String x:Key="32305">Setup start not possible: The controller is not ready
+                </base:String>
+                <base:String x:Key="32306">Setup start not possible: The trace is already active
+                </base:String>
+                <base:String x:Key="32307">Setup for controller: Percentage for rated current higher than maximum value
+                </base:String>
+                <base:String x:Key="32308">Setup for controller: Percentage for rated current lower than minimum value
+                </base:String>
+                <base:String x:Key="32309">Setup for controller: Percentage for speed higher than maximum value
+                </base:String>
+                <base:String x:Key="32310">Setup for controller: Percentage for speed lower than minimum value
+                </base:String>
+                <base:String x:Key="32311">Setup for controller: Move distance higher than maximum value
+                </base:String>
+                <base:String x:Key="32312">Setup for controller: Move distance lower than minimum value
+                </base:String>
+                <base:String x:Key="32313">Setup start not possible with this mode: The axis is not referenced
+                </base:String>
+                <base:String x:Key="32314">Setup for controller: Mode invalid
+                </base:String>
+                <base:String x:Key="32315">Setup for controller: Mode invalid (Library)
+                </base:String>
+                <base:String x:Key="32316">Setup for controller: The calculated inertia is zero
+                </base:String>
+                <base:String x:Key="32317">Setup for controller: SCTRL_KV is zero
+                </base:String>
+                <base:String x:Key="32318">Setup for controller: POS_CTRL_KV is zero
+                </base:String>
+                <base:String x:Key="32319">Setup for controller: Calculation of result parameters was not possible
+                </base:String>
+                <base:String x:Key="32320">Setup for controller: Speed limit values too high for MOTOR_SPEED_RATED
+                </base:String>
+                <base:String x:Key="32321">Setup for controller: Coefficient a0 is zero ('+ ncISQ_F1_NOTCH' not possible)
+                </base:String>
+                <base:String x:Key="32400">Memory cannot be allocated
+                </base:String>
+                <base:String x:Key="32401">No file name specified
+                </base:String>
+                <base:String x:Key="32402">The specified file cannot be opened
+                </base:String>
+                <base:String x:Key="32403">The specified file cannot be created
+                </base:String>
+                <base:String x:Key="32404">Error at writing into a file
+                </base:String>
+                <base:String x:Key="32405">Error at reading from a file
+                </base:String>
+                <base:String x:Key="32406">The specified file cannot be created
+                </base:String>
+                <base:String x:Key="32407">Error at writing into a file
+                </base:String>
+                <base:String x:Key="32408">Error at closing a file
+                </base:String>
+                <base:String x:Key="32409">The specified file cannot be deleted
+                </base:String>
+                <base:String x:Key="32410">The data object type is invalid
+                </base:String>
+                <base:String x:Key="32411">The address of the data object structure is zero
+                </base:String>
+                <base:String x:Key="32412">The name in the data object structure is zero
+                </base:String>
+                <base:String x:Key="32413">The data address in the data object structure is zero
+                </base:String>
+                <base:String x:Key="32414">The data length in the data object structure is zero
+                </base:String>
+                <base:String x:Key="32415">No File Device specified
+                </base:String>
+                <base:String x:Key="32416">The FileIO functions do not exist (is library FileIO existing ?)
+                </base:String>
+                <base:String x:Key="32417">Error at writing into an NC data module
+                </base:String>
+                <base:String x:Key="32418">No XML elements present in MTC data
+                </base:String>
+                <base:String x:Key="32419">MTC data: XML elements invalid or in wrong order
+                </base:String>
+                <base:String x:Key="32420">The MTC data contain an invalid configuration
+                </base:String>
+                <base:String x:Key="32421">The MTC data contain noconfiguration for Multi Axes Trace
+                </base:String>
+                <base:String x:Key="32422">The MTC data contain more than one configuration for Multi Axes Trace
+                </base:String>
+                <base:String x:Key="32423">MTC-Daten: Trigger.NcObject ist invalid
+                </base:String>
+                <base:String x:Key="32424">MTC-Daten: Trigger.Condition ist invalid
+                </base:String>
+                <base:String x:Key="32425">MTC-Daten: Channel.NcObject ist invalid
+                </base:String>
+                <base:String x:Key="32426">Trace trigger: The event is invalid
+                </base:String>
+                <base:String x:Key="32427">Trace trigger: Parameter ID zero not allowed if event unequal to OFF
+                </base:String>
+                <base:String x:Key="32492">ACOPOS Simulation: TC for cyclic PLCopen data not equal to NC Manager TC
+                </base:String>
+                <base:String x:Key="32494">AcoposSimulation=Off for one channel although activated for the other channel
+                </base:String>
+                <base:String x:Key="32495">AcoposSimulation: Different values defined for real and virtual axis
+                </base:String>
+                <base:String x:Key="32496">Error creating cyclic task for PLCopen MC (details in Logger)
+                </base:String>
+                <base:String x:Key="32497">Task class for handling of cyclic data with PLCopen in acp10cfg is invalid
+                </base:String>
+                <base:String x:Key="32498">PLCopen_CyclicData_TaskClass is lower than zero or higher than maximum value
+                </base:String>
+                <base:String x:Key="32499">PLCopen_CyclicData_TaskClass: Values for real and virtual axis are not equal
+                </base:String>
+                <base:String x:Key="32500">The Message FIFO already exists
+                </base:String>
+                <base:String x:Key="32501">Error creating Message FIFO
+                </base:String>
+                <base:String x:Key="32502">The Critical Section for Command Semaphore already exists
+                </base:String>
+                <base:String x:Key="32503">Error creating Critical Section for Command Semaphore
+                </base:String>
+                <base:String x:Key="32504">The NC Manager Idle Task already exists
+                </base:String>
+                <base:String x:Key="32505">Error creating NC Manager Idle Task
+                </base:String>
+                <base:String x:Key="32506">Error reading Taskclass Cycle Time
+                </base:String>
+                <base:String x:Key="32507">Error reading Taskclass Tolerance
+                </base:String>
+                <base:String x:Key="32508">Error sending an idle time command to the NC Manager Task
+                </base:String>
+                <base:String x:Key="32509">The Critical Section for Network Command Trace already exists
+                </base:String>
+                <base:String x:Key="32510">Error creating Critical Section for Network Command Trace
+                </base:String>
+                <base:String x:Key="32511">The Critical Section for messages with high priority already exists
+                </base:String>
+                <base:String x:Key="32512">Error creating Critical Section for messages with high priority
+                </base:String>
+                <base:String x:Key="32513">The Critical Section for global variables already exists
+                </base:String>
+                <base:String x:Key="32514">Error creating Critical Section for global variables
+                </base:String>
+                <base:String x:Key="32738">Error writing into SDM Motion FIFO
+                </base:String>
+                <base:String x:Key="32739">Error creating SDM Motion FIFO (see Logger)
+                </base:String>
+                <base:String x:Key="32740">Error deleting SDM Motion FIFO (see Logger)
+                </base:String>
+                <base:String x:Key="32741">Error creating SDM Motion task (see Logger)
+                </base:String>
+                <base:String x:Key="32742">Error deleting SDM Motion task (see Logger)
+                </base:String>
+                <base:String x:Key="32743">SDM_Motion_Action: ncaction() did not return with ncOK
+                </base:String>
+                <base:String x:Key="32744">SDM_Motion_Action not allowed (still no Trace configuration loaded)
+                </base:String>
+                <base:String x:Key="32745">SDM_Motion_Action not allowed (Motion Trace already started by application)
+                </base:String>
+                <base:String x:Key="32746">SDM_Motion_Action not allowed (Motion Trace already started by SDM)
+                </base:String>
+                <base:String x:Key="32747">SDM_Motion_Action: DataAddress is zero or defined
+                </base:String>
+                <base:String x:Key="32748">SDM_Motion_Action: DataLen is zero or defined
+                </base:String>
+                <base:String x:Key="32749">SDM_Motion_Action: BrModName is too long
+                </base:String>
+                <base:String x:Key="32750">SDM_Motion_Action: BrModName is not defined
+                </base:String>
+                <base:String x:Key="32751">SDM_Motion_Action: FileName is not defined
+                </base:String>
+                <base:String x:Key="32752">SDM_Motion Action not possible: AR function does not exist (see Logger)
+                </base:String>
+                <base:String x:Key="32753">SDM_Motion_Action: CREATE_NCOBJ_LIST must be called before this action
+                </base:String>
+                <base:String x:Key="32754">SDM_Motion_Action: The NC object type is invalid for this action
+                </base:String>
+                <base:String x:Key="32755">SDM_Motion_Action: Memory free error
+                </base:String>
+                <base:String x:Key="32756">SDM_Motion_Action: Memory alloc error
+                </base:String>
+                <base:String x:Key="32757">SDM_Motion_Action: This action is not yet implemented
+                </base:String>
+                <base:String x:Key="32758">SDM_Motion_Action: The NC object ident is invalid for this action
+                </base:String>
+                <base:String x:Key="32759">SDM_Motion_Action: The NC object ident must be zero for this action
+                </base:String>
+                <base:String x:Key="32760">SDM_Motion_Action: Pointer of exit function arguments is zero or not defined
+                </base:String>
+                <base:String x:Key="32761">SDM_Motion_Action: Pointer of exit function is zero or not defined
+                </base:String>
+                <base:String x:Key="32762">SDM_Motion_Action: The first XML element in input data is invalid
+                </base:String>
+                <base:String x:Key="32763">SDM_Motion_Action: No XML element in input data
+                </base:String>
+                <base:String x:Key="32764">SDM_Motion_Action: Error initializing memory buffer for XML parser
+                </base:String>
+                <base:String x:Key="32765">SDM_Motion_Action: Length of XML input data is zero
+                </base:String>
+                <base:String x:Key="32766">SDM_Motion_Action: Pointer of XML input data is zero
+                </base:String>
+                <base:String x:Key="32767">SDM_Motion_Action: Invalid actionID
+                </base:String>
+                <base:String x:Key="33000">Master cycle time is not a multiple of communication cycle time
+                </base:String>
+                <base:String x:Key="33002">Floating-Point exception
+                </base:String>
+                <base:String x:Key="33003">Address error exception
+                </base:String>
+                <base:String x:Key="33004">Bus error exception
+                </base:String>
+                <base:String x:Key="33005">Exception
+                </base:String>
+                <base:String x:Key="33006">Access violation Exception
+                </base:String>
+                <base:String x:Key="33007">Violation address
+                </base:String>
+                <base:String x:Key="36001">Parameter limited to valid range
+                </base:String>
+                <base:String x:Key="36002">Total time for the position loop controller limited to prediction time
+                </base:String>
+                <base:String x:Key="37101">Calculated compensation distance on slave axis limited to maximum
+                </base:String>
+                <base:String x:Key="37102">Calculated compensation distance on slave axis limited to minimum
+                </base:String>
+                <base:String x:Key="37103">Slave trigger outside of window
+                </base:String>
+                <base:String x:Key="37104">Slave trigger missing
+                </base:String>
+                <base:String x:Key="37105">Master compensation trigger outside of window
+                </base:String>
+                <base:String x:Key="37107">Displacement actual/set position too high during 'controller switch on'
+                </base:String>
+                <base:String x:Key="37108">Calculated compensation distance of master axis limited to minimum
+                </base:String>
+                <base:String x:Key="37109">Master trigger outside of window
+                </base:String>
+                <base:String x:Key="37110">Master position at start higher than first trigger position
+                </base:String>
+                <base:String x:Key="37111">Cam profile data: Difference between polynomial value y(xn) and slave period
+                </base:String>
+                <base:String x:Key="37112">Polynomial within cam profile data exceeds limit value
+                </base:String>
+                <base:String x:Key="37113">Cam profile compensation gears: Limit values exceeded
+                </base:String>
+                <base:String x:Key="38000">Current controller: Motor speed is too high during switching on
+                </base:String>
+                <base:String x:Key="38001">Torque limiter: Limit value too high
+                </base:String>
+                <base:String x:Key="38003">Motor holding brake: Test torque was limited
+                </base:String>
+                <base:String x:Key="38004">Motor holding brake: Test torque less than load torque
+                </base:String>
+                <base:String x:Key="38005">Motor test: Speed is too high during switch on
+                </base:String>
+                <base:String x:Key="38006">Current controller: Permissible current offset values exceeded
+                </base:String>
+                <base:String x:Key="38007">System administration: BsLoader activ: Jumper plugged
+                </base:String>
+                <base:String x:Key="38008">Bleeder: No current flow
+                </base:String>
+                <base:String x:Key="39001">Encoder: Position correction active
+                </base:String>
+                <base:String x:Key="39002">Resolver: Speed limit for 14 bit resolution exceeded
+                </base:String>
+                <base:String x:Key="39003">EnDat encoder: Alarm bit is set
+                </base:String>
+                <base:String x:Key="39004">EnDat encoder: Alarm bit - Lighting failure
+                </base:String>
+                <base:String x:Key="39005">EnDat encoder: Alarm bit - Signal amplitude too small
+                </base:String>
+                <base:String x:Key="39006">EnDat encoder: Alarm bit - Position value contains an error
+                </base:String>
+                <base:String x:Key="39007">EnDat encoder: Alarm bit - Overvoltage
+                </base:String>
+                <base:String x:Key="39008">EnDat encoder: Alarm bit - Undervoltage
+                </base:String>
+                <base:String x:Key="39009">EnDat encoder: Alarm bit - Overcurrent
+                </base:String>
+                <base:String x:Key="39010">EnDat encoder: Alarm bit - Battery change required
+                </base:String>
+                <base:String x:Key="39011">EnDat encoder: Warning bit - Frequency too high
+                </base:String>
+                <base:String x:Key="39012">EnDat encoder: Warning bit - Temperature too high
+                </base:String>
+                <base:String x:Key="39013">EnDat encoder: Warning bit - Lighting reserve reached
+                </base:String>
+                <base:String x:Key="39014">EnDat encoder: Warning bit - Battery charge too low
+                </base:String>
+                <base:String x:Key="39016">Incremental encoder emulation: Frequency too high
+                </base:String>
+                <base:String x:Key="39017">Encoder: CRC error while reading position
+                </base:String>
+                <base:String x:Key="39018">Reference pulse monitoring: Faulty position, resolution, or reference pulse
+                </base:String>
+                <base:String x:Key="39019">Serial encoder interface: Stop bit error
+                </base:String>
+                <base:String x:Key="39020">Serial encoder interface: Receive data overrun
+                </base:String>
+                <base:String x:Key="39021">Serial encoder interface: Send data error
+                </base:String>
+                <base:String x:Key="39022">EnDat encoder: Warning bit is set
+                </base:String>
+                <base:String x:Key="39023">EnDat encoder: CRC error while reading EnDat2.2 additional information
+                </base:String>
+                <base:String x:Key="39024">EnDat encoder: Alarm bit - Power failure
+                </base:String>
+                <base:String x:Key="39025">EnDat encoder: Alarm bit - multiturn overflow
+                </base:String>
+                <base:String x:Key="39026">EnDat encoder: Type 3 error while reading EnDat2.2 additional information
+                </base:String>
+                <base:String x:Key="39027">Encoder Emulation: 5V power supply fail
+                </base:String>
+                <base:String x:Key="39028">Encoder: Multiturn failure
+                </base:String>
+                <base:String x:Key="39301">Digital IO: 24V power supply fail
+                </base:String>
+                <base:String x:Key="39302">Digital IO 1-4: Diagnose bit active (current, 24V supply)
+                </base:String>
+                <base:String x:Key="39303">Digital IO 5-8: Diagnose bit active (current, 24V supply)
+                </base:String>
+                <base:String x:Key="39305">Digital IO 10: Diagnose bit active (current, temperature)
+                </base:String>
+                <base:String x:Key="39306">Digital IO 9: Diagnose bit active (current, temperature)
+                </base:String>
+                <base:String x:Key="39307">Digital IO: outputs deactivated by output mask after network error
+                </base:String>
+                <base:String x:Key="41001">Heatsink temperature sensor: Overtemperature
+                </base:String>
+                <base:String x:Key="41011">Temperature sensor (Motor|Choke|External): Overtemperature
+                </base:String>
+                <base:String x:Key="41031">Junction temperature model: Overtemperature
+                </base:String>
+                <base:String x:Key="41041">Bleeder temperature model: Overtemperature
+                </base:String>
+                <base:String x:Key="41051">ACOPOS peak current: Overload
+                </base:String>
+                <base:String x:Key="41061">ACOPOS continuous current: Overload
+                </base:String>
+                <base:String x:Key="41070">Motor temperature model: Overtemperature
+                </base:String>
+                <base:String x:Key="41075">ACOPOS continuous power: Overload
+                </base:String>
+                <base:String x:Key="41078">ACOPOS temperature sensor: Overtemperature
+                </base:String>
+                <base:String x:Key="64002">Delay before SW Reset (network with ascending node numbers ?)
+                </base:String>
+                <base:String x:Key="64003">Delay before NC System Start (network with ascending node numbers ?)
+                </base:String>
+                <base:String x:Key="64004">The following boot error could be entered here with a delay
+                </base:String>
+                <base:String x:Key="64005">Timeout for parameter enable after start of operating system
+                </base:String>
+                <base:String x:Key="64006">Drive did not become synchronous with network master
+                </base:String>
+                <base:String x:Key="64007">Timeout for enable of acyclic network communication
+                </base:String>
+                <base:String x:Key="64008">Timeout for enable of cyclic network communication
+                </base:String>
+                <base:String x:Key="64009">Acp10cfg contains a POWERLINK interface, for which no axis is defined
+                </base:String>
+                <base:String x:Key="64010">NC software test version (validity period in Logger)
+                </base:String>
+                <base:String x:Key="64500">Positive speed limiter active
+                </base:String>
+                <base:String x:Key="64501">Negative speed limiter active
+                </base:String>
+                <base:String x:Key="64502">Positive direction acceleration torque limiter active
+                </base:String>
+                <base:String x:Key="64503">Negative direction acceleration torque limiter active
+                </base:String>
+                <base:String x:Key="64504">Positive direction deceleration torque limiter active
+                </base:String>
+                <base:String x:Key="64505">Negative direction deceleration torque limiter active
+                </base:String>
+                <base:String x:Key="64506">Recovery power limiter active (deceleration too high)
+                </base:String>
+                <base:String x:Key="65535">Response error</base:String>
+            </ResourceDictionary>
+        </Grid.Resources>
         <Border HorizontalAlignment="Stretch" Padding="5,5,5,5" VerticalAlignment="Stretch" BorderThickness="1" CornerRadius="5" BorderBrush="#FF0C0C0C">
             <StackPanel Orientation="Vertical">
-                <WrapPanel  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Name="dockPanel1" >
-
-                    <Button  HorizontalAlignment="Right" Width="75"  Margin="5,5,5,5" Background="#FF5A260D" FontSize="18" FontWeight="Bold" Foreground="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PowerBtnBrush}" BorderBrush="{x:Null}" >
+                <WrapPanel  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Name="dockPanel1" >                    
+                    <Button  HorizontalAlignment="Right" Width="75"  Margin="5,5,5,5" Background="#FF5A260D" FontSize="18" FontWeight="Bold" BorderBrush="{x:Null}" Click="Button_Click_1" Style="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PowerBtnBrush}" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PowerBtnCaption}">
                         <Button.Resources>
                             <ResourceDictionary x:Name="PowerBtnBrushes">
-                                <SolidColorBrush x:Key="true">Yellow</SolidColorBrush>
-                                <SolidColorBrush x:Key="false">Gray</SolidColorBrush>
+                                <Style x:Key="true">
+                                    <Setter Property="TextBlock.Foreground" Value="AntiqueWhite"></Setter>
+                                </Style>
+                                <Style x:Key="false">
+                                    <Setter Property="TextBlock.Foreground" Value="Gray"></Setter>
+                                </Style>
                             </ResourceDictionary>
                         </Button.Resources>
                         <TextBlock>

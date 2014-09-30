@@ -42,7 +42,7 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,5,5"  Text="{Binding ElementName=stacker1_man, Path=Error}"></TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,5,5"  Text="{Binding ElementName=stacker1_man, Path=DriveError}"></TextBlock>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5"  Text="{Binding ElementName=stacker1_man, Path=DriveError}"></TextBlock>
                     <Button Grid.Row="0" Grid.Column="1" Content="Квитировать" Margin="5,5,5,5" Click="Button_Click_1"></Button>
                     <Button Grid.Row="1" Grid.Column="1" Content="Квитировать приводы" Margin="5,5,5,5" Click="Button_Click_2"></Button>
                 </Grid>
@@ -69,7 +69,7 @@
                 <TabItem Header="{Binding Path=SelCellStr, ElementName=stacker1}">
                     <StackPanel>
                         <Border BorderThickness="2" CornerRadius="5">
-                            <Grid>
+                            <Grid IsManipulationEnabled="{Binding ElementName=stacker1, Path=EditCurrent}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
@@ -87,7 +87,7 @@
                                 <Label Grid.Column="1" Grid.Row="0">Фильтр</Label>
                                 <Label Grid.Column="0" Grid.Row="2">Количество</Label>
                                 <TextBox Grid.Column="1" Grid.Row="2" x:Name="PCount" Margin="5,5,5,5"></TextBox>
-                                <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="Button_Click">Добавить</Button>
+                                <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="Button_Click" IsEnabled="{Binding ElementName=stacker1, Path=EditCurrent}">Добавить</Button>
                             </Grid>
                         </Border>
                         <DataGrid ItemsSource="{Binding ElementName=stacker1, Path=SelectedCellContent}" HorizontalAlignment="Stretch" Margin="2,2,2,2" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" SelectionMode="Single" Name="DGVProducts">
@@ -125,19 +125,17 @@
 
             </TabControl>
             <GridSplitter Grid.Column="0" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
-            <my:CmdQManager Grid.Column="0" Grid.Row="1" Margin="2,5,2,2" />
+            <my:CmdQManager Grid.Column="0" Grid.Row="1" Margin="2,5,2,2" x:Name="CmdQueue" CmdReady="{Binding ElementName=stacker1_man, Path=CmdReady}" StackerState="{Binding ElementName=stacker1_man, Path=StackerState}" />
         </Grid>
-
-            
-
-
-        <my:StackerControl HorizontalAlignment="Stretch" Grid.Column="1" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" PointsEmptyLeft="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=PointsEmptyLeft}" PointsEmptyRight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=PointsEmptyRight}" Filter="{Binding ElementName=PFilter, Path=Text}" Poddons="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Poddons}"></my:StackerControl>
+         
+        <my:StackerControl HorizontalAlignment="Stretch" Grid.Column="1" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams}" ></my:StackerControl>
 
         <GridSplitter Grid.Column="1" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
         <GridSplitter Grid.Column="1" Grid.Row="0" Width="5"></GridSplitter>
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <my:StackerManBNR x:Name="stacker1_man" Height="200" VerticalAlignment="Top" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}"   />
+            <my:StackerManBNR x:Name="stacker1_man" Height="200" VerticalAlignment="Top" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" CurrCmd="{Binding ElementName=CmdQueue, Path=CurrCmd}" />
             <Button Margin="10,10,10,10" Click="Button_Click_4" Name="BTNswitchmode">Тотальное редактирование</Button>
+            <Button Click="Button_Click_5">123</Button>
         </StackPanel>
         
 
