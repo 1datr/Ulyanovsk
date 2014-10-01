@@ -246,6 +246,10 @@ namespace WpfStackerLibrary
                     if (!DesignerProperties.GetIsInDesignMode(this))
                         Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(Filter));
                     break;
+                case "FilterFull":
+                    if (!DesignerProperties.GetIsInDesignMode(this))
+                        ProductlistFull = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(FilterFull));
+                    break;
                 case "Poddons":
                     try
                     {
@@ -828,7 +832,7 @@ namespace WpfStackerLibrary
             }
         }
 
-        // Содержимое текущей выделенной ячейки
+        // Список продуктов фильтрованный
         // Dependency Property
         public static readonly DependencyProperty ProductlistDP = DependencyProperty.Register("Productlist", typeof(ItemsChangeObservableCollection<Product>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<Product>()));
         [Description("Full list of products filtered by ProdFilter"), Category("Stacker data")]
@@ -842,6 +846,70 @@ namespace WpfStackerLibrary
             private set
             {
                 SetValue(ProductlistDP, value);
+            }
+        }
+
+        // Список продуктов полный
+        // Dependency Property
+        public static readonly DependencyProperty ProductlistFullDP = DependencyProperty.Register("ProductlistFull", typeof(ItemsChangeObservableCollection<Product>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<Product>()));
+        [Description("Full list of products filtered by ProdFilter"), Category("Stacker data")]
+        // .NET Property wrapper
+        public ItemsChangeObservableCollection<Product> ProductlistFull
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<Product>)GetValue(ProductlistFullDP);
+            }
+            private set
+            {
+                SetValue(ProductlistFullDP, value);
+            }
+        }
+
+        public void EditProduct(Product P)
+        {
+            SDA.EditProduct(P);
+            ProductlistFull = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(FilterFull));
+            Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(Filter));
+        }
+
+        public void AddProduct(String pname)
+        {
+            Product p = new Product();
+            p.Name = pname;
+            SDA.CreateProduct(p);
+            ProductlistFull = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(FilterFull));
+            Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(Filter));
+        }
+
+        public void DeleteProduct(Product _p)
+        {
+            SDA.DeleteProduct(_p);
+            refresh();
+        }
+
+        public void refresh()
+        {
+            ProductlistFull = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(FilterFull));
+            Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(Filter));
+            cells_occupied = null;
+            set_cell_styles();
+        }
+
+        // Содержимое текущей выделенной ячейки
+        // Dependency Property
+        public static readonly DependencyProperty FilterFullDP = DependencyProperty.Register("FilterFull", typeof(String), typeof(StackerControl), new FrameworkPropertyMetadata("", DepParamsChanged));
+        [Description("Filter of products"), Category("Stacker data")]
+        // .NET Property wrapper
+        public String FilterFull
+        {
+            get
+            {
+                return (String)GetValue(FilterFullDP);
+            }
+            set
+            {
+                SetValue(FilterFullDP, value);
             }
         }
         
@@ -888,8 +956,8 @@ namespace WpfStackerLibrary
                 }
             }
         }
-        
-        
+
+       
        
         public static readonly DependencyProperty StackerIDDP = DependencyProperty.Register("StackerID", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(1, DepParamsChanged));
         [Description("Stacker ID"), Category("Stacker")]
@@ -941,7 +1009,7 @@ namespace WpfStackerLibrary
                 SDA = new StackerDataAccess();
                 this.SDA.OnDataAccessConnect += new OnDataAccessConnect(SDA_OnDataAccessConnect);
                 Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts());
-
+                ProductlistFull = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(this.FilterFull));
                 // Detect telezhka contnet
                // this.fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
                // this.PointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
@@ -978,6 +1046,27 @@ namespace WpfStackerLibrary
                 }
         }
 
+        public void SaveChanges()
+        {            
+            objDataContext.SaveChanges();
+        }
+
+        public void DeleteProduct(Product _p)
+        {
+            var Res_cc = (from CC in objDataContext.CellContents where CC.Product.Id == _p.Id select CC).ToList<CellContent>();
+            foreach (CellContent cc in Res_cc)
+            {
+                objDataContext.CellContents.DeleteObject(cc);
+            }
+
+            var Res = (from Prod in objDataContext.Products where Prod.Id == _p.Id select Prod).ToList<Product>();
+            if (Res.Count() == 0) throw new Exception("Not exist product");
+
+            objDataContext.Products.DeleteObject(Res[0]);
+            objDataContext.SaveChanges();
+            
+        }
+
         public void AddProduct(Int32 ProdId, Int32 Cellid, Int32 ProdCount, Int32 stackerId = 1)
         {
             try
@@ -1009,6 +1098,14 @@ namespace WpfStackerLibrary
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        public void EditProduct(Product P)
+        {
+            var Res = (objDataContext.Products.Where(p=>(p.Id == P.Id))).ToList<Product>();
+            if (Res.Count() > 0)
+                Res[0].Name = P.Name;
+            this.SaveChanges();
         }
 
         public void TakeProduct(Int32 ProdId, Int32 Cellid, Int32 ProdCount, Int32 stackerId = 1)
@@ -1064,16 +1161,19 @@ namespace WpfStackerLibrary
 
         public void CreateProduct(Product objProduct)
         {
-            objDataContext.AddToProducts(objProduct);
+            objDataContext.Products.AddObject(objProduct);            
             objDataContext.SaveChanges();
         }
 
         public List<Product> GetAllProducts(String Filter="")
         {
             if (Filter == "")
+            {
+                objDataContext.Refresh(System.Data.Objects.RefreshMode.ClientWins, objDataContext.Products);
                 return objDataContext.Products.ToList<Product>();
+            }
             else
-            { 
+            {
                 var Res = (from Prod in objDataContext.Products where Prod.Name.Contains(Filter) select Prod).ToList<Product>();
                 return Res;
             }

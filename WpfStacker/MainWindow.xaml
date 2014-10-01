@@ -8,7 +8,7 @@
     <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2,5,2,2">
         <TabItem Header="Штабелер 1">
 
-            <my1:CommonCtrlKirishi Rows="22" Floors="12" Passw="1234">   
+            <my1:CommonCtrlKirishi Rows="22" Floors="12" Passw="1234" Name="stacker1">   
                 
                 <my1:CommonCtrlKirishi.PointsEmptyLeft>
 
@@ -46,7 +46,7 @@
         </TabItem>
         <TabItem Header="Штабелер 2">
 
-            <my1:CommonCtrlKirishi StackerID="2" Rows="22" Floors="12" Passw="1234">
+            <my1:CommonCtrlKirishi StackerID="2" Rows="22" Floors="12" Passw="1234" Name="stacker2">
                 <my1:CommonCtrlKirishi.FixedPoints>
                     <my1:GridPoint X="0" Y="0" right="True"></my1:GridPoint>
                 </my1:CommonCtrlKirishi.FixedPoints>                
@@ -82,7 +82,61 @@
                 </my1:CommonCtrlKirishi.PointsEmptyRight>
             </my1:CommonCtrlKirishi>
         </TabItem>
-        <TabItem Header="Детали"></TabItem>
+        <TabItem Header="Детали">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="800*"></ColumnDefinition>
+                    <ColumnDefinition Width="300*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="Поиск по ячейкам" Grid.Column="0" Grid.Row="0" Margin="0,0,4,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="600*"></ColumnDefinition>
+                            <ColumnDefinition Width="150*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="71*"></RowDefinition>
+                            <RowDefinition Height="575*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Column="0" Grid.Row="0" Margin="20" ></TextBox>
+                        <Button Grid.Column="1" Grid.Row="0" Margin="20">Найти</Button>
+                        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="20"></DataGrid>
+                    </Grid>
+                </GroupBox>
+                <GridSplitter Grid.Column="0" Grid.Row="0" Width="4"></GridSplitter>
+                <GroupBox Header="Продукты" Grid.Column="1" Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Column="0" Grid.Row="0" Margin="5" Name="full_prod_filter"></TextBox>
+                        <Button Grid.Column="1" Grid.Row="0" Margin="5" Content="Добавить" Click="Button_Click_1"></Button>
+                        <DataGrid Name="prods_grid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding ElementName=stacker1, Path=ProductlistFull}" AutoGenerateColumns="False" RowEditEnding="DataGrid_RowEditEnding" CellEditEnding="prods_grid_CellEditEnding">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Path=Name}" Width="190*" />
+                                <DataGridTemplateColumn Width="90*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Click="Button_Click_2">Удалить</Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+
+                        
+
+                </GroupBox>
+            </Grid>
+            
+        </TabItem>
     </TabControl>
     
     

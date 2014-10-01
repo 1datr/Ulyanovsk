@@ -32,6 +32,51 @@ namespace WpfStackerLibrary
             fPointsEmptyRight.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
             // Fixed points
             fFixedPoints.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fFixedPoints_CollectionChanged);
+            
+            
+            
+          //  this.SetBinding(ProductlistFull, b);
+        }
+
+  //      private Binding b = new Binding();
+
+        private bool OnSourceUpdated(Object sender, DataTransferEventArgs args)
+        {
+            return true;
+          // Handle event
+        }
+
+        public void AddProduct(String pname)
+        {
+            if (pname != "")
+            {
+                stacker1.AddProduct(pname);
+                ProductlistFull = stacker1.ProductlistFull;
+            }
+        }
+
+        private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+           // StackerControl ctrl = (StackerControl)d;
+
+          //  ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
+
+        }
+        // Список продуктов полный
+        // Dependency Property
+        public static readonly DependencyProperty ProductlistFullDP = DependencyProperty.Register("ProductlistFull", typeof(ItemsChangeObservableCollection<Product>), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(null,DepParamsChanged));
+        [Description("Full list of products filtered by ProdFilter"), Category("Stacker data")]
+        // .NET Property wrapper
+        public ItemsChangeObservableCollection<Product> ProductlistFull
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<Product>)GetValue(ProductlistFullDP);
+            }
+            set
+            {
+                SetValue(ProductlistFullDP, value);
+            }
         }
 
         void fFixedPoints_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -197,13 +242,7 @@ namespace WpfStackerLibrary
                 this.stacker1.Poddons = fPoddons;
             }
         }
-        /*
-        public static DependencyProperty ValidationErrorsProperty =
-           DependencyProperty.Register("ValidationErrors",
-           typeof(object), typeof(CommonCtrlKirishi),
-           new PropertyMetadata(null, OnValidationErrorsChanged
-        ));
-        */
+        
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propertyName)
         {
@@ -225,6 +264,18 @@ namespace WpfStackerLibrary
             }
         }
 
+        public void refresh()
+        {
+            stacker1.refresh();
+        }
+
+        public void DeleteProduct(Object P)
+        {
+            Product p1 = P as Product;
+            stacker1.DeleteProduct(p1);
+            ProductlistFull = stacker1.ProductlistFull;
+        }
+
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             TakeProdWin TPW = new TakeProdWin();
@@ -233,6 +284,14 @@ namespace WpfStackerLibrary
             this.stacker1.TakeProduct(cc.Product.Id, TPW.COUNT);
             
             //DGR.DataContext
+        }
+
+        public void EditProduct(Object P, String str)
+        {
+            Product _P = P as Product;
+            _P.Name = str;
+            stacker1.EditProduct(_P);
+            ProductlistFull = stacker1.ProductlistFull;
         }
 
         private bool tedit = false;
@@ -253,6 +312,15 @@ namespace WpfStackerLibrary
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+            /*b.Source = stacker1.ProductlistFull;
+            b.Mode = BindingMode.OneWay;
+
+            this.SetBinding(ProductlistFullDP, b);*/
+            this.ProductlistFull = stacker1.ProductlistFull;
         }
 
         

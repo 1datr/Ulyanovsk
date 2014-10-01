@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Windows.Forms;
+
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -68,6 +68,30 @@ namespace WpfStacker
         private void button1_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            stacker1.AddProduct(full_prod_filter.Text);
+            stacker2.refresh();
+        }
+
+        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            
+        }
+
+        private void prods_grid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            //prods_grid.SelectedItem 
+            var editing = e.EditingElement as TextBox;
+            stacker1.EditProduct(prods_grid.SelectedItem, editing.Text);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            stacker1.DeleteProduct(prods_grid.SelectedItem);
+            stacker2.refresh();
         }
 
         
