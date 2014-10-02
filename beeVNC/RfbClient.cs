@@ -2222,19 +2222,24 @@ namespace beeVNC
         /// <param name="height"></param>
         private void SendFramebufferUpdateRequest(bool isIncremental, UInt16 posX, UInt16 posY, UInt16 width, UInt16 height)
         {
-            Log(Logtype.Debug, "Send SetFramebufferUpdateRequest with the following parameters: Incr:" + isIncremental + ", PosX:" + posX + ", PosY:" + posY + ", Width:" + width + ", Height:" + height);
+            try
+            {
+                Log(Logtype.Debug, "Send SetFramebufferUpdateRequest with the following parameters: Incr:" + isIncremental + ", PosX:" + posX + ", PosY:" + posY + ", Width:" + width + ", Height:" + height);
 
-            Byte[] data = new Byte[10];
-            data[0] = 3;
-            data[1] = (Byte)(isIncremental ? 1 : 0);
-            Helper.ConvertToByteArray(posX, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 2);
-            Helper.ConvertToByteArray(posY, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 4);
-            Helper.ConvertToByteArray(width, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 6);
-            Helper.ConvertToByteArray(height, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 8);
+                Byte[] data = new Byte[10];
+                data[0] = 3;
+                data[1] = (Byte)(isIncremental ? 1 : 0);
+                Helper.ConvertToByteArray(posX, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 2);
+                Helper.ConvertToByteArray(posY, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 4);
+                Helper.ConvertToByteArray(width, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 6);
+                Helper.ConvertToByteArray(height, _Properties.PxFormat.BigEndianFlag).CopyTo(data, 8);
 
-            _DataStream.Write(data, 0, data.Length);
+                _DataStream.Write(data, 0, data.Length);
 
-            _DataStream.Flush();
+                _DataStream.Flush();
+            }
+            catch (System.Exception ex)
+            { }
         }
         
         /// <summary>

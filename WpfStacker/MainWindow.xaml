@@ -98,9 +98,27 @@
                             <RowDefinition Height="71*"></RowDefinition>
                             <RowDefinition Height="575*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Column="0" Grid.Row="0" Margin="20" ></TextBox>
-                        <Button Grid.Column="1" Grid.Row="0" Margin="20">Найти</Button>
-                        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="20"></DataGrid>
+                        <StackPanel Grid.Column="0" Grid.Row="0">
+                        <TextBox Name="filter_productname" Margin="20,5,20,2"></TextBox>
+                        <GroupBox Header="Штабелеры:" Margin="20,3,20,3">
+                            <StackPanel Orientation="Horizontal">
+
+                                    <my1:MyRadioButton GroupName="stacker_filtr" RadioValue="0" Content="Все" IsChecked="true"  RadioBinding="{Binding Path=Stackers, RelativeSource={RelativeSource FindAncestor, AncestorType=my:MainWindow, AncestorLevel=1}}" Name="RBSAll" />
+                                    <my1:MyRadioButton GroupName="stacker_filtr" RadioValue="1" Margin="25,0,0,0"  Content="Штабелер 1" RadioBinding="{Binding Path=Stackers, RelativeSource={RelativeSource FindAncestor, AncestorType=my:MainWindow, AncestorLevel=1}}" Name="RBS1" />
+                                    <my1:MyRadioButton GroupName="stacker_filtr" RadioValue="2" Margin="25,0,0,0"  Content="Штабелер 2" RadioBinding="{Binding Path=Stackers, RelativeSource={RelativeSource FindAncestor, AncestorType=my:MainWindow, AncestorLevel=1}}" Name="RBS2" />
+                            </StackPanel>
+                        </GroupBox>
+                        </StackPanel>
+                        <Button Grid.Column="1" Grid.Row="0" Margin="20" Click="Button_Click_3">Найти</Button>
+                        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="20" HeadersVisibility="Column" Name="dgSearched" IsReadOnly="True" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding StackerID}"></DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Product.Name}"></DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding CellID}"></DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding ChangeDate}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            
+                        </DataGrid>
                     </Grid>
                 </GroupBox>
                 <GridSplitter Grid.Column="0" Grid.Row="0" Width="4"></GridSplitter>
@@ -116,7 +134,7 @@
                         </Grid.RowDefinitions>
                         <TextBox Grid.Column="0" Grid.Row="0" Margin="5" Name="full_prod_filter"></TextBox>
                         <Button Grid.Column="1" Grid.Row="0" Margin="5" Content="Добавить" Click="Button_Click_1"></Button>
-                        <DataGrid Name="prods_grid" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding ElementName=stacker1, Path=ProductlistFull}" AutoGenerateColumns="False" RowEditEnding="DataGrid_RowEditEnding" CellEditEnding="prods_grid_CellEditEnding">
+                        <DataGrid Name="prods_grid" SelectionMode="Single" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding ElementName=stacker1, Path=ProductlistFull}" AutoGenerateColumns="False" RowEditEnding="DataGrid_RowEditEnding" CellEditEnding="prods_grid_CellEditEnding" HeadersVisibility="Column">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Path=Name}" Width="190*" />
                                 <DataGridTemplateColumn Width="90*">

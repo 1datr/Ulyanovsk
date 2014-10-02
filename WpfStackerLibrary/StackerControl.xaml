@@ -27,7 +27,7 @@
             <Setter Property="Control.FontWeight" Value="Bold"></Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
         <Grid.RowDefinitions>
             <RowDefinition Name="stacker_left_panel">
                 

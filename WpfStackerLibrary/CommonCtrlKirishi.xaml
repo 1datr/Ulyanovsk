@@ -13,7 +13,7 @@
     PublicKeyToken=31bf3856ad364e35, ProcessorArchitecture=MSIL;component/themes/aero.normalcolor.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <CollectionViewSource x:Key="VCellContentCount"  />
-            
+            <my:BoolToVisibleOrHidden x:Key="BoolToVisibleOrHidden1" />
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -51,10 +51,10 @@
                 <my:Console StringSrc1="{Binding ElementName=stacker1_man, Path=ConnStatus}"></my:Console>
             </TabItem>
             <TabItem Header="Переменные">
-                <DataGrid HorizontalAlignment="Stretch" DataContext="{Binding Path=VarList, ElementName=stacker1_man}"  Margin="2,2,5,2" ItemsSource="{Binding Path=/}" AutoGenerateColumns="True" IsReadOnly="True">
+                <DataGrid HorizontalAlignment="Stretch"   Margin="2,2,5,2" ItemsSource="{Binding Path=VarList, ElementName=stacker1_man}" AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Переменная" Binding="{Binding Path=name}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Значение" Binding="{Binding Path=Value}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Переменная" Binding="{Binding Path=name}" Width="120" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Значение" Binding="{Binding Path=Value}" Width="420"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -64,7 +64,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TabControl Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+            <TabControl Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="TabsCellContent" >
 
                 <TabItem Header="{Binding Path=SelCellStr, ElementName=stacker1}">
                     <StackPanel>
@@ -87,24 +87,24 @@
                                 <Label Grid.Column="1" Grid.Row="0">Фильтр</Label>
                                 <Label Grid.Column="0" Grid.Row="2">Количество</Label>
                                 <TextBox Grid.Column="1" Grid.Row="2" x:Name="PCount" Margin="5,5,5,5"></TextBox>
-                                <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="Button_Click" IsEnabled="{Binding ElementName=stacker1, Path=EditCurrent}">Добавить</Button>
+                                <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="Button_Click" IsEnabled="{Binding ElementName=stacker1, Path=EditCurrent}" Name="btn_add_prod">Добавить</Button>
                             </Grid>
                         </Border>
-                        <DataGrid ItemsSource="{Binding ElementName=stacker1, Path=SelectedCellContent}" HorizontalAlignment="Stretch" Margin="2,2,2,2" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" SelectionMode="Single" Name="DGVProducts">
+                        <DataGrid ItemsSource="{Binding ElementName=stacker1, Path=SelectedCellContent}" HorizontalAlignment="Stretch" Margin="2,2,2,2" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" SelectionMode="Single" Name="DGVProducts" IsManipulationEnabled="True">
                             <DataGrid.Columns>
 
-                                <DataGridTextColumn Header="Деталь" Binding="{Binding Product.Name}" >
+                                <DataGridTextColumn Width="80" Header="Деталь" Binding="{Binding Product.Name}" >
 
                                 </DataGridTextColumn>
                                 <DataGridTextColumn Header="Количество" Binding="{Binding Count}" ></DataGridTextColumn>
-                                <DataGridTemplateColumn>
+                                <DataGridTemplateColumn Width="40" Visibility="{Binding ElementName=stacker1, Path=EditCurrent, Converter={StaticResource BoolToVisibleOrHidden1}, ConverterParameter=false}">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Click="Button_Click_3">Взять</Button>
+                                            <Button Click="Button_Click_3" >Взять</Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Изменено" Binding="{Binding ChangeDate}" ></DataGridTextColumn>
+                                </DataGridTemplateColumn >
+                                <DataGridTextColumn Width="110" Header="Изменено" Binding="{Binding ChangeDate}" ></DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
@@ -128,7 +128,7 @@
             <my:CmdQManager Grid.Column="0" Grid.Row="1" Margin="2,5,2,2" x:Name="CmdQueue" CmdReady="{Binding ElementName=stacker1_man, Path=CmdReady}" StackerState="{Binding ElementName=stacker1_man, Path=StackerState}" />
         </Grid>
          
-        <my:StackerControl HorizontalAlignment="Stretch" Grid.Column="1" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams}" ></my:StackerControl>
+        <my:StackerControl HorizontalAlignment="Stretch" Grid.Column="1" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams}" OnSelectCell="stacker1_OnSelectCell" OnSelectStacker="stacker1_OnSelectStacker" StackerMenu="{Binding ElementName=CmdQueue, Path=StackerMenu}" CellMenu="{Binding ElementName=CmdQueue, Path=CellMenu}"></my:StackerControl>
 
         <GridSplitter Grid.Column="1" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
         <GridSplitter Grid.Column="1" Grid.Row="0" Width="5"></GridSplitter>

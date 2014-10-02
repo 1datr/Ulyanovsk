@@ -25,6 +25,43 @@ namespace WpfStackerLibrary
             InitializeComponent();
         }
 
+        
+        // One cell menu
+        [Description("Queue of commands"), Category("Stacker")]
+        public ContextMenu CellMenu
+        {
+            get
+            {
+
+                return (ContextMenu)this.GetValue(CellMenuDP);
+            }
+            set { this.SetValue(CellMenuDP, value); }
+        }
+
+        public static readonly DependencyProperty CellMenuDP =
+            DependencyProperty.Register("CellMenu",
+            typeof(ContextMenu), typeof(CmdQManager),
+            new FrameworkPropertyMetadata(null, DepParamsChanged)
+            );
+        // Stacker panel menu
+        [Description("Queue of commands"), Category("Stacker")]
+        public ContextMenu StackerMenu
+        {
+            get
+            {
+
+                return (ContextMenu)this.GetValue(StackerMenuDP);
+            }
+            set { this.SetValue(StackerMenuDP, value); }
+        }
+
+        public static readonly DependencyProperty StackerMenuDP =
+            DependencyProperty.Register("StackerMenu",
+            typeof(ContextMenu), typeof(CmdQManager),
+            new FrameworkPropertyMetadata(null, DepParamsChanged)
+            ); 
+
+
         public void SetParam(String propname, Object val, object oldval)
         {
             try
@@ -243,6 +280,70 @@ namespace WpfStackerLibrary
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        private void UserControl_Initialized(object sender, EventArgs e)
+        {
+            ContextMenu m = new ContextMenu();
+
+            MenuItem mi = new MenuItem();
+            mi.Header = "Взять из";
+            mi.Click += new RoutedEventHandler(mi_Click_take);
+            m.Items.Add(mi);
+
+            mi = new MenuItem();
+            mi.Header = "Положить в";
+            mi.Click += new RoutedEventHandler(mi_Click_put);
+            m.Items.Add(mi);
+
+            CellMenu = m;
+
+            ContextMenu ms = new ContextMenu();
+
+            mi = new MenuItem();
+            mi.Header = "Парковать";
+            mi.Click += new RoutedEventHandler(mi_Click_park);
+            ms.Items.Add(mi);
+
+            StackerMenu = ms;
+        }
+
+        void mi_Click_put(object sender, RoutedEventArgs e)
+        {
+            //Get the clicked MenuItem
+            var menuItem = (MenuItem)sender;
+
+            //Get the ContextMenu to which the menuItem belongs
+            var contextMenu = (ContextMenu)menuItem.Parent;
+
+            //Find the placementTarget
+            var item = (Button)contextMenu.PlacementTarget;
+
+            var CellId = Convert.ToInt32(item.Content.ToString());
+
+            this.CmdQueue.Add(new StackerCommand("push",-1,CellId));
+
+        }
+
+        void mi_Click_take(object sender, RoutedEventArgs e)
+        {
+            //Get the clicked MenuItem
+            var menuItem = (MenuItem)sender;
+
+            //Get the ContextMenu to which the menuItem belongs
+            var contextMenu = (ContextMenu)menuItem.Parent;
+
+            //Find the placementTarget
+            var item = (Button)contextMenu.PlacementTarget;
+
+            var CellId = Convert.ToInt32(item.Content.ToString());
+
+            this.CmdQueue.Add(new StackerCommand("take", CellId));
+        }
+
+        void mi_Click_park(object sender, RoutedEventArgs e)
+        {
+            this.CmdQueue.Add(new StackerCommand("park"));
         }
     }
 

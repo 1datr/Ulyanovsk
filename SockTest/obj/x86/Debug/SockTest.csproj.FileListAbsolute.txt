@@ -57,3 +57,4 @@ D:\программы\beeVNCKirishi\SockTest\bin\Microsoft.Practices.ServiceLoca
 D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.Extras.WPF4.pdb
 D:\программы\beeVNCKirishi\SockTest\bin\GalaSoft.MvvmLight.Extras.WPF4.xml
 D:\программы\beeVNCKirishi\SockTest\bin\System.Windows.Interactivity.xml
+D:\программы\beeVNCKirishi\SockTest\bin\SockTest.exe.config

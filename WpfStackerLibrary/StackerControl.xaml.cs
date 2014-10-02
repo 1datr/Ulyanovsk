@@ -17,14 +17,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Markup;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-
+using System.Globalization;
 
 
 namespace WpfStackerLibrary
 {
-    
+    // тип события при клике по кнопке ячейки
+    public delegate void OnSelectCell(int cellno);
+    // тип события при клике по квадрату штабелера
+    public delegate void OnSelectStacker();
     /// <summary>
     /// Логика взаимодействия для UserControl1.xaml
     /// </summary>
@@ -43,6 +47,18 @@ namespace WpfStackerLibrary
         {
             build_matr();
             renum();
+        }
+
+        private OnSelectCell OnSelectCell_hndlr;
+        public event OnSelectCell OnSelectCell {
+            add { lock (this) { OnSelectCell_hndlr += value; } }
+            remove { lock (this) { OnSelectCell_hndlr -= value; } }
+        }
+        private OnSelectStacker OnSelectStacker_hndlr;
+        public event OnSelectStacker OnSelectStacker
+        {
+            add { lock (this) { OnSelectStacker_hndlr += value; } }
+            remove { lock (this) { OnSelectStacker_hndlr -= value; } }
         }
 
         void fPointsEmptyRight_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -131,14 +147,30 @@ namespace WpfStackerLibrary
         }
 
         private bool fRackLeft = true;
-        private bool fRackRight = true;
+        private bool fRackRight = true;        
 
-        private bool TMode = false;
+        // Dependency Property
+        public static readonly DependencyProperty TModeDP = DependencyProperty.Register("TMode", typeof(bool), typeof(StackerControl), new FrameworkPropertyMetadata(false));
+        // .NET Property wrapper
+        [Description("Can edit current cell"), Category("Stacker")]
+        public bool TMode
+        {
+            get
+            {
+                return (bool)GetValue(TModeDP);
+            }
+            private set
+            {
+                SetValue(TModeDP, value);
+
+            }
+        }
 
         public String Passw { get; set; }
 
         private void set_edit_mode()
         {
+            if (fSelectedCell == -1) EditCurrent = false;
             if (TMode)
                 {
                     EditCurrent = true;
@@ -154,6 +186,7 @@ namespace WpfStackerLibrary
 
         public bool SwitchMode()
         {
+            
             if (TMode)
             {
                 TMode = false;
@@ -265,6 +298,25 @@ namespace WpfStackerLibrary
                     catch (System.Exception ex)
                     { }
                     break;
+                case "CellMenu":
+                    try
+                    {                        
+                        foreach (Button b in rack_left.Children)
+                        {
+                            b.ContextMenu = CellMenu;
+                        }
+
+                        foreach (Button b in rack_right.Children)
+                        {
+                            b.ContextMenu = CellMenu;
+                        }
+                    }
+                    catch (System.Exception ex)
+                    { }
+                    break;
+                case "StackerMenu":
+                    stacker_left_panel.ContextMenu = StackerMenu;
+                    break;
             }
         }
 
@@ -374,26 +426,39 @@ namespace WpfStackerLibrary
 
             }
         }
-   
-        public List<string> AvailableItems     
+        // One cell menu
+        [Description("Queue of commands"), Category("Stacker")]
+        public ContextMenu CellMenu     
         {         
-            get { 
-                if(AvailableItemsProperty==null)
-                    this.SetValue(AvailableItemsProperty, new List<Point>());
-                return (List<string>)this.GetValue(AvailableItemsProperty); 
-            }         
-            set { this.SetValue(AvailableItemsProperty, value); }     
+            get {
+
+                return (ContextMenu)this.GetValue(CellMenuDP); 
+            }
+            set { this.SetValue(CellMenuDP, value); }     
         }     
 
-        public static readonly DependencyProperty AvailableItemsProperty = 
-            DependencyProperty.Register("AvailableItems", 
-            typeof(List<string>), typeof(StackerControl), 
-            new FrameworkPropertyMetadata(OnAvailableItemsChanged) 
+        public static readonly DependencyProperty CellMenuDP = 
+            DependencyProperty.Register("CellMenu",
+            typeof(ContextMenu), typeof(StackerControl),
+            new FrameworkPropertyMetadata(null, DepParamsChanged) 
+            );
+        // Stacker panel menu
+        [Description("Queue of commands"), Category("Stacker")]
+        public ContextMenu StackerMenu
+        {
+            get
             {
-                BindsTwoWayByDefault =true
-            });       
 
-    
+                return (ContextMenu)this.GetValue(StackerMenuDP);
+            }
+            set { this.SetValue(StackerMenuDP, value); }
+        }
+
+        public static readonly DependencyProperty StackerMenuDP =
+            DependencyProperty.Register("StackerMenu",
+            typeof(ContextMenu), typeof(StackerControl),
+            new FrameworkPropertyMetadata(null, DepParamsChanged)
+            ); 
 
         public static void OnAvailableItemsChanged(
                DependencyObject sender, 
@@ -424,7 +489,9 @@ namespace WpfStackerLibrary
                             TextBlock t = new TextBlock();
                             b.Content = t;                            
                             b.GotFocus += new RoutedEventHandler(Cell_Click);
+                            b.MouseRightButtonUp += new MouseButtonEventHandler(b_MouseRightButtonUp);
                             b.Style = Resources["RegCell"] as Style;
+                            b.ContextMenu = CellMenu;
                             rack_left.Children.Add(b);
                             Grid.SetColumn(b, x);
                             Grid.SetRow(b, y);
@@ -450,7 +517,9 @@ namespace WpfStackerLibrary
                             TextBlock t = new TextBlock();
                             b.Content = t;    
                             b.GotFocus += new RoutedEventHandler(Cell_Click);
+                            b.MouseRightButtonUp += new MouseButtonEventHandler(b_MouseRightButtonUp);
                             b.Style = Resources["RegCell"] as Style;
+                            b.ContextMenu = CellMenu;
                             rack_right.Children.Add(b);
                             Grid.SetColumn(b, x);
                             Grid.SetRow(b, y);
@@ -460,6 +529,14 @@ namespace WpfStackerLibrary
                 }
             }
             renum();
+        }
+
+        void b_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Button b = (sender as Button);
+         
+            // context menu dropdown
+            b.Focus();
         }
         // restruct left rack
         private void restruct_left()
@@ -719,10 +796,11 @@ namespace WpfStackerLibrary
             set_style_of_cell(currbtn);
             SetValue(SelCellStrProperty, "Ячейка №"+fSelectedCell);
             set_edit_mode();
-            List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
-          
+            List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);          
             SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl) );
             //throw new NotImplementedException();
+            if (this.OnSelectCell_hndlr != null)
+                this.OnSelectCell_hndlr(fSelectedCell);
             return;
         }
         // restruct right rack
@@ -894,6 +972,9 @@ namespace WpfStackerLibrary
             Productlist = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(Filter));
             cells_occupied = null;
             set_cell_styles();
+            List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
+            SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
+            SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));        
         }
 
         // Содержимое текущей выделенной ячейки
@@ -928,6 +1009,44 @@ namespace WpfStackerLibrary
             {
                 SetValue(SelectedCellContentDP, value);
             }
+        }
+        // Поиск по штабелерам
+        private String fFindFilterName = "";
+        public String FindFilterName
+        {
+            get
+            { 
+                return fFindFilterName; 
+            }
+            set
+            { 
+                fFindFilterName = value;
+            
+            }
+        }
+        /*
+        private List<Int32> fFindFilterStackerNumbers = null;
+        public List<Int32> FindFilterStackerNumbers { get; set; }
+
+        // Dependency Property
+        public static readonly DependencyProperty FindByNameResDP = DependencyProperty.Register("FindByNameRes", typeof(List<CellContent>), typeof(StackerControl), new FrameworkPropertyMetadata(null, DepParamsChanged));
+        [Description("Finds products in cells by name"), Category("Stacker data")]
+        // .NET Property wrapper
+        public List<CellContent> FindByNameRes
+        {
+            get
+            {
+                return (List<CellContent>)GetValue(FindByNameResDP);
+            }
+            set
+            {
+                SetValue(FindByNameResDP, value);
+            }
+        }
+        */
+        public List<CellContent> FindByName(String namestr, List<Int32> stackers=null)
+        {
+            return SDA.SearchCC(namestr, stackers);
         }
 
         private Int32 OldCurrCell = -1;
@@ -1027,6 +1146,12 @@ namespace WpfStackerLibrary
         {
 
         }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (this.OnSelectStacker_hndlr != null)
+                this.OnSelectStacker_hndlr();
+        }
     }
 
     public delegate int OnDataAccessConnect();   
@@ -1044,6 +1169,20 @@ namespace WpfStackerLibrary
                     this.OnDataAccessConnect_hndlr();
                     inited = true;
                 }
+        }
+
+        public List<CellContent> SearchCC(String str, List<Int32> stackers=null)
+        {
+            if (stackers == null)
+            {
+                var Res = (from CC in objDataContext.CellContents where CC.Product.Name.Contains(str) select CC).ToList<CellContent>();
+                return Res;
+            }
+            else
+            {
+                var Res = (from CC in objDataContext.CellContents where CC.Product.Name.Contains(str) && stackers.Contains(CC.StackerID) select CC).ToList<CellContent>();
+                return Res;
+            }
         }
 
         public void SaveChanges()
@@ -1276,15 +1415,7 @@ namespace WpfStackerLibrary
         }
 
     }
-    /*
-    public class EmptyCellsDefinition : DefinitionBase
-    {
-        public EmptyCellsDefinition()
-        { 
-        
-        }
-    }
-    */
+    
     /// <summary>
     ///     This class adds the ability to refresh the list when any property of
     ///     the objects changes in the list which implements the INotifyPropertyChanged. 
@@ -1362,7 +1493,99 @@ namespace WpfStackerLibrary
 
         
     }
+    
+    public class BoolToVisibleOrHidden : IValueConverter
+    {
+        #region Constructors
+        /// <summary>
+        /// The default constructor
+        /// </summary>
+        public BoolToVisibleOrHidden() { }
+        #endregion
 
+        #region Properties
+        public bool Collapse { get; set; }
+        public bool Reverse { get; set; }
+        #endregion
 
-  
+        #region IValueConverter Members
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            bool bValue = (bool)value;
+
+            if (bValue != Reverse)
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                if (Collapse)
+                    return Visibility.Collapsed;
+                else
+                    return Visibility.Hidden;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            Visibility visibility = (Visibility)value;
+
+            if (visibility == Visibility.Visible)
+                return !Reverse;
+            else
+                return Reverse;
+        }
+        #endregion
+    }
+   
+    public class MyRadioButton : RadioButton
+{
+    public object RadioValue
+    {
+        get { return (object)GetValue(RadioValueProperty); }
+        set { SetValue(RadioValueProperty, value); }
+    }
+
+    /* Using a DependencyProperty as the backing store for RadioValue.
+       This enables animation, styling, binding, etc...*/
+    public static readonly DependencyProperty RadioValueProperty =
+        DependencyProperty.Register(
+            "RadioValue", 
+            typeof(object), 
+            typeof(MyRadioButton), 
+            new UIPropertyMetadata(null));
+
+    public object RadioBinding
+    {
+        get { return (object)GetValue(RadioBindingProperty); }
+        set { SetValue(RadioBindingProperty, value); }
+    }
+
+    /* Using a DependencyProperty as the backing store for RadioBinding.
+       This enables animation, styling, binding, etc...*/
+    public static readonly DependencyProperty RadioBindingProperty =
+        DependencyProperty.Register(
+            "RadioBinding", 
+            typeof(object), 
+            typeof(MyRadioButton), 
+            new FrameworkPropertyMetadata(
+                null, 
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
+                OnRadioBindingChanged));
+
+    private static void OnRadioBindingChanged(
+        DependencyObject d,
+        DependencyPropertyChangedEventArgs e)
+    {
+        MyRadioButton rb = (MyRadioButton)d;
+        if (rb.RadioValue.Equals(e.NewValue))
+            rb.SetCurrentValue(RadioButton.IsCheckedProperty, true);
+    }
+
+    protected override void OnChecked(RoutedEventArgs e)
+    {
+        base.OnChecked(e);
+        SetCurrentValue(RadioBindingProperty, RadioValue);
+    }
+}
 }

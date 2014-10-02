@@ -86,12 +86,62 @@ namespace WpfStacker
             //prods_grid.SelectedItem 
             var editing = e.EditingElement as TextBox;
             stacker1.EditProduct(prods_grid.SelectedItem, editing.Text);
+            stacker2.refresh();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             stacker1.DeleteProduct(prods_grid.SelectedItem);
             stacker2.refresh();
+        }
+                
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            switch (Stackers)
+            { 
+                case 0:
+                    dgSearched.ItemsSource = stacker1.FindByName(filter_productname.Text);
+                    break;
+                case 1:
+                    {
+                        List<int> l = new List<int>();
+                        l.Add(1);
+                        dgSearched.ItemsSource = stacker1.FindByName(filter_productname.Text, l);
+                    } break;
+                case 2:
+                    {
+                        List<int> l = new List<int>();
+                        l.Add(2);
+                        dgSearched.ItemsSource = stacker1.FindByName(filter_productname.Text, l);
+                    } break;
+            }
+            
+        }
+
+        private int fStackers;
+
+        public static readonly DependencyProperty StackersDP =
+        DependencyProperty.Register(
+            "Stackers",
+            typeof(int),
+            typeof(MainWindow),
+            new FrameworkPropertyMetadata(
+                0));
+        public int Stackers { get { return (int)GetValue(StackersDP); } set { SetValue(StackersDP,value); } }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        {
+
         }
 
         

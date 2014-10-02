@@ -46,6 +46,11 @@ namespace WpfStackerLibrary
           // Handle event
         }
 
+        public List<CellContent> FindByName(String namestr, List<Int32> stackers = null)
+        {
+            return this.stacker1.FindByName(namestr, stackers);
+        }
+
         public void AddProduct(String pname)
         {
             if (pname != "")
@@ -321,6 +326,16 @@ namespace WpfStackerLibrary
 
             this.SetBinding(ProductlistFullDP, b);*/
             this.ProductlistFull = stacker1.ProductlistFull;
+        }
+
+        private void stacker1_OnSelectCell(int cellno)
+        {
+            this.TabsCellContent.SelectedIndex = 0;
+        }
+
+        private void stacker1_OnSelectStacker()
+        {
+            this.TabsCellContent.SelectedIndex = 1;
         }
 
         
