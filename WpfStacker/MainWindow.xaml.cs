@@ -129,6 +129,15 @@ namespace WpfStacker
                 0));
         public int Stackers { get { return (int)GetValue(StackersDP); } set { SetValue(StackersDP,value); } }
 
+        public static readonly DependencyProperty EditProductsDP =
+        DependencyProperty.Register(
+            "EditProducts",
+            typeof(bool),
+            typeof(MainWindow),
+            new FrameworkPropertyMetadata(
+                false));
+        public bool EditProducts { get { return (bool)GetValue(EditProductsDP); } set { SetValue(EditProductsDP, value); } }
+
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -142,6 +151,17 @@ namespace WpfStacker
         private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            // take a product from cell
+            //   dgSearched.SelectedItem
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            // move to first load cell
         }
 
         

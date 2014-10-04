@@ -2,8 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="АРМ Кинеф" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" DataContext="{Binding}" xmlns:my="clr-namespace:WpfStacker" Loaded="Window_Loaded" Width="1131" Height="824" Icon="/WpfStacker;component/Images/favicon_kinef.ico">
-    
+        Title="АРМ Кинеф" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:WpfStacker" Loaded="Window_Loaded" Width="1131" Height="824" Icon="/WpfStacker;component/Images/favicon_kinef.ico">
+    <Window.Resources>     
+    </Window.Resources>
 
     <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2,5,2,2">
         <TabItem Header="Штабелер 1">
@@ -112,19 +113,31 @@
                         <Button Grid.Column="1" Grid.Row="0" Margin="20" Click="Button_Click_3">Найти</Button>
                         <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="20" HeadersVisibility="Column" Name="dgSearched" IsReadOnly="True" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding StackerID}"></DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding Product.Name}"></DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding CellID}"></DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding ChangeDate}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Штабелер" Binding="{Binding StackerID}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Что лежит" Width="300" Binding="{Binding Product.Name}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Ячейка"  Binding="{Binding CellID}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Дата последнего изменения" Binding="{Binding ChangeDate}"></DataGridTextColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="Взять" Margin="2" Click="Button_Click_4"></Button>
+                                                <Button Content="На приемную" Margin="2" Click="Button_Click_5"></Button>
+                                            </StackPanel>                                            
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                             
                         </DataGrid>
+                        
                     </Grid>
                 </GroupBox>
                 <GridSplitter Grid.Column="0" Grid.Row="0" Width="4"></GridSplitter>
                 <GroupBox Header="Продукты" Grid.Column="1" Grid.Row="0">
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
@@ -132,9 +145,30 @@
                             <RowDefinition Height="40"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Column="0" Grid.Row="0" Margin="5" Name="full_prod_filter"></TextBox>
-                        <Button Grid.Column="1" Grid.Row="0" Margin="5" Content="Добавить" Click="Button_Click_1"></Button>
-                        <DataGrid Name="prods_grid" SelectionMode="Single" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding ElementName=stacker1, Path=ProductlistFull}" AutoGenerateColumns="False" RowEditEnding="DataGrid_RowEditEnding" CellEditEnding="prods_grid_CellEditEnding" HeadersVisibility="Column">
+                        <TextBox Grid.Column="0" Grid.Row="0" Margin="5" Name="full_prod_filter" IsEnabled="{Binding ElementName=TBProdlistEdit, Path=IsChecked}"></TextBox>
+                        <Button Grid.Column="1" Grid.Row="0" Margin="5" Content="Добавить" Click="Button_Click_1" IsEnabled="{Binding ElementName=TBProdlistEdit, Path=IsChecked}"></Button>
+                        
+                            <my1:PasswordToggleButton Grid.Column="2" Grid.Row="0" Width="35" Height="35" Padding="4,2,2,2" Password="1234" FreeReset="True" IsThreeState="False" UseLayoutRounding="False" Name="TBProdlistEdit" >
+                                
+                                <my1:PasswordToggleButton.Template>                                
+                                <ControlTemplate TargetType="{x:Type my1:PasswordToggleButton}">
+                                    <Grid x:Name="controlLayout">
+                                        <Ellipse x:Name="buttonSurface" Fill="AliceBlue"/>
+                                        <Image Name="TBPEImage" Source="/WpfStacker;component/Images/unlock.png"></Image>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="TBPEImage" Property="Source" Value="/WpfStacker;component/Images/lock.png"></Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="buttonSurface" Property="Fill" Value="LightBlue"></Setter>                                           
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </my1:PasswordToggleButton.Template>
+                        </my1:PasswordToggleButton>                    
+
+                        <DataGrid Name="prods_grid" SelectionMode="Single" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding ElementName=stacker1, Path=ProductlistFull}" AutoGenerateColumns="False" RowEditEnding="DataGrid_RowEditEnding" CellEditEnding="prods_grid_CellEditEnding" HeadersVisibility="Column" IsEnabled="{Binding ElementName=TBProdlistEdit, Path=IsChecked}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Path=Name}" Width="190*" />
                                 <DataGridTemplateColumn Width="90*">

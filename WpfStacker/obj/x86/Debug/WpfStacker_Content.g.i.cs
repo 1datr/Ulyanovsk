@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/favicon_kinef.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/unlock.png")]
 
 

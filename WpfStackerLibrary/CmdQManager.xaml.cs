@@ -38,6 +38,38 @@ namespace WpfStackerLibrary
             set { this.SetValue(CellMenuDP, value); }
         }
 
+        public void park()
+        {
+            this.CmdQueue.Add(new StackerCommand("park"));
+            if (CmdReady)
+                if (CmdQueue.Count > 0)
+                    CurrCmd = CmdQueue[0];
+        }
+
+        public void push(int c)
+        {
+            CmdQueue.Add(new StackerCommand("push", -1, c));
+            if (CmdReady)
+                if (CmdQueue.Count > 0)
+                    CurrCmd = CmdQueue[0];
+        }
+
+        public void take(int c)
+        {
+            CmdQueue.Add(new StackerCommand("take", c));
+            if (CmdReady)
+                if (CmdQueue.Count > 0)
+                    CurrCmd = CmdQueue[0];
+        }
+
+        public void trans(int cell_from, int cell_to)
+        {
+            CmdQueue.Add(new StackerCommand("trans", cell_from, cell_to));
+            if (CmdReady)
+                if (CmdQueue.Count > 0)
+                    CurrCmd = CmdQueue[0];
+        }
+
         public static readonly DependencyProperty CellMenuDP =
             DependencyProperty.Register("CellMenu",
             typeof(ContextMenu), typeof(CmdQManager),

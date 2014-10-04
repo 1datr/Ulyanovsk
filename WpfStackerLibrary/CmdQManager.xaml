@@ -20,6 +20,7 @@
             <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Button Margin="10,10,10,10" Grid.Column="0" Grid.Row="0" Click="Button_Click">Парковка</Button>
         <Button Margin="10,10,10,10" Grid.Column="0" Grid.Row="1" Click="Button_Click_1">Взять из</Button>
@@ -29,13 +30,61 @@
         <TextBox Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" Name="TB_Push"></TextBox>
         <TextBox Grid.Column="1" Grid.Row="3" Margin="10,10,5,10" Name="TB_Trans1"></TextBox>
         <TextBox Grid.Column="2" Grid.Row="3" Margin="5,10,10,10" Name="TB_Trans2"></TextBox>
-        <DataGrid Grid.Column="3" Grid.RowSpan="7" SelectionMode="Single" Margin="10,10,10,10" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CmdQManager, AncestorLevel=1}, Path=CmdQueue}" HeadersVisibility="Column">
+        <DataGrid Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="6" SelectionMode="Single" Margin="10,10,10,10" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CmdQManager, AncestorLevel=1}, Path=CmdQueue}" HeadersVisibility="Column" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=CmdName}" Header="Команда" />
-                <DataGridTextColumn Binding="{Binding Path=Op1}" Header="Оп#1" />
-                <DataGridTextColumn Binding="{Binding Path=Op2}" Header="Оп#2" />
+                <DataGridTemplateColumn Header="Команда">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Name="Cmdname" Text="{Binding Path=CmdName}"></TextBlock>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Path=CmdName}" Value="park">
+                                    <Setter TargetName="Cmdname" Property="Text" Value="Парковать"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=CmdName}" Value="trans">
+                                    <Setter TargetName="Cmdname" Property="Text" Value="Переместить"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=CmdName}" Value="push">
+                                    <Setter TargetName="Cmdname" Property="Text" Value="Положить"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=CmdName}" Value="take">
+                                    <Setter TargetName="Cmdname" Property="Text" Value="Взять"></Setter>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Оп#1">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Name="CellOp1" Text="{Binding Path=Op1}"></TextBlock>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Path=Op1}" Value="-1">
+                                    <Setter TargetName="CellOp1" Property="Visibility" Value="Hidden"></Setter>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Оп#2">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Name="CellOp2" Text="{Binding Path=Op2}"></TextBlock>
+                                <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Path=Op2}" Value="-1">
+                                    <Setter TargetName="CellOp2" Property="Visibility" Value="Hidden"></Setter>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn> 
             </DataGrid.Columns>
         </DataGrid>
+        <ToolBar Grid.Column="3" Grid.Row="0" Margin="10,10,10,10">
+            <ToggleButton >1</ToggleButton>
+        </ToolBar>
         
         
     </Grid>

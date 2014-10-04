@@ -86,3 +86,4 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\TakeProdWin.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\TakeProdWin.g.cs
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\CmdQManager.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\CmdQManager.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Themes\Generic.baml

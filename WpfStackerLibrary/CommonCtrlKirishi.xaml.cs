@@ -60,6 +60,26 @@ namespace WpfStackerLibrary
             }
         }
 
+        public void park() 
+        {
+            CmdQueue.park();
+        }
+
+        public void push(int cell)
+        {
+            CmdQueue.push(cell);
+        }
+
+        public void take(int cell)
+        {
+            CmdQueue.take(cell);
+        }
+
+        public void trans(int cell1, int cell2)
+        {
+            CmdQueue.trans(cell1, cell2);
+        }
+
         private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
            // StackerControl ctrl = (StackerControl)d;

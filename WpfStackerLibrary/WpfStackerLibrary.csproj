@@ -89,6 +89,7 @@
       <DependentUpon>Console.xaml</DependentUpon>
     </Compile>
     <Compile Include="IStackerMan.cs" />
+    <Compile Include="PasswordButton.cs" />
     <Compile Include="PasswWin.xaml.cs">
       <DependentUpon>PasswWin.xaml</DependentUpon>
     </Compile>
@@ -139,6 +140,10 @@
     <Page Include="TakeProdWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="VNCWin.xaml">
       <SubType>Designer</SubType>
