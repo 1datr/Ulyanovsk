@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BR.AN.PviServices;
+using WpfStackerLibrary;
 
 namespace WpfStacker
 {
@@ -155,26 +156,31 @@ namespace WpfStacker
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            // take a product from cell
-            //   dgSearched.SelectedItem
+            CellContent cc = dgSearched.SelectedCells[0].Item as CellContent;
+            if (cc.StackerID == 1)
+            {
+                stacker1.take(cc.CellID);
+            }
+            else if (cc.StackerID == 2)
+            {
+                stacker2.take(cc.CellID);
+            }
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             // move to first load cell
+            CellContent cc = dgSearched.SelectedCells[0].Item as CellContent;
+            if (cc.StackerID == 1)
+            {
+                stacker1.move_free_priem(cc.CellID);
+            }
+            else if (cc.StackerID == 2)
+            {
+                stacker2.move_free_priem(cc.CellID);
+            }
+
         }
-
-        
-
-
-        
-
-        
-
-        
-
-       
-
        
     }
 }

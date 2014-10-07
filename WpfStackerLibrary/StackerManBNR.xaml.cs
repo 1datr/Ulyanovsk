@@ -169,11 +169,20 @@ namespace WpfStackerLibrary
 
         public void kvit()
         {
+            if (Varlist.ContainsKey("gOPC.Input.ack"))
             Varlist["gOPC.Input.ack"].Value = true;
         }
         public void kvit_drives()
         {
-
+            int maxcnt = 12;
+            int i = 0;
+            if (Varlist.ContainsKey("gOPC.Output.drivestatus"))
+                while ((VarVal("gOPC.Output.drivestatus").ToString() != "0") && (i < maxcnt))
+                {
+                    Varlist["gOPC.Input.driveack"].Value = true;
+                    i++;
+                    System.Threading.Thread.Sleep(100);
+                }
         }
 
         // Dependency Property
@@ -246,6 +255,21 @@ namespace WpfStackerLibrary
             }
         }
 
+        public static readonly DependencyProperty TaraLoadedDP = DependencyProperty.Register("TaraLoaded", typeof(bool), typeof(StackerManBNR), new FrameworkPropertyMetadata(false));
+        [Description("Poddon is loaded"), Category("Stacker")]
+        // .NET Property wrapper
+        public bool TaraLoaded
+        {
+            get
+            {
+                return (bool)GetValue(TaraLoadedDP);
+            }
+            private set
+            {
+                SetValue(TaraLoadedDP, value);
+            }
+        }
+               
         private /*static*/ Service service;
         private /*static*/ Cpu cpu;
         private String ip = null;
@@ -493,14 +517,17 @@ namespace WpfStackerLibrary
                         {
                             case 0:
                                 StackerState = "Штабелер готов к выполнению команды";
+                                ConnStatus = StackerState;
                                 Error = "OK";
                                 CmdReady = true;
                                 break;
                             case 1: StackerState = "Штабелер находиться в состоянии выполнения команды";
+                                ConnStatus = StackerState;
                                 Error = "OK";
                                 CmdReady = false;
                                 break;
                             case 2: StackerState = "Штабелер не готов выполненять команду";
+                                ConnStatus = StackerState;
                                 CmdReady = false;
                                 Error = "OK";
                                 break;
@@ -525,8 +552,10 @@ namespace WpfStackerLibrary
                         String errstr = "";
                         if (DriveErrors.Contains(VarVal("gOPC.Output.drivestatus").ToString()))
                             errstr = DriveErrors[VarVal("gOPC.Output.drivestatus").ToString()].ToString();
-                        DriveError = "Drive error (" + VarVal("gOPC.Output.drivestatus") + ") "+errstr;
+                        DriveError = "Ошибка привода (" + VarVal("gOPC.Output.drivestatus") + ") "+errstr;
+                        ConnStatus = "Ошибка привода";
                     }
+
                     break;                
                 case "gOPC.Output.power":
                     bool power = Convert.ToBoolean(VarVal("gOPC.Output.power").ToString());
@@ -534,18 +563,21 @@ namespace WpfStackerLibrary
                     PowerBtnCaption = PowerBtnCaptions[power.ToString().ToLower()].ToString();
                     break;
                 case "gOPC.Output.load":
-
+                    TaraLoaded = Convert.ToBoolean(VarVal("gOPC.Output.load").ToString());
                     break;
                 case "gOPC.Output.Xpos":
-
+                    WorkParams.X = Convert.ToInt32(VarVal(var.Name));
                     break;
                 case "gOPC.Output.Ypos":
-
+                    WorkParams.Y = Convert.ToInt32(VarVal(var.Name));
                     break;
                 case "gOPC.Output.Zpos":
+                    WorkParams.Z = Convert.ToInt32(VarVal(var.Name));
                     break;
             }
         }
+
+        
 
         private void setvarinfo(Variable var)
         {
@@ -649,9 +681,9 @@ namespace WpfStackerLibrary
 
             try
             {
-                VNCWin Vnc = new VNCWin();
+                /*VNCWin Vnc = new VNCWin();
                 Vnc.vncIP = this.cpu.Connection.TcpIp.DestinationIpAddress;
-                Vnc.Show();
+                Vnc.Show();*/
             }
             catch (System.Exception exc)
             {

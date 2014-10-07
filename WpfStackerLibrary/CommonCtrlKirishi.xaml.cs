@@ -25,8 +25,8 @@ namespace WpfStackerLibrary
         public CommonCtrlKirishi()
         {
             InitializeComponent();
-            // Poddons changed
-            fPoddons.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPoddons_CollectionChanged);
+            // PriemCells changed
+            fPriemCells.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPriemCells_CollectionChanged);
             // Left and Right emptypoints
             fPointsEmptyLeft.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
             fPointsEmptyRight.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
@@ -87,6 +87,19 @@ namespace WpfStackerLibrary
           //  ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
 
         }
+
+        public void move_free_priem(Int32 cell)
+        {
+            List<Int32> freecells = stacker1.getfreecells();
+            if (freecells.Count > 0)
+            {
+                CmdQueue.trans(cell, freecells[0]);
+            }
+            else
+            {
+                MessageBox.Show("Нет свободных приемных ячеек");
+            }
+        }
         // Список продуктов полный
         // Dependency Property
         public static readonly DependencyProperty ProductlistFullDP = DependencyProperty.Register("ProductlistFull", typeof(ItemsChangeObservableCollection<Product>), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(null,DepParamsChanged));
@@ -119,9 +132,9 @@ namespace WpfStackerLibrary
             this.stacker1.PointsEmptyLeft = PointsEmptyLeft;
         }
 
-        void fPoddons_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void fPriemCells_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            this.stacker1.Poddons = fPoddons;
+            this.stacker1.PriemCells = fPriemCells;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -253,18 +266,18 @@ namespace WpfStackerLibrary
             }
         }
 
-        private ObservableCollection<Int32> fPoddons = new ObservableCollection<Int32>();
-        [Bindable(true), Description("List of poddons"), Category("Stacker")]
-        public ObservableCollection<Int32> Poddons
+        private ObservableCollection<Int32> fPriemCells = new ObservableCollection<Int32>();
+        [Bindable(true), Description("List of PriemCells"), Category("Stacker")]
+        public ObservableCollection<Int32> PriemCells
         {
             get
             {
-                return fPoddons;
+                return fPriemCells;
             }
             set
             {
-                fPoddons = value;
-                this.stacker1.Poddons = fPoddons;
+                fPriemCells = value;
+                this.stacker1.PriemCells = fPriemCells;
             }
         }
         
@@ -358,6 +371,20 @@ namespace WpfStackerLibrary
             this.TabsCellContent.SelectedIndex = 1;
         }
 
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Int32 thecell = Convert.ToInt32(cell_to_select.Text);
+                stacker1.SelectCell(thecell);
+            }
+            catch (System.Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        
         
     }
     

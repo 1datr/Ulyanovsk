@@ -37,7 +37,7 @@ namespace WpfStackerLibrary
         public StackerControl()
         {
             InitializeComponent();
-            this.fPoddons.CollectionChanged += new NotifyCollectionChangedEventHandler(fPoddons_CollectionChanged);
+            this.fPriemCells.CollectionChanged += new NotifyCollectionChangedEventHandler(fPriemCells_CollectionChanged);
             fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
             fPointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
             fFixedPoints.CollectionChanged += new NotifyCollectionChangedEventHandler(fFixedPoints_CollectionChanged);
@@ -71,7 +71,7 @@ namespace WpfStackerLibrary
             restruct_left();
         }
 
-        void fPoddons_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void fPriemCells_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             set_cell_styles();
         }
@@ -179,7 +179,7 @@ namespace WpfStackerLibrary
             if(fSelectedCell==-1) EditCurrent = false;
             else
             {
-                if(Poddons.Contains(fSelectedCell)) EditCurrent=true;
+                if(PriemCells.Contains(fSelectedCell)) EditCurrent=true;
                 else EditCurrent = false;
             }
         }
@@ -283,11 +283,11 @@ namespace WpfStackerLibrary
                     if (!DesignerProperties.GetIsInDesignMode(this))
                         ProductlistFull = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(FilterFull));
                     break;
-                case "Poddons":
+                case "PriemCells":
                     try
                     {
-                       /* if (Poddons != null)
-                            foreach (int p in Poddons)
+                       /* if (PriemCells != null)
+                            foreach (int p in PriemCells)
                             {
 
                                 Button b = GridPoints[p];
@@ -560,6 +560,17 @@ namespace WpfStackerLibrary
             }
         }
 
+        public void SelectCell(Int32 cell)
+        {
+            try
+            {
+                GridPoints[cell].Focus();
+            }
+            catch (System.Exception exc)
+            { 
+            }
+        }
+
         private Int32 cell_right = 0;
         private Int32 maxcell = 0;
 
@@ -699,6 +710,44 @@ namespace WpfStackerLibrary
 
         }
 
+        public List<Int32> getfreecells(bool priem = true)
+        {
+            List<Int32> L = new List<int>();
+            if (priem)
+            {
+                foreach (Int32 cell in PriemCells)
+                {
+                    if (!this.cells_occupied.Contains(cell))
+                        L.Add(cell);
+                }
+            }
+            else
+            {
+                
+                foreach (KeyValuePair<int, Button> kvp in GridPoints)  
+                {
+                    if (!this.cells_occupied.Contains(kvp.Key))
+                        L.Add(kvp.Key);
+                }
+            }
+            return L;
+        }
+
+        public static readonly DependencyProperty TaraLoadedDP = DependencyProperty.Register("TaraLoaded", typeof(bool), typeof(StackerControl), new FrameworkPropertyMetadata(false, DepParamsChanged));
+        [Description("Poddon is loaded"), Category("Stacker")]
+        // .NET Property wrapper
+        public bool TaraLoaded
+        {
+            get
+            {
+                return (bool)GetValue(TaraLoadedDP);
+            }
+            set
+            {
+                SetValue(TaraLoadedDP, value);
+            }
+        }
+
         private void renum()
         {
             if ((Matr_Left == null) || (Matr_Right == null))
@@ -764,8 +813,8 @@ namespace WpfStackerLibrary
                 if (b == null) return;
                 Int32 n = Convert.ToInt32(b.Content.ToString());
                 String style_str = "RegCell";
-                if (Poddons == null) Poddons = new ObservableCollection<Int32>();
-                if (Poddons.Where(p => (p == n)).Count() > 0)
+                if (PriemCells == null) PriemCells = new ObservableCollection<Int32>();
+                if (PriemCells.Where(p => (p == n)).Count() > 0)
                     style_str = "PoddonCell";
                 if (n == fSelectedCell) style_str = "CurrCell";
 
@@ -827,34 +876,34 @@ namespace WpfStackerLibrary
         }
 
         // .NET Property wrapper
-        private ObservableCollection<Int32> fPoddons = new ObservableCollection<Int32>();
+        private ObservableCollection<Int32> fPriemCells = new ObservableCollection<Int32>();
         
-        [Bindable(true), Description("List of poddons"), Category("Stacker")]
-        public ObservableCollection<Int32> Poddons
+        [Bindable(true), Description("List of PriemCells"), Category("Stacker")]
+        public ObservableCollection<Int32> PriemCells
         {
             get
             {
-                return fPoddons;
+                return fPriemCells;
             }
             set { 
-                fPoddons = value;
+                fPriemCells = value;
                 set_cell_styles();
             }
         }
         /*
-        private static readonly DependencyPropertyKey PoddonsPropertyKey = 
+        private static readonly DependencyPropertyKey PriemCellsPropertyKey = 
         DependencyProperty.RegisterReadOnly(
-          "Poddons",
+          "PriemCells",
           typeof(List<Int32>),
           typeof(StackerControl),
           new FrameworkPropertyMetadata(new List<Int32>())
         );
-        public static readonly DependencyProperty PoddonsProperty = PoddonsPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty PriemCellsProperty = PriemCellsPropertyKey.DependencyProperty;
         [Description("Filter of products"), Category("Stacker")]
-        public List<Int32> Poddons
+        public List<Int32> PriemCells
         {
-            get { return (List<Int32>)GetValue(PoddonsProperty); }
-            set { SetValue(PoddonsProperty,value); }
+            get { return (List<Int32>)GetValue(PriemCellsProperty); }
+            set { SetValue(PriemCellsProperty,value); }
         }
         */
 
@@ -1171,6 +1220,8 @@ namespace WpfStackerLibrary
                 }
         }
 
+        
+
         public List<CellContent> SearchCC(String str, List<Int32> stackers=null)
         {
             if (stackers == null)
@@ -1245,6 +1296,11 @@ namespace WpfStackerLibrary
             if (Res.Count() > 0)
                 Res[0].Name = P.Name;
             this.SaveChanges();
+        }
+
+        public void SelectCell(int cell)
+        {
+
         }
 
         public void TakeProduct(Int32 ProdId, Int32 Cellid, Int32 ProdCount, Int32 stackerId = 1)
@@ -1524,7 +1580,7 @@ namespace WpfStackerLibrary
                 else
                     return Visibility.Hidden;
             }
-        }
+        }        
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

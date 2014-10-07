@@ -76,10 +76,6 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\GenerateResource
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\GenerateResource.write.1.tlog
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\WpfStackerLibrary.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\WpfStackerLibrary.pdb
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\beeVNC.dll
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\beeVNC.pdb
-D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\VNCWin.baml
-D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\VNCWin.g.cs
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\PasswWin.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\PasswWin.g.cs
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\TakeProdWin.baml

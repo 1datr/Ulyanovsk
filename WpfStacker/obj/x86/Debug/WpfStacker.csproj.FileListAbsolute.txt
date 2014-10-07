@@ -36,7 +36,6 @@ D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\WpfStacker.pdb
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\BR.AN.PVIServices.dll
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\WpfStackerLibrary.dll
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\GalaSoft.MvvmLight.WPF4.dll
-D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\beeVNC.dll
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\System.Windows.Interactivity.dll
@@ -44,7 +43,6 @@ D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\WpfStackerLibrary.pdb
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\BR.AN.PVIServices.xml
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\GalaSoft.MvvmLight.WPF4.pdb
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\GalaSoft.MvvmLight.WPF4.xml
-D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\beeVNC.pdb
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.pdb

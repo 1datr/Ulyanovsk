@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="228" d:DesignWidth="490" Initialized="UserControl_Initialized" Margin="2" Loaded="UserControl_Loaded_1">
+             d:DesignHeight="228" d:DesignWidth="490"  Margin="2" Initialized="UserControl_Initialized" Loaded="UserControl_Loaded_1">
     <UserControl.Resources>
       
         <Style x:Key="CurrCell" TargetType="{x:Type Button}">

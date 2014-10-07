@@ -53,6 +53,7 @@
       <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -101,9 +102,6 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="VNCWin.xaml.cs">
-      <DependentUpon>VNCWin.xaml</DependentUpon>
-    </Compile>
     <Page Include="CmdQManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,10 +143,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="VNCWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -182,13 +176,14 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\play.png" />
+    <Resource Include="Images\prev.png" />
+    <Resource Include="Images\next.png" />
+    <Resource Include="Images\stop.png" />
+    <Resource Include="Images\red-cycle-icon-hi.png" />
+    <Resource Include="Images\order-icon.png" />
+    <Resource Include="Images\w256h2561339252558DeleteRed1.png" />
     <Content Include="ModelStacker.edmx.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\beeVNC\beeVNC.csproj">
-      <Project>{EE5CAD79-A85F-478A-9FCB-F9799485B43E}</Project>
-      <Name>beeVNC</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
