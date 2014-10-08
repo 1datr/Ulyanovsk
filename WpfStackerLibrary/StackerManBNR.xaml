@@ -1565,8 +1565,9 @@
         </Grid.Resources>
         <Border HorizontalAlignment="Stretch" Padding="5,5,5,5" VerticalAlignment="Stretch" BorderThickness="1" CornerRadius="5" BorderBrush="#FF0C0C0C">
             <StackPanel Orientation="Vertical">
-                <WrapPanel  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Name="dockPanel1" >                    
-                    <Button  HorizontalAlignment="Right" Width="75"  Margin="5,5,5,5" Background="#FF5A260D" FontSize="18" FontWeight="Bold" BorderBrush="{x:Null}" Click="Button_Click_1" Style="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PowerBtnBrush}">
+                <WrapPanel  HorizontalAlignment="Stretch" VerticalAlignment="Top"  Name="dockPanel1" >
+
+                    <Button  HorizontalAlignment="Right" Width="75" Margin="5,5,5,5"  Background="#FF5A260D"  FontWeight="Bold" BorderBrush="{x:Null}" Click="Button_Click_1" Style="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PowerBtnBrush}">
                         <Button.Resources>
                             <ResourceDictionary x:Name="PowerBtnBrushes">
                                 <Style x:Key="true">
@@ -1577,10 +1578,20 @@
                                 </Style>
                             </ResourceDictionary>
                         </Button.Resources>
-                        <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PowerBtnCaption}" />                                                    
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <TextBlock Name="tbONOFF"  Background="#FF5A260D" FontSize="16" Padding="20,3">OFF</TextBlock>
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=Power}" Value="True">
+                                        <Setter TargetName="tbONOFF" Property="Text" Value="ON" />
+                                        <Setter TargetName="tbONOFF" Property="Foreground" Value="Yellow"></Setter>
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
                     </Button>
                         <Button Height="25"  Content="Переподключить" Click="Button_Click"></Button>
-                <Button Content="Специальное управление" HorizontalAlignment="Right" Width="150"  Name="btnSpec" Height="25" Margin="5,5,5,5" Click="btnSpec_Click" />
+                <Button Content="Специальное управление" HorizontalAlignment="Right" Width="150"  Name="btnSpec" Height="25" Margin="5,0,5,5" Click="btnSpec_Click" />
                     <WrapPanel.Resources>
                         <ResourceDictionary x:Name="PowerBtnCaptions" >
                             <base:String x:Key="true">ON</base:String>

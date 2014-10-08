@@ -8,7 +8,7 @@
 
     <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2,5,2,2">
         <TabItem Header="Штабелер 1">
-
+            
             <my1:CommonCtrlKirishi Rows="22" Floors="12" Passw="1234" Name="stacker1">   
                 
                 <my1:CommonCtrlKirishi.PointsEmptyLeft>

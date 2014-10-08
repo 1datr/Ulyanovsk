@@ -82,6 +82,21 @@ namespace WpfStackerLibrary
             private set { SetValue(PowerBtnCaptionDP, value); }
         }
 
+        private bool PowerChangedOuter = false; // power изменено по внешнему сигналу
+        // Dependency Property
+        public static readonly DependencyProperty PowerDP = DependencyProperty.Register("Power", typeof(bool), typeof(StackerManBNR), new FrameworkPropertyMetadata(false));
+        // .NET Property wrapper
+        public bool Power
+        {
+            get
+            {
+                return (bool)GetValue(PowerDP);
+            }
+            set { 
+                SetValue(PowerDP, value);
+            }
+        }
+
         public void SetParam(String propname, Object val, object oldval)
         {
            try
@@ -516,7 +531,10 @@ namespace WpfStackerLibrary
                         switch (status)
                         {
                             case 0:
-                                StackerState = "Штабелер готов к выполнению команды";
+                                if(Power)
+                                    StackerState = "Штабелер готов к выполнению команды";
+                                else
+                                    StackerState = "Штабелер выключен";
                                 ConnStatus = StackerState;
                                 Error = "OK";
                                 CmdReady = true;
@@ -558,9 +576,11 @@ namespace WpfStackerLibrary
 
                     break;                
                 case "gOPC.Output.power":
-                    bool power = Convert.ToBoolean(VarVal("gOPC.Output.power").ToString());
+                    Power = Convert.ToBoolean(VarVal("gOPC.Output.power").ToString());
+                /*    PowerChangedOuter = true;
+
                     PowerBtnBrush = (Style)this.PowerBtnBrushes[power.ToString()];
-                    PowerBtnCaption = PowerBtnCaptions[power.ToString().ToLower()].ToString();
+                    PowerBtnCaption = PowerBtnCaptions[power.ToString().ToLower()].ToString();*/
                     break;
                 case "gOPC.Output.load":
                     TaraLoaded = Convert.ToBoolean(VarVal("gOPC.Output.load").ToString());
@@ -709,7 +729,7 @@ namespace WpfStackerLibrary
         {
             try
             {
-                if (power)
+                if (Power)
                 {
                     if (Varlist["gOPC.Input.power"].Value == false)
                     {
@@ -736,6 +756,9 @@ namespace WpfStackerLibrary
             catch (System.Exception exc)
             { }
         }
+
+        
+       
     }
 
     public class ErrorInfo
