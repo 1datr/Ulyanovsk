@@ -58,3 +58,4 @@ D:\программы\beeVNCKirishi\WpfStacker\obj\x86\Debug\WpfStacker.g.resour
 D:\программы\beeVNCKirishi\WpfStacker\obj\x86\Debug\WpfStacker.Properties.Resources.resources
 D:\программы\beeVNCKirishi\WpfStacker\obj\x86\Debug\GenerateResource.read.1.tlog
 D:\программы\beeVNCKirishi\WpfStacker\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\программы\beeVNCKirishi\WpfStacker\bin\Debug\VncSharp.dll

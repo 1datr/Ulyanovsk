@@ -58,6 +58,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
@@ -72,12 +73,14 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="VncSharp">
       <HintPath>..\packages\VncSharp.1.0.7.0\lib\VncSharp.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmdQManager.xaml.cs">
@@ -88,6 +91,15 @@
     </Compile>
     <Compile Include="Console.xaml.cs">
       <DependentUpon>Console.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vnc.xaml.cs">
+      <DependentUpon>Vnc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VncWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VncWin.Designer.cs">
+      <DependentUpon>VncWin.cs</DependentUpon>
     </Compile>
     <Compile Include="IStackerMan.cs" />
     <Compile Include="PasswordButton.cs" />
@@ -143,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Vnc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -161,6 +177,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VncWin.resx">
+      <DependentUpon>VncWin.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="ModelStacker.edmx">
@@ -183,6 +202,7 @@
     <Resource Include="Images\red-cycle-icon-hi.png" />
     <Resource Include="Images\order-icon.png" />
     <Resource Include="Images\w256h2561339252558DeleteRed1.png" />
+    <Resource Include="Images\vnc.ico" />
     <Content Include="ModelStacker.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

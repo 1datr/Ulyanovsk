@@ -83,3 +83,6 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\TakeProdWin.g.cs
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\CmdQManager.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\CmdQManager.g.cs
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Themes\Generic.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Vnc.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Vnc.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\WpfStackerLibrary.VncWin.resources

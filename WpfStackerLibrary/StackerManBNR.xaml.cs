@@ -678,16 +678,28 @@ namespace WpfStackerLibrary
 
         private void btnSpec_Click(object sender, RoutedEventArgs e)
         {
-
+            Vnc vnc_wnd = new Vnc();
             try
             {
-                /*VNCWin Vnc = new VNCWin();
-                Vnc.vncIP = this.cpu.Connection.TcpIp.DestinationIpAddress;
-                Vnc.Show();*/
+                if (cpu == null)
+                {
+                    cpu = new Cpu(service, "Cpu" + StackerID.ToString());
+
+                    //cpu.Connection.DeviceType = DeviceType.Serial;
+                    cpu.Connection.DeviceType = DeviceType.TcpIp;
+
+
+                    cpu.Connection.Device.UpdateCpuParameters(ConfigurationManager.AppSettings["CPUPARAMS_" + StackerID.ToString()]);
+                    cpu.Connection.Device.UpdateDeviceParameters(ConfigurationManager.AppSettings["DEVPARAMS_" + StackerID.ToString()]);
+                }
+                vnc_wnd.IP = cpu.Connection.TcpIp.DestinationIpAddress;
+                vnc_wnd.Show();
+
             }
             catch (System.Exception exc)
             {
-              //  MessageBox.Show("Fatal error: " + exc.Message, "Ошибка");
+               MessageBox.Show("Fatal error: " + exc.Message, "Ошибка");
+               vnc_wnd.Close();
             } 
         }
 
