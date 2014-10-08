@@ -317,6 +317,16 @@ namespace WpfStackerLibrary
                 case "StackerMenu":
                     stacker_left_panel.ContextMenu = StackerMenu;
                     break;
+                case "TaraLoaded":
+                    if((bool)val)
+                    {
+                    
+                    }
+                    else
+                    {
+                    
+                    }
+                    break;
             }
         }
 
@@ -326,6 +336,16 @@ namespace WpfStackerLibrary
             
             ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
              
+        }
+
+        private void TakeToTelezhka(int cell)
+        { 
+        
+        }
+
+        private void PutFromTelezhka(int cell)
+        {
+
         }
 
         // Dependency Property
@@ -1153,7 +1173,10 @@ namespace WpfStackerLibrary
             SDA.AddProduct(prod, cell, count, this.StackerID);
             List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
 
-            SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
+            if(cell==-1)
+                SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
+            else
+                SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
             cells_occupied = null;
             set_cell_styles();
         }

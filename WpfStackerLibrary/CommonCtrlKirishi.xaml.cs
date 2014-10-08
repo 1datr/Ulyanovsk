@@ -207,6 +207,24 @@ namespace WpfStackerLibrary
             }
         }
 
+
+        // Dependency Property
+        public static readonly DependencyProperty IsEditableDP = DependencyProperty.Register("IsEditable", typeof(bool), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(false));
+        // .NET Property wrapper
+        [Description("Is current cell editable"), Category("Stacker")]
+        public bool IsEditable
+        {
+            get
+            {
+                return (bool)GetValue(IsEditableDP);
+            }
+            set
+            {
+                SetValue(IsEditableDP, value);
+
+            }
+        }
+
         private static void OnCurrentTimePropertyChanged(DependencyObject source,
         DependencyPropertyChangedEventArgs e)
         {
@@ -352,6 +370,8 @@ namespace WpfStackerLibrary
             
         }
 
+        private Binding b = new Binding();
+
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             /*b.Source = stacker1.ProductlistFull;
@@ -359,6 +379,11 @@ namespace WpfStackerLibrary
 
             this.SetBinding(ProductlistFullDP, b);*/
             this.ProductlistFull = stacker1.ProductlistFull;
+            
+            b.Source = stacker1;
+            b.Path = new PropertyPath("EditCurrent");
+            b.Mode = BindingMode.TwoWay;
+            this.SetBinding(IsEditableDP, b);
         }
 
         private void stacker1_OnSelectCell(int cellno)
@@ -377,6 +402,40 @@ namespace WpfStackerLibrary
             {
                 Int32 thecell = Convert.ToInt32(cell_to_select.Text);
                 stacker1.SelectCell(thecell);
+            }
+            catch (System.Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            TakeProdWin TPW = new TakeProdWin();
+            TPW.ShowDialog();
+            CellContent cc = DGVProductsTel.SelectedItem as CellContent;
+            this.stacker1.TakeProduct(cc.Product.Id, TPW.COUNT);
+
+            //DGR.DataContext
+        }
+
+        private void btn_add_prod_tel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                stacker1.AddProduct(Convert.ToInt32(CBProduct.SelectedValue.ToString()), Convert.ToInt32(PCountTel.Text), -1);
+            }
+            catch (System.Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void btn_add_prod_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                stacker1.AddProduct(Convert.ToInt32(CBProduct.SelectedValue.ToString()), Convert.ToInt32(PCountTel.Text));
             }
             catch (System.Exception exc)
             {
