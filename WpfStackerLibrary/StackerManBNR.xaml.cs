@@ -139,6 +139,32 @@ namespace WpfStackerLibrary
         }
 
         // Dependency Property
+        public static readonly DependencyProperty dst_cell_DP = DependencyProperty.Register("dst_cell", typeof(Int32), typeof(StackerManBNR), new FrameworkPropertyMetadata(-1));
+        // .NET Property wrapper
+        [Description("Stacker parameters"), Category("Stacker")]
+        public Int32 dst_cell
+        {
+            get
+            {
+                return (Int32)GetValue(dst_cell_DP);
+            }
+            set { SetValue(dst_cell_DP, value); }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty src_cell_DP = DependencyProperty.Register("src_cell", typeof(Int32), typeof(StackerManBNR), new FrameworkPropertyMetadata(-1));
+        // .NET Property wrapper
+        [Description("Stacker parameters"), Category("Stacker")]
+        public Int32 src_cell
+        {
+            get
+            {
+                return (Int32)GetValue(src_cell_DP);
+            }
+            set { SetValue(src_cell_DP, value); }
+        }
+
+        // Dependency Property
         public static readonly DependencyProperty CurrCmdDP = DependencyProperty.Register("CurrCmd", typeof(StackerCommand), typeof(StackerManBNR), new FrameworkPropertyMetadata(null, DepParamsChanged));
         // .NET Property wrapper
         [Description("Current command"), Category("Stacker")]
@@ -593,6 +619,12 @@ namespace WpfStackerLibrary
                     break;
                 case "gOPC.Output.Zpos":
                     WorkParams.Z = Convert.ToInt32(VarVal(var.Name));
+                    break;
+                case "gOPC.Input.src_cell" :
+                    src_cell = Convert.ToInt32(VarVal(var.Name)); 
+                    break;
+                case "gOPC.Input.dst_cell":
+                    dst_cell = Convert.ToInt32(VarVal(var.Name)); 
                     break;
             }
         }

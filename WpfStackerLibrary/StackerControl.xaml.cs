@@ -318,14 +318,19 @@ namespace WpfStackerLibrary
                     stacker_left_panel.ContextMenu = StackerMenu;
                     break;
                 case "TaraLoaded":
-                    if((bool)val)
+                    if((bool)val)   // Берем из ячейки
                     {
-                    
+                        SDA.CellToTelezhka(this.src_cell);
                     }
-                    else
+                    else // Кладем в ячейку
                     {
-                    
+                        SDA.TelezhkaToCell(this.dst_cell);
                     }
+                    cells_occupied = null;
+                    set_cell_styles();
+                    List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
+                    SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
+                    SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
                     break;
             }
         }
@@ -338,15 +343,7 @@ namespace WpfStackerLibrary
              
         }
 
-        private void TakeToTelezhka(int cell)
-        { 
         
-        }
-
-        private void PutFromTelezhka(int cell)
-        {
-
-        }
 
         // Dependency Property
         public static readonly DependencyProperty RowsDP = DependencyProperty.Register("Rows", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(5, DepParamsChanged));
@@ -910,22 +907,32 @@ namespace WpfStackerLibrary
                 set_cell_styles();
             }
         }
-        /*
-        private static readonly DependencyPropertyKey PriemCellsPropertyKey = 
-        DependencyProperty.RegisterReadOnly(
-          "PriemCells",
-          typeof(List<Int32>),
-          typeof(StackerControl),
-          new FrameworkPropertyMetadata(new List<Int32>())
-        );
-        public static readonly DependencyProperty PriemCellsProperty = PriemCellsPropertyKey.DependencyProperty;
-        [Description("Filter of products"), Category("Stacker")]
-        public List<Int32> PriemCells
+
+        // Dependency Property
+        public static readonly DependencyProperty dst_cell_DP = DependencyProperty.Register("dst_cell", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(-1));
+        // .NET Property wrapper
+        [Description("Stacker parameters"), Category("Stacker")]
+        public Int32 dst_cell
         {
-            get { return (List<Int32>)GetValue(PriemCellsProperty); }
-            set { SetValue(PriemCellsProperty,value); }
+            get
+            {
+                return (Int32)GetValue(dst_cell_DP);
+            }
+            set { SetValue(dst_cell_DP, value); }
         }
-        */
+
+        // Dependency Property
+        public static readonly DependencyProperty src_cell_DP = DependencyProperty.Register("src_cell", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(-1));
+        // .NET Property wrapper
+        [Description("Stacker parameters"), Category("Stacker")]
+        public Int32 src_cell
+        {
+            get
+            {
+                return (Int32)GetValue(src_cell_DP);
+            }
+            set { SetValue(src_cell_DP, value); }
+        }
 
         // Dependency Property
         public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(new StackerWorkData()));
@@ -1242,8 +1249,28 @@ namespace WpfStackerLibrary
                     inited = true;
                 }
         }
+        // взять на тележку
+        public void CellToTelezhka(int cell, int StackerID=1)
+        {
 
+            List<CellContent> products_in_cell = GetProductsByCell(cell, StackerID);
+            foreach (CellContent cc in products_in_cell)
+            {
+                cc.CellID = -1;
+            }
+            objDataContext.SaveChanges();
         
+        }
+
+        public void TelezhkaToCell(int cell, int StackerID = 1)
+        {
+            List<CellContent> products_in_cell = GetProductsByCell(-1, StackerID);
+            foreach (CellContent cc in products_in_cell)
+            {
+                cc.CellID = cell;
+            }
+            objDataContext.SaveChanges();
+        }
 
         public List<CellContent> SearchCC(String str, List<Int32> stackers=null)
         {
