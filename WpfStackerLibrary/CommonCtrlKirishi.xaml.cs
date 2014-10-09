@@ -80,11 +80,22 @@ namespace WpfStackerLibrary
             CmdQueue.trans(cell1, cell2);
         }
 
+        public void SetParam(String propname, Object val, object oldval)
+        {
+            switch (propname)
+            {
+                case "StackerID":
+                        Console.logfilepath = "stacker" + this.StackerID + "_log";
+                    break;
+                
+            }
+        }
+
         private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-           // StackerControl ctrl = (StackerControl)d;
+            CommonCtrlKirishi ctrl = (CommonCtrlKirishi)d;
 
-          //  ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
+           ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
 
         }
 
@@ -149,7 +160,7 @@ namespace WpfStackerLibrary
 
         // Содержимое тележки
         // Dependency Property
-        public static readonly DependencyProperty StackerIDDP = DependencyProperty.Register("StackerID", typeof(Int32), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(1));
+        public static readonly DependencyProperty StackerIDDP = DependencyProperty.Register("StackerID", typeof(Int32), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(1, DepParamsChanged));
         [Description("Stacker ID"), Category("Stacker")]
         // .NET Property wrapper
         public Int32 StackerID
@@ -160,7 +171,8 @@ namespace WpfStackerLibrary
             }
             set
             {
-                SetValue(StackerIDDP, value);               
+                SetValue(StackerIDDP, value);
+                
             }
         }
 
@@ -374,10 +386,8 @@ namespace WpfStackerLibrary
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            /*b.Source = stacker1.ProductlistFull;
-            b.Mode = BindingMode.OneWay;
+            Console.logfilepath = "stacker" + this.StackerID + "_log";
 
-            this.SetBinding(ProductlistFullDP, b);*/
             this.ProductlistFull = stacker1.ProductlistFull;
             
             b.Source = stacker1;

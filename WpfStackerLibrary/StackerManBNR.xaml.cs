@@ -110,6 +110,7 @@ namespace WpfStackerLibrary
                             { 
                         
                             StackerCommand cmd = val as StackerCommand;
+                            Message = "Началось выполнение команды \""+CurrCmd.ToString()+"\"";
                             //switch
                                 switch(cmd.CmdName)
                                 {
@@ -120,6 +121,7 @@ namespace WpfStackerLibrary
                                 }
                         
                             }
+                            
                             break;
                     }
             }
@@ -191,6 +193,7 @@ namespace WpfStackerLibrary
             Varlist["gOPC.Input.command"].Value = 1;
             Varlist["gOPC.Input.src_cell"].Value = Convert.ToInt32(cell.ToString()); 
             Varlist["gOPC.Input.start"].Value = true;
+            
         }
         public void put(object cell)
         {
@@ -503,6 +506,18 @@ namespace WpfStackerLibrary
                 return (String)GetValue(ConnStatusDP); 
             }
             private set { SetValue(ConnStatusDP, value); }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty MessageDP = DependencyProperty.Register("Message", typeof(String), typeof(StackerManBNR), new FrameworkPropertyMetadata(""));
+        // .NET Property wrapper
+        public String Message
+        {
+            get
+            {
+                return (String)GetValue(MessageDP);
+            }
+            private set { SetValue(MessageDP, value); }
         }
 
         // Dependency Property

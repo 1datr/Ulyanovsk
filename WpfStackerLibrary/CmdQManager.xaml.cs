@@ -72,6 +72,17 @@ namespace WpfStackerLibrary
             }
         }
 
+        // Dependency Property
+        public static readonly DependencyProperty MessageDP = DependencyProperty.Register("Message", typeof(String), typeof(CmdQManager), new FrameworkPropertyMetadata(""));
+        // .NET Property wrapper
+        public String Message
+        {
+            get
+            {
+                return (String)GetValue(MessageDP);
+            }
+            private set { SetValue(MessageDP, value); }
+        }
 
         public static readonly DependencyProperty IsWorkDP =
             DependencyProperty.Register("IsWork",
@@ -107,8 +118,13 @@ namespace WpfStackerLibrary
         }
 
         private void next()
-        { 
-        
+        {
+            try {
+                CurrCmdIdx++;
+                CurrCmd = CmdQueue[CurrCmdIdx];
+            }
+            catch (System.Exception exc)
+            { }
         }
 
         private void prev()
@@ -200,9 +216,23 @@ namespace WpfStackerLibrary
                     
                         break;
                     case "CmdQueue": {
-                        if (CmdReady)
-                            if (CmdQueue.Count > 0)
-                                CurrCmd = CmdQueue[0];
+                        try
+                        {
+
+                            if (CmdReady)
+                                if (CmdQueue.Count > 0)
+                                {
+                                    if (CurrCmd == null)
+                                    {
+                                        CurrCmdIdx = 0;
+                                        CurrCmd = CmdQueue[CurrCmdIdx];
+                                    }
+                                }
+                        }
+                        catch (System.Exception exc)
+                        { 
+                        
+                        }
                         } break;
                     case "StackerState": {
                             switch (oldval.ToString())
@@ -227,7 +257,7 @@ namespace WpfStackerLibrary
                                     {
                                         case "Штабелер готов к выполнению команды":
                                             // Действие завершилось
-                                            CmdQueue.RemoveAt(0);
+                                            next();
                                             break;
                                         case "Штабелер находиться в состоянии выполнения команды":
 
@@ -246,8 +276,9 @@ namespace WpfStackerLibrary
                                     {
                                         case "Штабелер готов к выполнению команды":
                                             // Выполнение команды завершилось
-                                            if (CmdQueue.Count > 0)
-                                                CurrCmd = CmdQueue[0];
+                                            
+                                                next();
+                                                                                            
                                             break;
                                         case "Штабелер находиться в состоянии выполнения команды":
 
@@ -319,7 +350,10 @@ namespace WpfStackerLibrary
             {
                 return (StackerCommand)GetValue(CurrCmdDP);
             }
-            private set { SetValue(CurrCmdDP, value); }
+            private set { 
+                SetValue(CurrCmdDP, value); 
+            
+            }
         }
 
         // Dependency Property
@@ -569,6 +603,23 @@ namespace WpfStackerLibrary
         public StackerCommand()
         { 
         
+        }
+
+        public override String ToString()
+        {
+            String str = "";
+            switch (f_cmdname)
+            { 
+                case "park": str = "Парковать";
+                                break;
+                case "push": str = "Положить в ячейку "+_op1.ToString();
+                                break;
+                case "take": str = "Взять из ячейки " + _op1.ToString();
+                                break;
+                case "trans": str = "Переместить из ячейки " + _op1.ToString() +" в ячейку " +Op2.ToString();
+                                break;
+            }
+            return str;
         }
 
         public StackerCommand(String opname="park", Int32 op1_=-1, Int32 op2_=-1)

@@ -51,8 +51,13 @@ namespace WpfStackerLibrary
 
         private static void InnerTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Console ctrl = (Console)d;
-            ctrl.newline( e.NewValue.ToString());
+            try
+            {
+                Console ctrl = (Console)d;
+                ctrl.newline(e.NewValue.ToString());
+            }
+            catch (System.Exception ex)
+            { }
         }
 
         // Dependency Property
@@ -91,13 +96,79 @@ namespace WpfStackerLibrary
 
         public void newline(String str)
         {
-            tbConsole.Text = "["+DateTime.Now.ToString()+"] " + (String)GetValue(StringSrc1DP) + "\n" + tbConsole.Text;
-            if (logfilepath != "")
-            {
-            /*    StreamWriter sw = File.CreateText(logfilepath);
-                sw.WriteLine(str);
-                sw.Close();      */         
-            }
+            
+                    if (str.TrimEnd().TrimStart() == "") return;
+                    str = "[" + DateTime.Now.ToString() + "] " + str;
+                    tbConsole.Text = "\n\r" + str + tbConsole.Text;
+                    if (logfilepath != "")
+                    {
+                        string folderName = logfilepath;
+                        DirectoryInfo drInfo = new DirectoryInfo(logfilepath);
+                        if (!drInfo.Exists)
+                        {
+                            drInfo.Create();
+                        }
+
+                        String logfilename = logfilepath + "\\" + DateTime.Today.ToString("MM.dd.yyyy") + ".log";
+
+                        if (!File.Exists(logfilename))
+                        {
+                            // Create a file to write to.
+                            using (StreamWriter sw = File.CreateText(logfilename))
+                            {
+                                sw.WriteLine(str);
+                            }
+                        }
+
+                        // Open the file to read from.
+                        string fullfile = "";
+                        string s = "";
+                        using (StreamReader sr = File.OpenText(logfilename))
+                        {
+                            
+                            while ((s = sr.ReadLine()) != null)
+                            {
+                                fullfile = String.Format(@"{0}
+{1}", s, fullfile);                                  
+                            }
+                        }
+
+                        fullfile = String.Format(@"{0}
+{1}", str, fullfile);               
+
+                        File.WriteAllText(logfilename, fullfile);
+
+                        /*
+                        using (FileStream fs = File.OpenWrite(logfilepath))
+                        {
+                            StreamWriter sw = new StreamWriter(fs);                            
+                            sw.WriteLine(str);
+                            sw.Close();
+                        }
+                       */
+                /*        lock(this){
+
+                            
+
+                            if (!File.Exists(logfilename)) //Если файл не существует
+                            {
+                                FileStream fileStream = new FileStream(logfilename, FileMode.Create);  //Создаем    
+
+                            }
+                            else
+                            {
+                                FileStream fileStream = new FileStream(logfilename, FileMode.Open, FileAccess.ReadWrite);
+                                fileStream.
+
+                                String oldstr = File.ReadAllText(logfilename);
+                                String TotalText = String.Format(@"{0}
+    {1}", str, oldstr);
+
+                                File.WriteAllText(logfilename, TotalText);
+                            }
+                        } */
+                    }
+          
         }
 
         // Dependency Property
