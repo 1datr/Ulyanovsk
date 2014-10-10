@@ -1,3 +1,23 @@
+[09.10.2014 18:13:29] PVI variables connected
+[09.10.2014 18:13:29] PVI variables connected
+[09.10.2014 18:13:29] PVI CPU connected
+[09.10.2014 18:13:29] PVI service connected
+[09.10.2014 17:43:31] PVI variables connected
+[09.10.2014 17:43:31] PVI variables connected
+[09.10.2014 17:43:31] PVI CPU connected
+[09.10.2014 17:43:31] PVI service connected
+[09.10.2014 17:35:36] Штабелер не готов выполненять команду
+[09.10.2014 17:35:31] Штабелер не готов выполненять команду
+[09.10.2014 17:35:07] Ошибка привода
+[09.10.2014 17:35:07] PVI variables connected
+[09.10.2014 17:35:06] PVI CPU connected
+[09.10.2014 17:35:05] PVI service connected
+[09.10.2014 17:34:40] PVI service connecting ...
+[09.10.2014 16:01:05] Штабелер не готов выполненять команду
+[09.10.2014 15:58:34] Ошибка привода
+[09.10.2014 15:58:34] PVI variables connected
+[09.10.2014 15:58:34] PVI CPU connected
+[09.10.2014 15:58:34] PVI service connected
 [09.10.2014 15:49:43] PVI variables connected
 [09.10.2014 15:49:43] Ошибка: Неизвестная ошибка (50000)
 [09.10.2014 15:49:43] PVI variables connecting ...
@@ -17,3 +37,23 @@
 [09.10.2014 15:49:43] PVI CPU connected
 [09.10.2014 15:49:43] PVI variables connected
 [09.10.2014 15:49:43] Ошибка привода
+[09.10.2014 15:58:33] PVI service connecting ...
+[09.10.2014 15:58:34] PVI CPU connecting ...
+[09.10.2014 15:58:34] PVI variables connecting ...
+[09.10.2014 15:58:34] Ошибка: Неизвестная ошибка (50000)
+[09.10.2014 15:58:34] PVI variables connected
+[09.10.2014 16:01:06] Штабелер выключен
+[09.10.2014 17:35:03] Error:PVI Manager not started  (12050)
+[09.10.2014 17:35:05] PVI CPU connecting ...
+[09.10.2014 17:35:06] PVI variables connecting ...
+[09.10.2014 17:35:07] Ошибка: Неизвестная ошибка (50000)
+[09.10.2014 17:35:07] PVI variables connected
+[09.10.2014 17:35:32] Штабелер выключен
+[09.10.2014 17:43:30] PVI service connecting ...
+[09.10.2014 17:43:31] PVI CPU connecting ...
+[09.10.2014 17:43:31] PVI variables connecting ...
+[09.10.2014 17:43:31] Штабелер не готов выполненять команду
+[09.10.2014 18:13:28] PVI service connecting ...
+[09.10.2014 18:13:29] PVI CPU connecting ...
+[09.10.2014 18:13:29] PVI variables connecting ...
+[09.10.2014 18:13:29] Штабелер не готов выполненять команду

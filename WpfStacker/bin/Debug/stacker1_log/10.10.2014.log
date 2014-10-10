@@ -1,0 +1,319 @@
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] Error:No connection available to the PLC  (4808)
+[10.10.2014 23:54:10] PVI CPU connected
+[10.10.2014 23:54:09] PVI service connected
+[10.10.2014 22:46:41] PVI variables connected
+[10.10.2014 22:46:41] PVI variables connected
+[10.10.2014 22:46:41] PVI CPU connected
+[10.10.2014 22:46:41] PVI service connected
+[10.10.2014 21:22:07] Штабелер готов к выполнению команды
+[10.10.2014 21:21:39] Началось выполнение команды "Взять из ячейки 37"
+[10.10.2014 21:21:19] Ошибка: Неизвестная ошибка (50024)
+[10.10.2014 21:21:15] Штабелер выключен
+[10.10.2014 21:21:10] Ошибка: Неизвестная ошибка (50024)
+[10.10.2014 21:20:59] Штабелер выключен
+[10.10.2014 21:20:51] PVI variables connected
+[10.10.2014 21:20:51] Ошибка: Неизвестная ошибка (50000)
+[10.10.2014 21:20:44] PVI variables connecting ...
+[10.10.2014 21:20:43] PVI CPU connecting ...
+[10.10.2014 21:20:43] PVI service connecting ...
+[10.10.2014 21:20:20] Ошибка: Неизвестная ошибка (50061)
+[10.10.2014 21:20:15] PVI variables connected
+[10.10.2014 21:20:14] PVI variables connected
+[10.10.2014 21:20:14] PVI CPU connected
+[10.10.2014 21:20:13] PVI service connected
+[10.10.2014 21:18:04] Штабелер готов к выполнению команды
+[10.10.2014 21:17:59] Началось выполнение команды "Парковать"
+[10.10.2014 21:17:56] Штабелер выключен
+[10.10.2014 21:17:56] PVI variables connecting ...
+[10.10.2014 21:17:55] PVI CPU connecting ...
+[10.10.2014 21:17:55] PVI service connecting ...
+[10.10.2014 21:13:25] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 21:13:18] Штабелер готов к выполнению команды
+[10.10.2014 21:12:58] Штабелер выключен
+[10.10.2014 21:12:45] PVI variables connected
+[10.10.2014 21:12:45] Ошибка: Неизвестная ошибка (50000)
+[10.10.2014 21:12:43] PVI variables connecting ...
+[10.10.2014 21:12:42] PVI CPU connecting ...
+[10.10.2014 21:12:41] PVI service connecting ...
+[10.10.2014 21:11:42] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 21:11:38] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 21:11:32] Штабелер готов к выполнению команды
+[10.10.2014 21:11:23] Ошибка: Неизвестная ошибка (50061)
+[10.10.2014 21:11:10] Штабелер не готов выполненять команду
+[10.10.2014 21:10:53] Ошибка: Неизвестная ошибка (50061)
+[10.10.2014 21:10:41] Штабелер готов к выполнению команды
+[10.10.2014 21:10:37] Началось выполнение команды "Взять из ячейки 37"
+[10.10.2014 21:10:29] PVI variables connected
+[10.10.2014 21:10:29] PVI CPU connected
+[10.10.2014 21:10:28] PVI service connected
+[10.10.2014 21:00:47] Штабелер готов к выполнению команды
+[10.10.2014 21:00:41] Началось выполнение команды "Парковать"
+[10.10.2014 21:00:18] PVI variables connected
+[10.10.2014 21:00:18] PVI CPU connected
+[10.10.2014 21:00:18] PVI service connected
+[10.10.2014 20:57:44] Штабелер готов к выполнению команды
+[10.10.2014 20:57:18] Началось выполнение команды "Взять из ячейки 26"
+[10.10.2014 20:52:15] Штабелер не готов выполненять команду
+[10.10.2014 20:52:04] Штабелер выключен
+[10.10.2014 20:52:02] Началось выполнение команды "Взять из ячейки 278"
+[10.10.2014 20:51:57] Штабелер не готов выполненять команду
+[10.10.2014 20:51:38] Ошибка привода
+[10.10.2014 20:51:38] PVI variables connected
+[10.10.2014 20:51:38] PVI CPU connected
+[10.10.2014 20:51:38] PVI service connected
+[10.10.2014 16:22:41] PVI service connecting ...
+[10.10.2014 13:59:28] Error:No connection available to the PLC  (4808)
+[10.10.2014 13:43:36] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 13:22:50] Штабелер не готов выполненять команду
+[10.10.2014 13:22:42] Штабелер не готов выполненять команду
+[10.10.2014 13:22:39] Началось выполнение команды "Взять из ячейки 14"
+[10.10.2014 13:22:22] Ошибка: Неизвестная ошибка (50024)
+[10.10.2014 13:22:17] Штабелер выключен
+[10.10.2014 13:22:05] PVI variables connected
+[10.10.2014 13:22:05] Ошибка: Неизвестная ошибка (50000)
+[10.10.2014 13:21:12] PVI variables connecting ...
+[10.10.2014 13:21:11] PVI CPU connecting ...
+[10.10.2014 13:21:09] Error:PVI Manager not started  (12050)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:38:08] PVI CPU connected
+[10.10.2014 11:38:08] PVI service connected
+[10.10.2014 11:32:25] Error:No connection available to the PLC  (4808)
+[10.10.2014 11:31:50] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 11:31:44] PVI variables connected
+[10.10.2014 11:31:41] PVI variables connected
+[10.10.2014 11:31:41] PVI CPU connected
+[10.10.2014 11:31:41] PVI service connected
+[10.10.2014 11:30:59] Штабелер готов к выполнению команды
+[10.10.2014 11:30:52] Началось выполнение команды "Парковать"
+[10.10.2014 11:30:41] Штабелер выключен
+[10.10.2014 11:30:41] PVI variables connecting ...
+[10.10.2014 11:30:41] PVI CPU connecting ...
+[10.10.2014 11:30:40] PVI service connecting ...
+[10.10.2014 11:21:07] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 11:20:50] Штабелер выключен
+[10.10.2014 11:20:43] PVI variables connected
+[10.10.2014 11:20:43] PVI variables connected
+[10.10.2014 11:20:38] PVI CPU connected
+[10.10.2014 11:20:38] PVI service connected
+[10.10.2014 11:19:54] PVI CPU connecting ...
+[10.10.2014 11:19:36] Error:Communication timeout (application/PVI Manager)  (12059)
+[10.10.2014 11:18:36] Штабелер не готов выполненять команду
+[10.10.2014 11:18:36] PVI variables connecting ...
+[10.10.2014 11:18:35] PVI CPU connecting ...
+[10.10.2014 11:18:35] PVI service connecting ...
+[10.10.2014 11:16:36] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 11:16:28] Штабелер не готов выполненять команду
+[10.10.2014 11:16:14] Ошибка привода
+[10.10.2014 11:16:14] PVI variables connected
+[10.10.2014 11:16:12] PVI CPU connected
+[10.10.2014 11:16:11] PVI service connected
+[10.10.2014 11:16:10] PVI service connecting ...
+[10.10.2014 11:16:10] PVI service connecting ...
+[10.10.2014 11:16:11] PVI CPU connecting ...
+[10.10.2014 11:16:12] PVI variables connecting ...
+[10.10.2014 11:16:14] Ошибка: Неизвестная ошибка (50000)
+[10.10.2014 11:16:14] PVI variables connected
+[10.10.2014 11:16:29] Штабелер выключен
+[10.10.2014 11:16:36] Штабелер не готов выполненять команду
+[10.10.2014 11:18:35] PVI service connected
+[10.10.2014 11:18:36] PVI CPU connected
+[10.10.2014 11:18:36] PVI variables connected
+[10.10.2014 11:18:36] PVI variables connected
+[10.10.2014 11:19:54] PVI service connected
+[10.10.2014 11:20:38] PVI service connecting ...
+[10.10.2014 11:20:38] PVI CPU connecting ...
+[10.10.2014 11:20:38] PVI variables connecting ...
+[10.10.2014 11:20:43] Штабелер выключен
+[10.10.2014 11:20:50] Штабелер не готов выполненять команду
+[10.10.2014 11:21:07] Началось выполнение команды "Взять из ячейки 26"
+[10.10.2014 11:21:34] Штабелер готов к выполнению команды
+[10.10.2014 11:30:41] PVI service connected
+[10.10.2014 11:30:41] PVI CPU connected
+[10.10.2014 11:30:41] PVI variables connected
+[10.10.2014 11:30:41] PVI variables connected
+[10.10.2014 11:30:52] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 11:31:41] PVI service connecting ...
+[10.10.2014 11:31:41] PVI CPU connecting ...
+[10.10.2014 11:31:41] PVI variables connecting ...
+[10.10.2014 11:31:44] Штабелер выключен
+[10.10.2014 11:31:50] Началось выполнение команды "Положить в ячейку -1"
+[10.10.2014 11:32:25] Штабелер готов к выполнению команды
+[10.10.2014 11:38:07] PVI service connecting ...
+[10.10.2014 11:38:08] PVI CPU connecting ...
+[10.10.2014 11:38:08] PVI variables connecting ...
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 11:38:08] PVI variables connected
+[10.10.2014 13:20:53] PVI service connecting ...
+[10.10.2014 13:21:11] PVI service connected
+[10.10.2014 13:21:12] PVI CPU connected
+[10.10.2014 13:21:13] PVI variables connected
+[10.10.2014 13:22:05] Ошибка привода
+[10.10.2014 13:22:16] Штабелер не готов выполненять команду
+[10.10.2014 13:22:21] Началось выполнение команды "Взять из ячейки 1"
+[10.10.2014 13:22:23] Штабелер выключен
+[10.10.2014 13:22:39] Ошибка: Неизвестная ошибка (50024)
+[10.10.2014 13:22:42] Штабелер выключен
+[10.10.2014 13:26:25] Штабелер готов к выполнению команды
+[10.10.2014 13:44:02] Штабелер готов к выполнению команды
+[10.10.2014 16:17:13] PVI service connecting ...
+[10.10.2014 20:51:37] PVI service connecting ...
+[10.10.2014 20:51:38] PVI CPU connecting ...
+[10.10.2014 20:51:38] PVI variables connecting ...
+[10.10.2014 20:51:38] Ошибка: Неизвестная ошибка (50000)
+[10.10.2014 20:51:38] PVI variables connected
+[10.10.2014 20:51:58] Штабелер выключен
+[10.10.2014 20:52:02] Ошибка: Неизвестная ошибка (50024)
+[10.10.2014 20:52:15] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 20:57:05] Штабелер готов к выполнению команды
+[10.10.2014 20:57:18] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 21:00:17] PVI service connecting ...
+[10.10.2014 21:00:18] PVI CPU connecting ...
+[10.10.2014 21:00:18] PVI variables connecting ...
+[10.10.2014 21:00:18] Штабелер выключен
+[10.10.2014 21:00:41] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 21:10:27] PVI service connecting ...
+[10.10.2014 21:10:28] PVI CPU connecting ...
+[10.10.2014 21:10:29] PVI variables connecting ...
+[10.10.2014 21:10:30] Штабелер выключен
+[10.10.2014 21:10:38] Ошибка: Неизвестная ошибка (50061)
+[10.10.2014 21:10:53] Началось выполнение команды "Взять из ячейки 14"
+[10.10.2014 21:10:57] Штабелер готов к выполнению команды
+[10.10.2014 21:11:17] Штабелер готов к выполнению команды
+[10.10.2014 21:11:32] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 21:11:38] Началось выполнение команды "Парковать"
+[10.10.2014 21:11:38] Штабелер готов к выполнению команды
+[10.10.2014 21:11:43] Штабелер готов к выполнению команды
+[10.10.2014 21:12:42] PVI service connected
+[10.10.2014 21:12:43] PVI CPU connected
+[10.10.2014 21:12:45] PVI variables connected
+[10.10.2014 21:12:45] Ошибка привода
+[10.10.2014 21:12:57] Штабелер не готов выполненять команду
+[10.10.2014 21:13:02] Штабелер не готов выполненять команду
+[10.10.2014 21:13:24] Началось выполнение команды "Взять из ячейки 13"
+[10.10.2014 21:13:49] Штабелер готов к выполнению команды
+[10.10.2014 21:17:55] PVI service connected
+[10.10.2014 21:17:56] PVI CPU connected
+[10.10.2014 21:17:56] PVI variables connected
+[10.10.2014 21:17:56] PVI variables connected
+[10.10.2014 21:18:00] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 21:20:12] PVI service connecting ...
+[10.10.2014 21:20:13] PVI CPU connecting ...
+[10.10.2014 21:20:14] PVI variables connecting ...
+[10.10.2014 21:20:15] Штабелер выключен
+[10.10.2014 21:20:17] Началось выполнение команды "Взять из ячейки 37"
+[10.10.2014 21:20:24] Штабелер готов к выполнению команды
+[10.10.2014 21:20:43] PVI service connected
+[10.10.2014 21:20:44] PVI CPU connected
+[10.10.2014 21:20:51] PVI variables connected
+[10.10.2014 21:20:51] Ошибка привода
+[10.10.2014 21:20:59] Штабелер не готов выполненять команду
+[10.10.2014 21:21:10] Началось выполнение команды "Взять из ячейки 14"
+[10.10.2014 21:21:15] Штабелер не готов выполненять команду
+[10.10.2014 21:21:19] Началось выполнение команды "Взять из ячейки 38"
+[10.10.2014 21:21:21] Штабелер выключен
+[10.10.2014 21:21:39] Штабелер находиться в состоянии выполнения команды
+[10.10.2014 22:46:40] PVI service connecting ...
+[10.10.2014 22:46:41] PVI CPU connecting ...
+[10.10.2014 22:46:41] PVI variables connecting ...
+[10.10.2014 22:46:41] Штабелер выключен
+[10.10.2014 23:54:08] PVI service connecting ...
+[10.10.2014 23:54:09] PVI CPU connecting ...
+[10.10.2014 23:54:10] PVI variables connecting ...
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected
+[10.10.2014 23:54:10] PVI variables connected

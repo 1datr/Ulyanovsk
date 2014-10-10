@@ -21,7 +21,7 @@ using System.Windows.Markup;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Globalization;
-
+using System.Xml.Linq;
 
 namespace WpfStackerLibrary
 {
@@ -233,9 +233,11 @@ namespace WpfStackerLibrary
             {
                 case "Rows":
                     rack_left.ColumnDefinitions.Clear();
+                    stacker_rails.ColumnDefinitions.Clear();
                     for (Int32 i = 0; i < Rows; i++)
                     {
                         rack_left.ColumnDefinitions.Add(new ColumnDefinition());
+                        stacker_rails.ColumnDefinitions.Add(new ColumnDefinition());
                     }
 
                     rack_right.ColumnDefinitions.Clear();
@@ -284,53 +286,59 @@ namespace WpfStackerLibrary
                         ProductlistFull = new ItemsChangeObservableCollection<Product>(SDA.GetAllProducts(FilterFull));
                     break;
                 case "PriemCells":
-                    try
-                    {
-                       /* if (PriemCells != null)
-                            foreach (int p in PriemCells)
-                            {
-
-                                Button b = GridPoints[p];
-                                set_style_of_cell(b);
-                            }*/
-                        set_cell_styles();
-                    }
-                    catch (System.Exception ex)
-                    { }
+                        try
+                        {                    
+                            set_cell_styles();
+                        }
+                        catch (System.Exception ex)
+                        { }
                     break;
                 case "CellMenu":
-                    try
-                    {                        
-                        foreach (Button b in rack_left.Children)
-                        {
-                            b.ContextMenu = CellMenu;
-                        }
+                        try
+                        {                        
+                            foreach (Button b in rack_left.Children)
+                            {
+                                b.ContextMenu = CellMenu;
+                            }
 
-                        foreach (Button b in rack_right.Children)
-                        {
-                            b.ContextMenu = CellMenu;
+                            foreach (Button b in rack_right.Children)
+                            {
+                                b.ContextMenu = CellMenu;
+                            }
                         }
-                    }
-                    catch (System.Exception ex)
-                    { }
+                        catch (System.Exception ex)
+                        { }
                     break;
                 case "StackerMenu":
-                    stacker_left_panel.ContextMenu = StackerMenu;
+                        stacker_left_panel.ContextMenu = StackerMenu;
                     break;
                 case "TaraLoaded":
-                    if((bool)val)   // Берем из ячейки
+                        if((bool)val)   // Берем из ячейки
+                        {
+                            SDA.CellToTelezhka(this.src_cell);
+                        }
+                        else // Кладем в ячейку
+                        {
+                            SDA.TelezhkaToCell(this.dst_cell);
+                        }
+                        cells_occupied = null;
+                        set_cell_styles();
+                        List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
+                        SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
+                        SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
+                    break;
+                case "WorkParams":
+                    try
                     {
-                        SDA.CellToTelezhka(this.src_cell);
+                        XElement xe = XElement.Load("CoordsStacker" + StackerID.ToString() + ".xml");
+
+                        var elements = xe.Elements();
+                        var rd = (from c in elements where (c.Attribute("Y").Value=="0") select c);
+                        
                     }
-                    else // Кладем в ячейку
-                    {
-                        SDA.TelezhkaToCell(this.dst_cell);
+                    catch (System.Exception exc)
+                    { 
                     }
-                    cells_occupied = null;
-                    set_cell_styles();
-                    List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
-                    SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
-                    SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
                     break;
             }
         }
@@ -935,7 +943,7 @@ namespace WpfStackerLibrary
         }
 
         // Dependency Property
-        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(new StackerWorkData()));
+        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(null,DepParamsChanged));
         // .NET Property wrapper
         [Description("Stacker parameters"), Category("Stacker")]
         public StackerWorkData WorkParams
@@ -1213,6 +1221,7 @@ namespace WpfStackerLibrary
                // this.PointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
             
                 SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
+                WorkParams = new StackerWorkData();
             }
             else
             {
@@ -1474,6 +1483,36 @@ namespace WpfStackerLibrary
 
     
 
+    public class cell : INotifyPropertyChanged
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
+        public string FullName { get { return string.Format("{0}:{1}:{2}", X, Y, Z); } }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string prop)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            }
+        }
+
+        public cell()
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
+
+        public cell(int _x = 0, int _y = 0, int _z = 0)
+        {
+            X = _x; 
+            Y = _y;
+            Z = _z;
+        }
+    }
+
     public class GridPoint : INotifyPropertyChanged
     {
         public int Cell { get; set; }
@@ -1497,15 +1536,14 @@ namespace WpfStackerLibrary
             right = false;
         }
 
-        public GridPoint(int _x=0, int _y=0, bool _right=false)
+        public GridPoint(int _x = 0, int _y = 0, bool _right = false)
         {
-            X = _x; 
-            Y = _y; 
+            X = _x;
+            Y = _y;
             right = _right;
         }
     }
 
-    
 
 
     public class ProductCountRec

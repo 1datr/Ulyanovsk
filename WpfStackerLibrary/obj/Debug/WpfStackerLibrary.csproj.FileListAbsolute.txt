@@ -41,13 +41,7 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\WpfStackerLibrar
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\WpfStackerLibrary.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\WpfStackerLibrary.pdb
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\BR.AN.PVIServices.dll
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\EntityFramework.dll
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\EntityFramework.SqlServer.dll
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\GalaSoft.MvvmLight.WPF4.dll
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\System.Windows.Interactivity.dll
-D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\VncSharp.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\BR.AN.PVIServices.xml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\EntityFramework.xml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\EntityFramework.SqlServer.xml
@@ -85,4 +79,11 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\CmdQManager.g.cs
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Themes\Generic.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Vnc.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Vnc.g.cs
-D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\WpfStackerLibrary.VncWin.resources
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Win1.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\Win1.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\EntityFramework.dll
+D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\EntityFramework.SqlServer.dll
+D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\GalaSoft.MvvmLight.Extras.WPF4.dll
+D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\GalaSoft.MvvmLight.WPF4.dll
+D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\VncSharp.dll

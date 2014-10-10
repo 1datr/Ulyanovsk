@@ -117,6 +117,35 @@ namespace WpfStackerLibrary
             }
         }
 
+        public static readonly DependencyProperty CycleDP =
+            DependencyProperty.Register("Cycle",
+            typeof(bool), typeof(CmdQManager),
+            new FrameworkPropertyMetadata(false, DepParamsChanged)
+            );
+        // Stacker panel menu
+        [Description("Index in commands queue"), Category("Stacker")]
+        public bool Cycle
+        {
+            get
+            {
+
+                return (bool)this.GetValue(CycleDP);
+            }
+            set
+            {
+                try
+                {
+
+                    this.SetValue(CycleDP, value);
+                   
+                }
+                catch (System.Exception exc)
+                {
+
+                }
+            }
+        }
+
         private void next()
         {
             try {

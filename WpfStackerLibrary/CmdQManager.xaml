@@ -107,7 +107,7 @@
                     <Image Source="/WpfStackerLibrary;component/Images/prev.png"></Image>
                 </Button>
 
-                <ToggleButton Name="btn_play"  Margin="0,0,5,0" ToolTip="Выполнить/остановить выполнение команд" BorderThickness="4" BorderBrush="#FF4D5258" OpacityMask="#FFFFD1D1" IsChecked="{Binding Path=IsWork, RelativeSource={RelativeSource FindAncestor, AncestorType=my:CmdQManager, AncestorLevel=1}}">
+                <ToggleButton Name="btn_play" Padding="5" Margin="0,0,5,0" ToolTip="Выполнить/остановить выполнение команд" BorderThickness="4" BorderBrush="#FF4D5258" OpacityMask="#FFFFD1D1" IsChecked="{Binding Path=IsWork, RelativeSource={RelativeSource FindAncestor, AncestorType=my:CmdQManager, AncestorLevel=1}}">
                     <ToggleButton.Style>
                         <Style TargetType="{x:Type ToggleButton}">
                             <Setter Property="Content" Value="Disarmed"/>
@@ -142,7 +142,7 @@
                     <Image Source="/WpfStackerLibrary;component/Images/next.png" ImageFailed="Image_ImageFailed"></Image>
                 </Button>
 
-                <ToggleButton Margin="0,0,5,0" Name="btn_cycle_cmd" ToolTip="Цикл" Click="btn_next_cmd_Click">
+                <ToggleButton Margin="0,0,5,0" Name="btn_cycle_cmd" ToolTip="Цикл" Click="btn_next_cmd_Click" IsChecked="{Binding Path=Cycle, RelativeSource={RelativeSource FindAncestor, AncestorType=my:CmdQManager, AncestorLevel=1}}">
                     <Image Source="/WpfStackerLibrary;component/Images/order-icon.png" ImageFailed="Image_ImageFailed" Stretch="Fill" StretchDirection="Both" OpacityMask="{x:Null}"></Image>
                 </ToggleButton>
             </StackPanel>

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/unlock.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("coordstacker1.xml")]
 
 

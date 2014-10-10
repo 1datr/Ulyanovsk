@@ -46,7 +46,7 @@ namespace WpfStackerLibrary
         private static Int32 SrvID = 1;
 
         // Dependency Property
-        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerManBNR), new FrameworkPropertyMetadata(new StackerWorkData()));
+        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
         // .NET Property wrapper
         public StackerWorkData WorkParams
         {
@@ -54,7 +54,9 @@ namespace WpfStackerLibrary
             {
                 return (StackerWorkData)GetValue(WorkParamsDP);
             }
-            private set { SetValue(WorkParamsDP, value); }
+            private set { 
+                SetValue(WorkParamsDP, value); 
+            }
         }
 
         [Description("Stacker state"), Category("Stacker")]
@@ -408,14 +410,7 @@ namespace WpfStackerLibrary
             }
             //cpu.Connection.DeviceType = DeviceType.Serial;
             cpu.Connection.DeviceType = DeviceType.TcpIp;
-            /*   cpu.Connection.TcpIp.DestinationIpAddress = "127.0.0.1";
-               cpu.Connection.TcpIp.DestinationPort = 11160;*/
-
-            /*cpu.Connection.TcpIp.CpuParameterString = ConfigurationManager.AppSettings["CPUPARAMS_" + f_StackerID.ToString()];
-            cpu.Connection.TcpIp.DeviceParameterString = ConfigurationManager.AppSettings["DEVPARAMS_" + f_StackerID.ToString()];
-             */
-            //  cpu.Connection.conn = ConfigurationManager.AppSettings["PLC_IP_" + f_StackerID.ToString()];
-
+            
             cpu.Connection.Device.UpdateCpuParameters(ConfigurationManager.AppSettings["CPUPARAMS_" + StackerID.ToString()]);
             cpu.Connection.Device.UpdateDeviceParameters(ConfigurationManager.AppSettings["DEVPARAMS_" + StackerID.ToString()]);
 
@@ -687,6 +682,7 @@ namespace WpfStackerLibrary
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
+            WorkParams = new StackerWorkData();
             if (!DesignerProperties.GetIsInDesignMode(this))
             {           
             this.Connect_Service("srv" + SrvID.ToString());

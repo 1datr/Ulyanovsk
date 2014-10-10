@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfStackerLibrary.Win1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Win1" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Width="60" Margin="60,0,0,0"></Rectangle>
+    </Grid>
+</Window>

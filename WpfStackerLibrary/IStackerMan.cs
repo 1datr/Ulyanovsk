@@ -34,7 +34,7 @@ namespace WpfStackerLibrary
     }
 
 
-    public class StackerWorkData : INotifyPropertyChanged
+    public class StackerWorkData : INotifyPropertyChanged 
         {
             private Int32 _X;
             public Int32 X

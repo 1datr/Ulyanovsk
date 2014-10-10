@@ -95,12 +95,6 @@
     <Compile Include="Vnc.xaml.cs">
       <DependentUpon>Vnc.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VncWin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VncWin.Designer.cs">
-      <DependentUpon>VncWin.cs</DependentUpon>
-    </Compile>
     <Compile Include="IStackerMan.cs" />
     <Compile Include="PasswordButton.cs" />
     <Compile Include="PasswWin.xaml.cs">
@@ -114,6 +108,9 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Win1.xaml.cs">
+      <DependentUpon>Win1.xaml</DependentUpon>
+    </Compile>
     <Page Include="CmdQManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +156,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Win1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -178,14 +179,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="VncWin.resx">
-      <DependentUpon>VncWin.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="App.config" />
     <EntityDeploy Include="ModelStacker.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelStacker.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ModelStackerContainer.datasource" />
     <None Include="Properties\Settings.settings">
