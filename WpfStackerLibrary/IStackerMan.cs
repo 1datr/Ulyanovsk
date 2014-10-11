@@ -79,6 +79,34 @@ namespace WpfStackerLibrary
                 }
             }
 
+            private Int32 _cell;
+            public Int32 Cell
+            {
+                get
+                {
+                    return _cell;
+                }
+                set
+                {
+                    _cell = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("Cell"));
+                }
+            }
+
+            private StackerCommand _cmd;
+            public StackerCommand cmd
+            {
+                get
+                {
+                    return _cmd;
+                }
+                set
+                {
+                    _cmd = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("cmd"));
+                }
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             public void OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
             {
@@ -86,4 +114,67 @@ namespace WpfStackerLibrary
                     PropertyChanged(this, e);
             }
         }
+
+    public class ModuleDigit : INotifyPropertyChanged 
+        {
+            private bool _mode_int;
+            public bool Mode_int
+            {
+                get
+                {
+                    return _mode_int;
+                }
+                set
+                {
+                    _mode_int = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("mode_int"));
+                }
+            }               
+
+            private Int32 _intval;
+            public Int32 IntVal
+            {
+                get
+                {
+                    return _intval;
+                }
+                set
+                {
+                    _intval = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("IntVal"));
+                }
+            }
+
+            private bool _boolval;
+            public bool BoolVal
+            {
+                get
+                {
+                    return _boolval;
+                }
+                set
+                {
+                    _boolval = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("BoolVal"));
+                }
+            }
+
+            public object Value
+            {
+                get {
+                    if (Mode_int)
+                        return _intval;
+                    else
+                        return _boolval;
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, e);
+            }
+        }
+
 }

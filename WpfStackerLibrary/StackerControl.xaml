@@ -27,7 +27,7 @@
             <Setter Property="Control.FontWeight" Value="Bold"></Setter>
         </Style>
     </UserControl.Resources>
-    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Name="stacker_left_panel">
                 
@@ -40,10 +40,24 @@
             </RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="1" Name="stacker_rails">            
-            <Border HorizontalAlignment="Left" Height="20" Width="20" Name="stacker_base" BorderThickness="2" BorderBrush="Black" OpacityMask="Black" Margin="5,0,0,0">
-        <DockPanel     Margin="0,0,0,0" Background="#FEEEEE">
+            <Border HorizontalAlignment="Left" Height="20" Width="20" Name="stacker_base" BorderThickness="2" BorderBrush="Black" OpacityMask="Black" Margin="5,0,0,0" >
+                <DockPanel   Name="stacker_rect"   Margin="0,0,0,0"  MouseLeftButtonDown="stacker_rails_MouseLeftButtonDown">
+                    <DockPanel.Resources>
+                        <ResourceDictionary x:Name="StackerStyles">
+                        <Style x:Key="stacker_empty">
+                            <Setter Property="DockPanel.Background" Value="White">
+                                
+                            </Setter>
+                        </Style>
+                        <Style x:Key="stacker_full">
+                            <Setter Property="DockPanel.Background" Value="AliceBlue">
+
+                            </Setter>
+                        </Style>
+                        </ResourceDictionary>
+                    </DockPanel.Resources>
                 <Rectangle Width="6" VerticalAlignment="Stretch" Fill="#FF400000"  Margin="0,0,0,0"></Rectangle>
-            <StackPanel HorizontalAlignment="Stretch" Orientation="Vertical" >
+                    <StackPanel HorizontalAlignment="Stretch" Orientation="Vertical" >
                 <Rectangle Height="8"></Rectangle>
                 <Separator Margin="0,0,0,0" Background="#FFFF4000"></Separator>
                 <Rectangle VerticalAlignment="Stretch"></Rectangle>

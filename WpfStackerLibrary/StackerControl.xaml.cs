@@ -267,6 +267,7 @@ namespace WpfStackerLibrary
                     break;
                 case "StackerID":
                     cells_occupied = null;
+                    Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
                     set_cell_styles();
                     break;
                 case "PointsEmptyLeft":
@@ -315,17 +316,17 @@ namespace WpfStackerLibrary
                 case "TaraLoaded":
                         if((bool)val)   // Берем из ячейки
                         {
-                            SDA.CellToTelezhka(this.src_cell);
+                            SDA.CellToTelezhka(WorkParams.cmd.Op1,StackerID);
                         }
                         else // Кладем в ячейку
                         {
-                            SDA.TelezhkaToCell(this.dst_cell);
+                            SDA.TelezhkaToCell(WorkParams.cmd.Op2, StackerID);
                         }
                         cells_occupied = null;
                         set_cell_styles();
                         List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
-                        SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
-                        SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
+                        SelectedCellContent  = new ItemsChangeObservableCollection<CellContent>(ccl);
+                        Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
                     break;
                 case "WorkParams":
                     try
@@ -333,7 +334,7 @@ namespace WpfStackerLibrary
                         XElement xe = XElement.Load("CoordsStacker" + StackerID.ToString() + ".xml");
 
                         var elements = xe.Elements();
-                        var rd = (from c in elements where (c.Attribute("Y").Value=="0") select c);
+                        var rd = (from c in elements where (c.Attribute("Y").Value=="0") orderby c.Attribute("X").Value select c);
                         
                     }
                     catch (System.Exception exc)
@@ -871,7 +872,7 @@ namespace WpfStackerLibrary
             SetValue(SelCellStrProperty, "Ячейка №"+fSelectedCell);
             set_edit_mode();
             List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);          
-            SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl) );
+            SelectedCellContent = new ItemsChangeObservableCollection<CellContent>(ccl);
             //throw new NotImplementedException();
             if (this.OnSelectCell_hndlr != null)
                 this.OnSelectCell_hndlr(fSelectedCell);
@@ -1057,8 +1058,8 @@ namespace WpfStackerLibrary
             cells_occupied = null;
             set_cell_styles();
             List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
-            SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
-            SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));        
+            SelectedCellContent = new ItemsChangeObservableCollection<CellContent>(ccl);
+            Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));        
         }
 
         // Содержимое текущей выделенной ячейки
@@ -1136,7 +1137,7 @@ namespace WpfStackerLibrary
         private Int32 OldCurrCell = -1;
         // Содержимое тележки
         // Dependency Property
-        public static readonly DependencyProperty TelezhkaDP = DependencyProperty.Register("Telezhka", typeof(ItemsChangeObservableCollection<CellContent>), typeof(StackerControl), new FrameworkPropertyMetadata(new ItemsChangeObservableCollection<CellContent>()));
+        public static readonly DependencyProperty TelezhkaDP = DependencyProperty.Register("Telezhka", typeof(ItemsChangeObservableCollection<CellContent>), typeof(StackerControl), new FrameworkPropertyMetadata(null));
         [Description("List of products in selected cell"), Category("Stacker data")]
         // .NET Property wrapper
         public ItemsChangeObservableCollection<CellContent> Telezhka
@@ -1148,14 +1149,17 @@ namespace WpfStackerLibrary
             private set
             {
                 SetValue(TelezhkaDP, value);
-                if (value != null)
+                if (value == null)
                 {
-                  //  stacker_rect.Fill = 0xFFBFDBBF;
+                    stacker_rect.Style = StackerStyles["stacker_empty"] as Style;
                 }
                 else
                 {
-                 //   stacker_rect.Fill = new Brus
-
+                  //  stacker_rect.Background = new Brush();
+                    if(value.Count>0)
+                        stacker_rect.Style = StackerStyles["stacker_full"] as Style;
+                    else
+                        stacker_rect.Style = StackerStyles["stacker_empty"] as Style;
                 }
             }
         }
@@ -1189,9 +1193,9 @@ namespace WpfStackerLibrary
             List<CellContent> ccl = SDA.GetProductsByCell(fSelectedCell, StackerID);
 
             if(cell==-1)
-                SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
+                Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
             else
-                SetValue(SelectedCellContentDP, new ItemsChangeObservableCollection<CellContent>(ccl));
+                SelectedCellContent = new ItemsChangeObservableCollection<CellContent>(ccl);
             cells_occupied = null;
             set_cell_styles();
         }
@@ -1220,7 +1224,8 @@ namespace WpfStackerLibrary
                // this.fPointsEmptyLeft.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyLeft_CollectionChanged);
                // this.PointsEmptyRight.CollectionChanged += new NotifyCollectionChangedEventHandler(fPointsEmptyRight_CollectionChanged);
             
-                SetValue(TelezhkaDP, new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID)));
+                if(Telezhka==null)
+                    Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
                 WorkParams = new StackerWorkData();
             }
             else
@@ -1234,12 +1239,16 @@ namespace WpfStackerLibrary
         {
 
         }
+        
 
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void stacker_rails_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (this.OnSelectStacker_hndlr != null)
                 this.OnSelectStacker_hndlr();
         }
+
+    
+       
     }
 
     public delegate int OnDataAccessConnect();   

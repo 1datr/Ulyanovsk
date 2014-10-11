@@ -1574,13 +1574,13 @@
                                     <Setter Property="TextBlock.Foreground" Value="AntiqueWhite"></Setter>
                                 </Style>
                                 <Style x:Key="false">
-                                    <Setter Property="TextBlock.Foreground" Value="Gray"></Setter>
+                                    <Setter Property="TextBlock.Foreground" Value="LightGray"></Setter>
                                 </Style>
                             </ResourceDictionary>
                         </Button.Resources>
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <TextBlock Name="tbONOFF"  Background="#FF5A260D" FontSize="16" Padding="20,3">OFF</TextBlock>
+                                <TextBlock Name="tbONOFF"  Background="#FF5A260D" Foreground="DarkGray" FontSize="16" Padding="20,3" Text="OFF" />
                                 <ControlTemplate.Triggers>
                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=Power}" Value="True">
                                         <Setter TargetName="tbONOFF" Property="Text" Value="ON" />

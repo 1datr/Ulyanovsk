@@ -113,6 +113,7 @@ namespace WpfStackerLibrary
                         
                             StackerCommand cmd = val as StackerCommand;
                             Message = "Началось выполнение команды \""+CurrCmd.ToString()+"\"";
+                            WorkParams.cmd = cmd;
                             //switch
                                 switch(cmd.CmdName)
                                 {
@@ -140,6 +141,175 @@ namespace WpfStackerLibrary
 
             ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
 
+        }
+
+        // Dependency Property Module1
+        public static readonly DependencyProperty Module1DP = DependencyProperty.Register("Module1", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module1"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module1
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module1DP);
+            }
+            set { SetValue(Module1DP, value); }
+        }
+
+        // Dependency Property Module2
+        public static readonly DependencyProperty Module2DP = DependencyProperty.Register("Module2", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module2"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module2
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module2DP);
+            }
+            set { SetValue(Module2DP, value); }
+        }
+
+        // Dependency Property Module3
+        public static readonly DependencyProperty Module3DP = DependencyProperty.Register("Module3", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module3"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module3
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module3DP);
+            }
+            set { SetValue(Module3DP, value); }
+        }
+
+        // Dependency Property Module4
+        public static readonly DependencyProperty Module4DP = DependencyProperty.Register("Module4", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module4"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module4
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module4DP);
+            }
+            set { SetValue(Module4DP, value); }
+        }
+
+        // Dependency Property Module5
+        public static readonly DependencyProperty Module5DP = DependencyProperty.Register("Module5", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module5"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module5
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module5DP);
+            }
+            set { SetValue(Module5DP, value); }
+        }
+
+        // Dependency Property Module6
+        public static readonly DependencyProperty Module6DP = DependencyProperty.Register("Module6", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module6"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module6
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module6DP);
+            }
+            set { SetValue(Module6DP, value); }
+        }
+
+        // Dependency Property Module7
+        public static readonly DependencyProperty Module7DP = DependencyProperty.Register("Module7", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module7"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module7
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module7DP);
+            }
+            set { SetValue(Module7DP, value); }
+        }
+
+        // Dependency Property Module8
+        public static readonly DependencyProperty Module8DP = DependencyProperty.Register("Module8", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module8"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module8
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module8DP);
+            }
+            set { SetValue(Module8DP, value); }
+        }
+
+        // Dependency Property Module9
+        public static readonly DependencyProperty Module9DP = DependencyProperty.Register("Module9", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module9"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module9
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module9DP);
+            }
+            set { SetValue(Module9DP, value); }
+        }
+
+        // Dependency Property Module10
+        public static readonly DependencyProperty Module10DP = DependencyProperty.Register("Module10", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module10"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module10
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module10DP);
+            }
+            set { SetValue(Module10DP, value); }
+        }
+
+        // Dependency Property Module11
+        public static readonly DependencyProperty Module11DP = DependencyProperty.Register("Module11", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module11"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module11
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module11DP);
+            }
+            set { SetValue(Module11DP, value); }
+        }
+
+        // Dependency Property Module12
+        public static readonly DependencyProperty Module12DP = DependencyProperty.Register("Module12", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module12"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module12
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module12DP);
+            }
+            set { SetValue(Module12DP, value); }
+        }
+
+        // Dependency Property Module13
+        public static readonly DependencyProperty Module13DP = DependencyProperty.Register("Module13", typeof(ItemsChangeObservableCollection<ModuleDigit>), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        // .NET Property wrapper
+        [Description("Module13"), Category("Stacker")]
+        public ItemsChangeObservableCollection<ModuleDigit> Module13
+        {
+            get
+            {
+                return (ItemsChangeObservableCollection<ModuleDigit>)GetValue(Module13DP);
+            }
+            set { SetValue(Module13DP, value); }
         }
 
         // Dependency Property
@@ -193,7 +363,8 @@ namespace WpfStackerLibrary
         {
             cmdExecuting = true;
             Varlist["gOPC.Input.command"].Value = 1;
-            Varlist["gOPC.Input.src_cell"].Value = Convert.ToInt32(cell.ToString()); 
+            Varlist["gOPC.Input.src_cell"].Value = Convert.ToInt32(cell.ToString());
+            WorkParams.Cell = Convert.ToInt32(cell.ToString()); 
             Varlist["gOPC.Input.start"].Value = true;
             
         }
@@ -201,7 +372,8 @@ namespace WpfStackerLibrary
         {
             cmdExecuting = true;
             Varlist["gOPC.Input.command"].Value = 2;
-            Varlist["gOPC.Input.dst_cell"].Value = Convert.ToInt32(cell.ToString()); 
+            Varlist["gOPC.Input.dst_cell"].Value = Convert.ToInt32(cell.ToString());
+            WorkParams.Cell = Convert.ToInt32(cell.ToString()); 
             Varlist["gOPC.Input.start"].Value = true;
         }
         public void transport(object cellfrom, object cellto)
@@ -353,17 +525,17 @@ namespace WpfStackerLibrary
 
                 service.Error += new PviEventHandler(ConnectionError);
                 service.Connected += new PviEventHandler(Connect_CPU);
-                if ((ip == null) && (port == 0))
+             /*   if ((ip == null) && (port == 0))
                 {
                     if (!service.IsConnected)
                         service.Connect();
                 }
                 else
-                {
+                {*/
                     if (!service.IsConnected)
                         service.Connect(ip, port);
-                }
-                if (service.IsConnected) Connect_CPU();
+              //  }
+               // if (service.IsConnected) Connect_CPU();
             }
             catch (System.Exception ex)
             {
@@ -619,7 +791,31 @@ namespace WpfStackerLibrary
                     PowerBtnCaption = PowerBtnCaptions[power.ToString().ToLower()].ToString();*/
                     break;
                 case "gOPC.Output.load":
-                    TaraLoaded = Convert.ToBoolean(VarVal("gOPC.Output.load").ToString());
+                    try
+                    {
+                        TaraLoaded = Convert.ToBoolean(VarVal("gOPC.Output.load").ToString());
+                        switch (CurrCmd.CmdName)
+                        {
+                            case "trans":
+                                {
+                                    if (WorkParams.Cell != CurrCmd.Op1)
+                                        WorkParams.Cell = CurrCmd.Op1;
+                                    else
+                                        if (WorkParams.Cell == CurrCmd.Op1)
+                                            WorkParams.Cell = CurrCmd.Op2;
+                                        else
+                                            WorkParams.Cell = -1;
+                                };break;
+                            default:
+                                {
+                                    WorkParams.Cell = -1;
+                                };break;
+                        }
+                    }
+                    catch (System.Exception ex)
+                    { 
+                    
+                    }
                     break;
                 case "gOPC.Output.Xpos":
                     WorkParams.X = Convert.ToInt32(VarVal(var.Name));
@@ -688,6 +884,19 @@ namespace WpfStackerLibrary
             this.Connect_Service("srv" + SrvID.ToString());
             SrvID++;
             }
+            Module1 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module2 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module3 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module4 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module5 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module6 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module7 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module8 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module9 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module10 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module11 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module12 = new ItemsChangeObservableCollection<ModuleDigit>();
+            Module13 = new ItemsChangeObservableCollection<ModuleDigit>();
         }
 
         public class VarInfo : INotifyPropertyChanged

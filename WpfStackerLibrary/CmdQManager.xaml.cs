@@ -149,8 +149,19 @@ namespace WpfStackerLibrary
         private void next()
         {
             try {
-                CurrCmdIdx++;
-                CurrCmd = CmdQueue[CurrCmdIdx];
+                if (Cycle)
+                {
+                    
+                    CurrCmdIdx++;
+                    if (CurrCmdIdx == CmdQueue.Count)
+                        CurrCmdIdx = 0;
+                    CurrCmd = CmdQueue[CurrCmdIdx];
+                }
+                else
+                {
+                    CmdQueue.RemoveAt(CurrCmdIdx);
+                    CurrCmd = CmdQueue[CurrCmdIdx];
+                }
             }
             catch (System.Exception exc)
             { }
@@ -641,7 +652,7 @@ namespace WpfStackerLibrary
             { 
                 case "park": str = "Парковать";
                                 break;
-                case "push": str = "Положить в ячейку "+_op1.ToString();
+                case "push": str = "Положить в ячейку "+_op2.ToString();
                                 break;
                 case "take": str = "Взять из ячейки " + _op1.ToString();
                                 break;
