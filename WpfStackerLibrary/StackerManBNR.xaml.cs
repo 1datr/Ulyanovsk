@@ -895,12 +895,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-                            //Varlist[var.Name].StructureMembers[0];
-                            var thevalue = Varlist[var.Name].Members[i].Value;// .ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule4":
@@ -916,12 +915,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule5":
@@ -937,12 +935,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule6":
@@ -958,12 +955,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule7":
@@ -979,12 +975,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule8":
@@ -1000,12 +995,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule9":
@@ -1021,12 +1015,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule10":
@@ -1042,12 +1035,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule11":
@@ -1063,12 +1055,11 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule12":
@@ -1085,11 +1076,11 @@ namespace WpfStackerLibrary
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
 
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
                 case "gModule13":
@@ -1106,11 +1097,11 @@ namespace WpfStackerLibrary
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
 
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
-                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
-                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                            Variable thevalue = Varlist[var.Name].Members[i];
+                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                         }
                     } break;
             }

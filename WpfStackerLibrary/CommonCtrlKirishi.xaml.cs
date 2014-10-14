@@ -445,7 +445,7 @@ namespace WpfStackerLibrary
         {
             try
             {
-                stacker1.AddProduct(Convert.ToInt32(CBProduct.SelectedValue.ToString()), Convert.ToInt32(PCountTel.Text));
+                stacker1.AddProduct(Convert.ToInt32(CBProduct.SelectedValue.ToString()), Convert.ToInt32(PCount.Text));
             }
             catch (System.Exception exc)
             {
