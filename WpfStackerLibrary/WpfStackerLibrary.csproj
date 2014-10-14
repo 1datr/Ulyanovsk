@@ -83,6 +83,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BNRModuleBox.xaml.cs">
+      <DependentUpon>BNRModuleBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CmdQManager.xaml.cs">
       <DependentUpon>CmdQManager.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
     <Compile Include="Win1.xaml.cs">
       <DependentUpon>Win1.xaml</DependentUpon>
     </Compile>
+    <Page Include="BNRModuleBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CmdQManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

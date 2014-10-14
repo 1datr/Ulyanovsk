@@ -87,3 +87,5 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\GalaSoft.MvvmLig
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\GalaSoft.MvvmLight.WPF4.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\VncSharp.dll
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\BNRModuleBox.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\BNRModuleBox.g.cs

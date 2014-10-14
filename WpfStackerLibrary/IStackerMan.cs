@@ -159,6 +159,23 @@ namespace WpfStackerLibrary
                 }
             }
 
+            public Visibility Vis_Bool {
+                get
+                {
+                    if (!_mode_int) return Visibility.Visible;
+                    else return Visibility.Hidden;
+                }
+            }
+
+            public Visibility Vis_Int
+            {
+                get
+                {
+                    if (_mode_int) return Visibility.Visible;
+                    else return Visibility.Hidden;
+                }
+            }
+
             public object Value
             {
                 get {

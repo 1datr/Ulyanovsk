@@ -523,19 +523,29 @@ namespace WpfStackerLibrary
 
                 }
 
+                service.Error -= new PviEventHandler(ConnectionError);
                 service.Error += new PviEventHandler(ConnectionError);
+
+                service.Connected -= new PviEventHandler(Connect_CPU);
                 service.Connected += new PviEventHandler(Connect_CPU);
-             /*   if ((ip == null) && (port == 0))
-                {
-                    if (!service.IsConnected)
-                        service.Connect();
-                }
+
+                if (service.IsConnected) Connect_CPU();
                 else
-                {*/
+                {
+
+                    
+                    /*  if ((ip == null) && (port == 0))
+                      {
+                          if (!service.IsConnected)
+                              service.Connect();
+                      }
+                      else
+                      {*/
                     if (!service.IsConnected)
                         service.Connect(ip, port);
-              //  }
-               // if (service.IsConnected) Connect_CPU();
+                    //  }
+                    //  else if (service.IsConnected) Connect_CPU();
+                }
             }
             catch (System.Exception ex)
             {
@@ -568,6 +578,7 @@ namespace WpfStackerLibrary
 
         private void Connect_CPU()
         {
+            if (!service.IsConnected) return;
             Error = "OK";
             ConnStatus = "PVI service connected";
             ConnStatus = "PVI CPU connecting ...";
@@ -588,7 +599,10 @@ namespace WpfStackerLibrary
 
 
             //cpu.Connection.Serial.Channel = 1;
+            cpu.Error -= new PviEventHandler(ConnectionError);
             cpu.Error += new PviEventHandler(ConnectionError);
+
+            cpu.Connected -= new PviEventHandler(Connect_Vars);
             cpu.Connected += new PviEventHandler(Connect_Vars);
 
             cpu.Connect();
@@ -603,6 +617,7 @@ namespace WpfStackerLibrary
 
         private void Connect_Vars(object sender, PviEventArgs e)
         {
+            if (!cpu.IsConnected) return;
             Error = "OK";
             ConnStatus = "PVI CPU connected";
             ConnStatus = "PVI variables connecting ...";
@@ -832,6 +847,167 @@ namespace WpfStackerLibrary
                 case "gOPC.Input.dst_cell":
                     dst_cell = Convert.ToInt32(VarVal(var.Name)); 
                     break;
+                case "gModule1":
+                    if (Module1.Count == 0)
+                    {
+                        ModuleDigit md = new ModuleDigit();
+                        md.BoolVal = Convert.ToBoolean(VarVal("gModule1"));
+                        md.Mode_int = false;
+                        Module1.Add(md);
+                    }
+                    else
+                    {
+                        Module1[0].BoolVal = Convert.ToBoolean(VarVal("gModule1"));
+                    }
+
+                    break;
+                case "gModule2":
+                    {
+                        var ModVar = Module2;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule3":
+                    {
+                        var ModVar = Module3;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule4":
+                    {
+                        var ModVar = Module3;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule5":
+                    {
+                        var ModVar = Module5;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule6":
+                    {
+                        var ModVar = Module6;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule7":
+                    {
+                        var ModVar = Module7;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule8":
+                    {
+                        var ModVar = Module8;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
             }
         }
 
@@ -854,7 +1030,10 @@ namespace WpfStackerLibrary
             if (Varlist.ContainsKey(Varname)) return;
             Varlist.Add(Varname, new Variable(cpu, Varname));
             Varlist[Varname].Active = true;
+            Varlist[Varname].ValueChanged -= new VariableEventHandler(ValueChanged);
             Varlist[Varname].ValueChanged += new VariableEventHandler(ValueChanged);
+
+            Varlist[Varname].Connected -= new PviEventHandler(variables_Connected);
             Varlist[Varname].Connected += new PviEventHandler(variables_Connected);
 
             ItemsChangeObservableCollection<VarInfo> vil = (ItemsChangeObservableCollection<VarInfo>)GetValue(VarlistDP);

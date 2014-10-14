@@ -20,7 +20,7 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="228*"></ColumnDefinition>
+            <ColumnDefinition Width="240*"></ColumnDefinition>
             <ColumnDefinition Width="650*"></ColumnDefinition>
             <ColumnDefinition Width="372*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -189,7 +189,7 @@
         <StackPanel Grid.Column="0" Grid.Row="0">
             <my:StackerManBNR x:Name="stacker1_man" Height="200" VerticalAlignment="Top" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" CurrCmd="{Binding ElementName=CmdQueue, Path=CurrCmd}" />
             <Border Margin="0,10,0,0"  BorderThickness="1" CornerRadius="5" BorderBrush="#FF0C0C0C">
-            <Grid>
+                <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -199,10 +199,102 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="10,2,10,2" Click="Button_Click_4" Name="BTNswitchmode">Тотальное редактирование</Button>
-            <Button Grid.Column="0" Grid.Row="1" Click="Button_Click_6" Margin="10,2,5,2">Выделить ячейку</Button>
+                <Button Grid.Column="0" Grid.Row="1" Click="Button_Click_6" Margin="10,2,5,2">Выделить ячейку</Button>
                 <TextBox Grid.Column="1" Grid.Row="1" Name="cell_to_select" Margin="5,2,10,2" HorizontalAlignment="Stretch" ></TextBox>
             </Grid>
             </Border>
+            <GroupBox Header="Модули">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="0">1</TextBlock>
+                    <ListBox  Grid.Column="1" Grid.Row="0" ItemsSource="{Binding ElementName=stacker1_man, Path=Module1}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Visibility="{Binding}" Width="15" Margin="0">
+                            <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
+                            <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1">2</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ElementName=stacker1_man, Path=Module2}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Visibility="{Binding}" Width="15" Margin="0">
+                            <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
+                            <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="2">3</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding ElementName=stacker1_man, Path=Module3}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Visibility="{Binding}" Width="15" Margin="0">
+                                    <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
+                                    <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="3">4</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding ElementName=stacker1_man, Path=Module4}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Visibility="{Binding}" Width="15" Margin="0">
+                                    <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
+                                    <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </GroupBox>
         </StackPanel>
         
 
