@@ -267,7 +267,9 @@ namespace WpfStackerLibrary
                     break;
                 case "StackerID":
                     cells_occupied = null;
-                    Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
+                    // In design mode only
+                    if (!DesignerProperties.GetIsInDesignMode(this))
+                        Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
                     set_cell_styles();
                     break;
                 case "PointsEmptyLeft":
@@ -513,8 +515,10 @@ namespace WpfStackerLibrary
                         {
                             Button b = new Button();
                             TextBlock t = new TextBlock();
-                            b.Content = t;                            
+                            b.Content = t;
+                            b.GotFocus -= new RoutedEventHandler(Cell_Click);
                             b.GotFocus += new RoutedEventHandler(Cell_Click);
+                            b.MouseRightButtonUp -= new MouseButtonEventHandler(b_MouseRightButtonUp);
                             b.MouseRightButtonUp += new MouseButtonEventHandler(b_MouseRightButtonUp);
                             b.Style = Resources["RegCell"] as Style;
                             b.ContextMenu = CellMenu;
@@ -541,8 +545,10 @@ namespace WpfStackerLibrary
                         {
                             Button b = new Button();
                             TextBlock t = new TextBlock();
-                            b.Content = t;    
+                            b.Content = t;
+                            b.GotFocus -= new RoutedEventHandler(Cell_Click);
                             b.GotFocus += new RoutedEventHandler(Cell_Click);
+                            b.MouseRightButtonUp -= new MouseButtonEventHandler(b_MouseRightButtonUp);
                             b.MouseRightButtonUp += new MouseButtonEventHandler(b_MouseRightButtonUp);
                             b.Style = Resources["RegCell"] as Style;
                             b.ContextMenu = CellMenu;

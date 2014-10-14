@@ -895,8 +895,8 @@ namespace WpfStackerLibrary
                         }
                         for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                         {
-
-                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            //Varlist[var.Name].StructureMembers[0];
+                            var thevalue = Varlist[var.Name].Members[i].Value;// .ToString();
                             if (thevalue.GetTypeCode() == TypeCode.Boolean)
                                 ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
                             else if (thevalue.GetTypeCode() == TypeCode.Int32)
@@ -990,6 +990,111 @@ namespace WpfStackerLibrary
                 case "gModule8":
                     {
                         var ModVar = Module8;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule9":
+                    {
+                        var ModVar = Module9;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule10":
+                    {
+                        var ModVar = Module10;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule11":
+                    {
+                        var ModVar = Module11;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule12":
+                    {
+                        var ModVar = Module12;
+                        if (ModVar.Count == 0)
+                        {
+                            for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                            {
+                                ModuleDigit md = new ModuleDigit();
+                                ModVar.Add(md);
+                            }
+                        }
+                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                        {
+
+                            var thevalue = Varlist[var.Name].StructureMembers[i].ToString();
+                            if (thevalue.GetTypeCode() == TypeCode.Boolean)
+                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.ToString());
+                            else if (thevalue.GetTypeCode() == TypeCode.Int32)
+                                ModVar[i].IntVal = Convert.ToInt32(thevalue.ToString());
+                        }
+                    } break;
+                case "gModule13":
+                    {
+                        var ModVar = Module13;
                         if (ModVar.Count == 0)
                         {
                             for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
