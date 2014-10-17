@@ -412,6 +412,21 @@ namespace WpfStackerLibrary
             }
         }
 
+        public void kvit()
+        {
+            if (Cycle)
+            {
+                Cycle = false;
+                next();
+                Cycle = true;
+            }
+            else
+            {
+                next();
+            
+            }
+        }
+
         // Dependency Property
         public static readonly DependencyProperty CmdReadyDP = DependencyProperty.Register("CmdReady", typeof(bool), typeof(CmdQManager), new FrameworkPropertyMetadata(false,DepParamsChanged));
         // .NET Property wrapper
@@ -662,19 +677,7 @@ namespace WpfStackerLibrary
     }
 
     public class StackerCommand : DependencyObject, INotifyPropertyChanged
-    { 
-        /*
-        private Int32 _op1 = -1;
-        public Int32 Op1 { get { return _op1; } set { _op1 = value; OnPropertyChanged("Op1"); } }
-
-        private Int32 _op2 = -1;
-        public Int32 Op2 { get { return _op2; } set { _op2 = value; OnPropertyChanged("Op2"); } }
-
-        private String f_cmdname = "park";
-        public String CmdName { get { return f_cmdname; } set { f_cmdname = value; OnPropertyChanged("CmdName"); } }
-
-        private bool f_selected = false;
-        public bool Selected { get { return f_selected; } set { f_selected = value; OnPropertyChanged("Selected"); } }*/
+    {         
 
         public static void OnMyPropertyChanged(DependencyObject dObject, DependencyPropertyChangedEventArgs e)
         {

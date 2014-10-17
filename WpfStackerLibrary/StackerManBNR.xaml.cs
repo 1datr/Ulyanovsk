@@ -59,6 +59,7 @@ namespace WpfStackerLibrary
             }
         }
 
+
         [Description("Stacker state"), Category("Stacker")]
         // Dependency Property
         public static readonly DependencyProperty StackerStateDP = DependencyProperty.Register("StackerState", typeof(String), typeof(StackerManBNR), new FrameworkPropertyMetadata(""));

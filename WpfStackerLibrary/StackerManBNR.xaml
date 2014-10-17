@@ -70,6 +70,9 @@
             <base:String x:Key="91">Вне рабочей зоны</base:String>
             <base:String x:Key="50061">Груз на столе</base:String>
             <base:String x:Key="50022">На столе нет груза</base:String>
+            <base:String x:Key="13034">Network configuration error (SA parameter)</base:String>
+            <base:String x:Key="50000">Превышение веса</base:String>
+            <base:String x:Key="50020">Неверный номер ячейки</base:String>
         </ResourceDictionary>
     </UserControl.Resources>
 

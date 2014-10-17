@@ -93,7 +93,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\cellcontentEntities.datasource" />
     <None Include="Properties\DataSources\cellcontentEntities1.datasource" />
     <None Include="Properties\Settings.settings">

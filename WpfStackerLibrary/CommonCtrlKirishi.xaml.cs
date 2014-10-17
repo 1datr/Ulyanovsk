@@ -151,6 +151,7 @@ namespace WpfStackerLibrary
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             stacker1_man.kvit();
+            CmdQueue.kvit();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

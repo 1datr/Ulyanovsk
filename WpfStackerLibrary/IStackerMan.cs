@@ -34,12 +34,24 @@ namespace WpfStackerLibrary
     }
 
 
-    public class StackerWorkData : /*DependencyObject,*/ INotifyPropertyChanged 
+    public class StackerWorkData : DependencyObject, INotifyPropertyChanged 
         {
-        /*
+
+            public StackerWorkData(Int32 _x=0, Int32 _y=0, Int32 _z=0, StackerCommand _cmd=null)
+            {
+                X = _x;
+                Y = _y;
+                Z = _z;
+                cmd = _cmd;
+            }
+
+            public StackerWorkData()
+            {
+               
+            }
+
             public static readonly DependencyProperty X_DP =
-                DependencyProperty.Register("X", typeof(Int32), typeof
-                    (StackerWorkData), new UIPropertyMetadata(0));
+                DependencyProperty.Register("X", typeof(Int32), typeof(StackerWorkData), new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnMyPropertyChanged)));
             
             public Int32 X
             {
@@ -48,8 +60,7 @@ namespace WpfStackerLibrary
             }
 
             public static readonly DependencyProperty Y_DP =
-                 DependencyProperty.Register("Y", typeof(Int32), typeof
-                     (StackerWorkData), new UIPropertyMetadata(0));
+                 DependencyProperty.Register("Y", typeof(Int32), typeof(StackerWorkData), new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnMyPropertyChanged)));
 
             public Int32 Y
             {
@@ -59,8 +70,7 @@ namespace WpfStackerLibrary
 
 
             public static readonly DependencyProperty Z_DP =
-                 DependencyProperty.Register("Z", typeof(Int32), typeof
-                     (StackerWorkData), new UIPropertyMetadata(0));
+                 DependencyProperty.Register("Z", typeof(Int32), typeof(StackerWorkData), new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnMyPropertyChanged)));
 
             public Int32 Z
             {
@@ -69,8 +79,7 @@ namespace WpfStackerLibrary
             }
 
             public static readonly DependencyProperty Cell_DP =
-                 DependencyProperty.Register("Cell", typeof(Int32), typeof
-                     (StackerWorkData), new UIPropertyMetadata(0));
+                 DependencyProperty.Register("Cell", typeof(Int32), typeof(StackerWorkData), new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnMyPropertyChanged)));
 
             public Int32 Cell
             {
@@ -79,91 +88,33 @@ namespace WpfStackerLibrary
             }
 
             public static readonly DependencyProperty cmd_DP =
-                 DependencyProperty.Register("cmd", typeof(StackerCommand), typeof
-                     (StackerWorkData), new UIPropertyMetadata(null));
+                 DependencyProperty.Register("cmd", typeof(StackerCommand), typeof(StackerWorkData), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnMyPropertyChanged)));
             
             public StackerCommand cmd
             {
                 get { return (StackerCommand)GetValue(cmd_DP); }
                 set { SetValue(cmd_DP, value); }
             }
-        */
-            private Int32 _X;
-            public Int32 X
-            {
-                get
-                {
-                    return _X;
-                }
-                set
-                {
-                    _X = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("X"));
-                }
-            }
 
-            private Int32 _Y;
-            public Int32 Y
+            public override String ToString()
             {
-                get
-                {
-                    return _Y;
-                }
-                set
-                {
-                    _Y = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Y"));
-                }
-            }
 
-
-            private Int32 _Z;
-            public Int32 Z
-            {
-                get
-                {
-                    return _Z;
-                }
-                set
-                {
-                    _Z = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Z"));
-                }
-            }
-
-            private Int32 _cell;
-            public Int32 Cell
-            {
-                get
-                {
-                    return _cell;
-                }
-                set
-                {
-                    _cell = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Cell"));
-                }
-            }
-
-            private StackerCommand _cmd;
-            public StackerCommand cmd
-            {
-                get
-                {
-                    return _cmd;
-                }
-                set
-                {
-                    _cmd = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("cmd"));
-                }
+                return X.ToString() + "," + Y.ToString() + "," + Z.ToString() + "," + cmd.ToString();
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
-            public void OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
+            private void OnPropertyChanged(string prop)
             {
                 if (PropertyChanged != null)
-                    PropertyChanged(this, e);
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(prop));
+                   
+                }
+            }
+
+            public static void OnMyPropertyChanged(DependencyObject dObject, DependencyPropertyChangedEventArgs e)
+            {
+                
             }
 
         }

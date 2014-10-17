@@ -337,19 +337,118 @@ namespace WpfStackerLibrary
                 case "WorkParams":
                     try
                     {
-                        LoadConfig();
+                        WorkParams.PropertyChanged += new PropertyChangedEventHandler(WorkParams_PropertyChanged);
+                      /*  LoadConfig();
                         var rd = (from c in this.Coords_Points where (Convert.ToInt32(c.Attribute("X").Value) >= WorkParams.X) orderby c.Attribute("X").Value select c).ToList<XElement>();
                         Int32 col = GetButtonX(Convert.ToInt32(rd[0].Attribute("ID").Value));
-                        Grid.SetColumn(stacker_base,col);
+                        Grid.SetColumn(stacker_base,col);*/
                     }
                     catch (System.Exception exc)
                     { 
                     }
                     break;
-                case "WorkParams.X":
+                case "PosX":
+                    {
+                        try
+                        {
+                            LoadConfig();
+                            // get less
+                            var rd_less = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) <= PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) descending select c).ToList<XElement>();
+                            Int32 col = GetButtonX(Convert.ToInt32(rd_less[0].Attribute("ID").Value));
+                           
+                            Grid.SetColumn(stacker_base, col);
+                            // get great
+                            var rd_great = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) > PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) select c).ToList<XElement>();
+                            if (rd_great.Count == 0)
+                            {
+                                Thickness mrg = stacker_base.Margin;
+                                mrg.Left = 0;
+                                stacker_base.Margin = mrg;
+                                Grid.SetColumnSpan(stacker_base, 1);
+                            }
+                            else
+                            {
+                                // less and great coordinates
+                                Int32 x_less = Convert.ToInt32(rd_less[0].Attribute("X").Value);
+                                Int32 x_great = Convert.ToInt32(rd_great[0].Attribute("X").Value);
+                                Int32 delta = x_great - x_less;
+                                Int32 deltaX = PosX - x_less;
+                                // width of cell
+                                Int32 cellwidth = (Int32)rack_left.ColumnDefinitions[0].ActualWidth;
+                                Int32 x = (Int32)(deltaX*cellwidth/delta);
+                                Thickness mrg = stacker_base.Margin;
+                                mrg.Left = x;
+                                stacker_base.Margin = mrg;
+                                Grid.SetColumnSpan(stacker_base, 2);
+
+                            }
+
+                        }
+                        catch (System.Exception exc)
+                        { }
+                    }
+                    break;
+                case "PosY":
                     {
                     }
                     break;
+                case "PosZ":
+                    {
+                    }
+                    break;
+            }
+        }
+
+
+        [Description("Stacker state"), Category("Stacker")]
+        // Dependency Property
+        public static readonly DependencyProperty PosXDP = DependencyProperty.Register("PosX", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(0, DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Stacker state"), Category("Stacker")]
+        public Int32 PosX
+        {
+            get
+            {
+                return (Int32)GetValue(PosXDP);
+            }
+            set
+            {
+                SetValue(PosXDP, value);
+            }
+        }
+
+
+        [Description("Stacker state"), Category("Stacker")]
+        // Dependency Property
+        public static readonly DependencyProperty PosYDP = DependencyProperty.Register("PosY", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(0, DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Stacker state"), Category("Stacker")]
+        public Int32 PosY
+        {
+            get
+            {
+                return (Int32)GetValue(PosYDP);
+            }
+            set
+            {
+                SetValue(PosYDP, value);
+            }
+        }
+
+        
+        // Dependency Property
+        public static readonly DependencyProperty PosZDP = DependencyProperty.Register("PosZ", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(0, DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Stacker state"), Category("Stacker")]
+        public Int32 PosZ
+        {
+            get
+            {
+                return (Int32)GetValue(PosZDP);
+            }
+            set
+            {
+                SetValue(PosZDP, value);
             }
         }
 
@@ -988,7 +1087,7 @@ namespace WpfStackerLibrary
         // Dependency Property
         public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(null, DepParamsChanged));
         // .NET Property wrapper
-        private static readonly DependencyPropertyDescriptor WorkparamsDP_PD = DependencyPropertyDescriptor.FromProperty(WorkParamsDP, typeof(StackerControl));
+       // private static readonly DependencyPropertyDescriptor WorkparamsDP_PD = DependencyPropertyDescriptor.FromProperty(WorkParamsDP, typeof(StackerControl));
         [Description("Stacker parameters"), Category("Stacker")]
         public StackerWorkData WorkParams
         {
@@ -1274,17 +1373,19 @@ namespace WpfStackerLibrary
                 if(Telezhka==null)
                     Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
                 WorkParams = new StackerWorkData();
-
-                WorkparamsDP_PD.AddValueChanged(this, delegate
-                    { 
                 
-                    });
+                WorkParams.PropertyChanged += new PropertyChangedEventHandler(WorkParams_PropertyChanged);
             }
             else
             {
                 restruct_left();
                 restruct_right();
             }
+        }
+
+        void WorkParams_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         void WorkParams_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
