@@ -24,13 +24,19 @@ namespace WpfStackerLibrary
         }
 
         public String Passw { get; set; }
-
+        private bool react = true;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+       
             if (TBPassw.Password == Passw)
                 DialogResult = true;
             else
-                MessageBox.Show("Неверный пароль");
+            {
+
+                    MessageBox.Show("Неверный пароль");
+                    react = false;
+
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -38,18 +44,39 @@ namespace WpfStackerLibrary
             TBPassw.Focus();
         }
 
+
         private void TBPassw_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                if (TBPassw.Password!="")
-                    Button_Click(sender, e);
+
+                if (TBPassw.Password != "")
+                {
+                    // check the password
+                    if (TBPassw.Password == Passw)
+                        DialogResult = true;
+                    else
+                    {
+                        if (react)
+                        {
+                            MessageBox.Show("Неверный пароль");
+                            react = false;
+                        }
+                    }
+
+                }                        
+                
             }
         }
 
         private void TBPassw_KeyDown(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void TBPassw_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            react = true;
         }
     }
 }

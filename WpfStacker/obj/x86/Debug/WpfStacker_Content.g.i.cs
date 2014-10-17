@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("coordstacker1.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("%d0%9a%d0%be%d0%bf%d0%b8%d1%8f%20coordsstacker1.xml")]
 
 

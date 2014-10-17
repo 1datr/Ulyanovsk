@@ -68,6 +68,8 @@
             <base:String x:Key="82">Груз неправильно установлен на столе (слево)</base:String>
             <base:String x:Key="83">Груз неправильно установлен на столе (справо)</base:String>
             <base:String x:Key="91">Вне рабочей зоны</base:String>
+            <base:String x:Key="50061">Груз на столе</base:String>
+            <base:String x:Key="50022">На столе нет груза</base:String>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -1623,7 +1625,9 @@
                 </WrapPanel>
 
                 <TextBlock TextWrapping="Wrap" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=StackerState}"></TextBlock>
-                
+                <StackPanel Orientation="Horizontal">
+               
+                </StackPanel>
 
             </StackPanel>
             

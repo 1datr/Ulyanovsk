@@ -34,8 +34,60 @@ namespace WpfStackerLibrary
     }
 
 
-    public class StackerWorkData : INotifyPropertyChanged 
+    public class StackerWorkData : /*DependencyObject,*/ INotifyPropertyChanged 
         {
+        /*
+            public static readonly DependencyProperty X_DP =
+                DependencyProperty.Register("X", typeof(Int32), typeof
+                    (StackerWorkData), new UIPropertyMetadata(0));
+            
+            public Int32 X
+            {
+                get { return (Int32)GetValue(X_DP); }
+                set { SetValue(X_DP, value); }
+            }
+
+            public static readonly DependencyProperty Y_DP =
+                 DependencyProperty.Register("Y", typeof(Int32), typeof
+                     (StackerWorkData), new UIPropertyMetadata(0));
+
+            public Int32 Y
+            {
+                get { return (Int32)GetValue(Y_DP); }
+                set { SetValue(Y_DP, value); }
+            }
+
+
+            public static readonly DependencyProperty Z_DP =
+                 DependencyProperty.Register("Z", typeof(Int32), typeof
+                     (StackerWorkData), new UIPropertyMetadata(0));
+
+            public Int32 Z
+            {
+                get { return (Int32)GetValue(Z_DP); }
+                set { SetValue(Z_DP, value); }
+            }
+
+            public static readonly DependencyProperty Cell_DP =
+                 DependencyProperty.Register("Cell", typeof(Int32), typeof
+                     (StackerWorkData), new UIPropertyMetadata(0));
+
+            public Int32 Cell
+            {
+                get { return (Int32)GetValue(Cell_DP); }
+                set { SetValue(Cell_DP, value); }
+            }
+
+            public static readonly DependencyProperty cmd_DP =
+                 DependencyProperty.Register("cmd", typeof(StackerCommand), typeof
+                     (StackerWorkData), new UIPropertyMetadata(null));
+            
+            public StackerCommand cmd
+            {
+                get { return (StackerCommand)GetValue(cmd_DP); }
+                set { SetValue(cmd_DP, value); }
+            }
+        */
             private Int32 _X;
             public Int32 X
             {
@@ -113,6 +165,7 @@ namespace WpfStackerLibrary
                 if (PropertyChanged != null)
                     PropertyChanged(this, e);
             }
+
         }
 
     public class ModuleDigit : INotifyPropertyChanged 

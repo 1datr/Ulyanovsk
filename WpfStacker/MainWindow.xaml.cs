@@ -30,19 +30,7 @@ namespace WpfStacker
         
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            /*
-            CollectionViewSource adViewSource = (CollectionViewSource)FindResource("VCellContentCount");
-            //System.Data.Objects.ObjectQuery<WpfStacker.CellContent> cellContentsQuery = this.GetCellContentsQuery(cellcontentEntities1);
-            var counts = from CellContents in cellcontentEntities1.CellContents.GroupBy(c => c.Cell).Select(G => new 
-                              { 
-                                 cellno = G.Key.cellno,                                  
-                                 cCount = G.Count()                                
-                              } 
-                           )                                                                         
-                         join tCells in cellcontentEntities1.Cells on CellContents.Cell equals tCells.id
-                         select new { cell = tCells.cellno, count = CellContents.cCount };*/
-            
+            this.WindowState = WindowState.Maximized;                         
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)

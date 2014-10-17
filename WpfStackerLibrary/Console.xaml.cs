@@ -99,7 +99,8 @@ namespace WpfStackerLibrary
             
                     if (str.TrimEnd().TrimStart() == "") return;
                     str = "[" + DateTime.Now.ToString() + "] " + str;
-                    tbConsole.Text = "\n\r" + str + tbConsole.Text;
+                    tbConsole.Text = String.Format(@"{0}
+{1}", str, tbConsole.Text);
                     if (logfilepath != "")
                     {
                         string folderName = logfilepath;
@@ -137,37 +138,7 @@ namespace WpfStackerLibrary
 {1}", str, fullfile);               
 
                         File.WriteAllText(logfilename, fullfile);
-
-                        /*
-                        using (FileStream fs = File.OpenWrite(logfilepath))
-                        {
-                            StreamWriter sw = new StreamWriter(fs);                            
-                            sw.WriteLine(str);
-                            sw.Close();
                         }
-                       */
-                /*        lock(this){
-
-                            
-
-                            if (!File.Exists(logfilename)) //Если файл не существует
-                            {
-                                FileStream fileStream = new FileStream(logfilename, FileMode.Create);  //Создаем    
-
-                            }
-                            else
-                            {
-                                FileStream fileStream = new FileStream(logfilename, FileMode.Open, FileAccess.ReadWrite);
-                                fileStream.
-
-                                String oldstr = File.ReadAllText(logfilename);
-                                String TotalText = String.Format(@"{0}
-    {1}", str, oldstr);
-
-                                File.WriteAllText(logfilename, TotalText);
-                            }
-                        } */
-                    }
           
         }
 

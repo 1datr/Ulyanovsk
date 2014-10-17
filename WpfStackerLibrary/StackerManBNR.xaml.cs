@@ -46,7 +46,7 @@ namespace WpfStackerLibrary
         private static Int32 SrvID = 1;
 
         // Dependency Property
-        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerManBNR), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerManBNR), new FrameworkPropertyMetadata(null, DepParamsChanged));
         // .NET Property wrapper
         public StackerWorkData WorkParams
         {
@@ -88,6 +88,7 @@ namespace WpfStackerLibrary
         // Dependency Property
         public static readonly DependencyProperty PowerDP = DependencyProperty.Register("Power", typeof(bool), typeof(StackerManBNR), new FrameworkPropertyMetadata(false));
         // .NET Property wrapper
+        [Description("Power of stackerman"), Category("Stacker")]
         public bool Power
         {
             get
@@ -105,26 +106,22 @@ namespace WpfStackerLibrary
            {
                
                switch (propname)
-                    {                
-                
-                    case "CurrCmd":
-                            if (CmdReady)
-                            { 
-                        
-                            StackerCommand cmd = val as StackerCommand;
-                            Message = "Началось выполнение команды \""+CurrCmd.ToString()+"\"";
-                            WorkParams.cmd = cmd;
-                            //switch
-                                switch(cmd.CmdName)
-                                {
-                                    case "park" : this.park(); break;
-                                    case "take" : this.take(cmd.Op1); break;
-                                    case "push": this.put(cmd.Op2); break;
-                                    case "trans": this.transport(cmd.Op1, cmd.Op2); break;
-                                }
-                        
+                    {
+
+                        case "CurrCmd":
+                            {
+                                InitCommand();
                             }
+                            break;
+                    case "WorkParams":
+                            { 
                             
+                            }
+                            break;
+                    case "Power":
+                            {
+                                SwitchPower();
+                            }
                             break;
                     }
             }
@@ -133,6 +130,33 @@ namespace WpfStackerLibrary
 
             }
            
+        }
+
+        private void InitCommand()
+        {
+            try
+            {
+                if (CurrCmd != null)
+                    CurrCmd.PropertyChanged += new PropertyChangedEventHandler(CurrCmd_PropertyChanged);
+                if (CmdReady)
+                {
+
+                    StackerCommand cmd = CurrCmd as StackerCommand;
+                    Message = "Началось выполнение команды \"" + CurrCmd.ToString() + "\"";
+                    WorkParams.cmd = cmd;
+                    //switch
+                    switch (cmd.CmdName)
+                    {
+                        case "park": this.park(); break;
+                        case "take": this.take(cmd.Op1); break;
+                        case "push": this.put(cmd.Op2); break;
+                        case "trans": this.transport(cmd.Op1, cmd.Op2); break;
+                    }
+
+                }
+            }
+            catch (System.Exception exc)
+            { }
         }
 
         private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -754,10 +778,18 @@ namespace WpfStackerLibrary
                         switch (status)
                         {
                             case 0:
-                                if(Power)
-                                    StackerState = "Штабелер готов к выполнению команды";
+                                CmdReady = false;
+                                if (Power)
+                                {
+                                    StackerState = "Штабелер готов к выполнению команды";                                    
+                                    CmdReady = true;
+                                    InitCommand();
+                                }
                                 else
+                                {
                                     StackerState = "Штабелер выключен";
+
+                                }
                                 ConnStatus = StackerState;
                                 Error = "OK";
                                 CmdReady = true;
@@ -1154,10 +1186,14 @@ namespace WpfStackerLibrary
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             WorkParams = new StackerWorkData();
+
+            CurrCmd = new StackerCommand();
+            CurrCmd.PropertyChanged += new PropertyChangedEventHandler(CurrCmd_PropertyChanged);
+
             if (!DesignerProperties.GetIsInDesignMode(this))
             {           
-            this.Connect_Service("srv" + SrvID.ToString());
-            SrvID++;
+                this.Connect_Service("srv" + SrvID.ToString());
+                SrvID++;
             }
             Module1 = new ItemsChangeObservableCollection<ModuleDigit>();
             Module2 = new ItemsChangeObservableCollection<ModuleDigit>();
@@ -1172,6 +1208,11 @@ namespace WpfStackerLibrary
             Module11 = new ItemsChangeObservableCollection<ModuleDigit>();
             Module12 = new ItemsChangeObservableCollection<ModuleDigit>();
             Module13 = new ItemsChangeObservableCollection<ModuleDigit>();
+        }
+
+        void CurrCmd_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         public class VarInfo : INotifyPropertyChanged
@@ -1251,6 +1292,33 @@ namespace WpfStackerLibrary
         }
 
         private bool power = false;
+
+        private void SwitchPower()
+        {
+            if (Power)
+            {
+                if (Varlist["gOPC.Input.power"].Value == false)
+                {
+                    Varlist["gOPC.Input.power"].Value = true;
+                    System.Threading.Thread.Sleep(1000);
+                    Varlist["gOPC.Input.power"].Value = false;
+                }
+                else
+                    Varlist["gOPC.Input.power"].Value = false;
+
+            }
+            else
+            {
+                if (Varlist["gOPC.Input.power"].Value == true)
+                {
+                    Varlist["gOPC.Input.power"].Value = false;
+                    System.Threading.Thread.Sleep(1000);
+                    Varlist["gOPC.Input.power"].Value = true;
+                }
+                else
+                    Varlist["gOPC.Input.power"].Value = true;
+            }
+        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

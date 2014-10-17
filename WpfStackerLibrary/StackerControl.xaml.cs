@@ -104,21 +104,24 @@ namespace WpfStackerLibrary
         {
           // try {
             if (DesignerProperties.GetIsInDesignMode(this)) return;
-            
 
+            try
+            {
                 if (cells_occupied == null)
-                cells_occupied = SDA.OccupiedCells(this.StackerID);                
-            
+                    cells_occupied = SDA.OccupiedCells(this.StackerID);
+
                 foreach (Button btn in rack_left.Children)
                 {
-                    set_style_of_cell(btn);                  
+                    set_style_of_cell(btn);
                 }
 
                 foreach (Button btn in rack_right.Children)
                 {
-                    set_style_of_cell(btn);              
+                    set_style_of_cell(btn);
                 }
-            
+            }
+            catch (System.Exception ex)
+            { }
         }
 
         private Dictionary<Int32, Button> GridPoints = new Dictionary<int, Button>();
@@ -267,6 +270,7 @@ namespace WpfStackerLibrary
                     break;
                 case "StackerID":
                     cells_occupied = null;
+                    LoadConfig();
                     // In design mode only
                     if (!DesignerProperties.GetIsInDesignMode(this))
                         Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
@@ -333,28 +337,60 @@ namespace WpfStackerLibrary
                 case "WorkParams":
                     try
                     {
-                        XElement xe = XElement.Load("CoordsStacker" + StackerID.ToString() + ".xml");
-
-                        var elements = xe.Elements();
-                        var rd = (from c in elements where (c.Attribute("Y").Value=="0") orderby c.Attribute("X").Value select c);
-                        
+                        LoadConfig();
+                        var rd = (from c in this.Coords_Points where (Convert.ToInt32(c.Attribute("X").Value) >= WorkParams.X) orderby c.Attribute("X").Value select c).ToList<XElement>();
+                        Int32 col = GetButtonX(Convert.ToInt32(rd[0].Attribute("ID").Value));
+                        Grid.SetColumn(stacker_base,col);
                     }
                     catch (System.Exception exc)
                     { 
                     }
                     break;
+                case "WorkParams.X":
+                    {
+                    }
+                    break;
             }
+        }
+
+        private Int32 GetButtonX(Int32 cellid)
+        {
+            return Grid.GetColumn(GridPoints[cellid]);
+        }
+
+        private Int32 GetButtonY(Int32 cellid)
+        {
+            return Grid.GetRow(GridPoints[cellid]);
         }
 
         private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             StackerControl ctrl = (StackerControl)d;
+            if (e.Property.Name == "WorkParams")
+            { 
             
+            }
             ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
              
         }
 
-        
+        private List<XElement> Coords_Points = null;
+
+        private void LoadConfig()
+        {
+         try
+                    {
+                        if (this.Coords_Points != null) return;
+                        XElement xe_coords = XElement.Load("CoordsStacker" + StackerID.ToString() + ".xml");
+
+                        this.Coords_Points = xe_coords.Elements().ToList<XElement>();
+                       
+                        
+                    }
+                    catch (System.Exception exc)
+                    { 
+                    }
+        }
 
         // Dependency Property
         public static readonly DependencyProperty RowsDP = DependencyProperty.Register("Rows", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(5, DepParamsChanged));
@@ -950,8 +986,9 @@ namespace WpfStackerLibrary
         }
 
         // Dependency Property
-        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(null,DepParamsChanged));
+        public static readonly DependencyProperty WorkParamsDP = DependencyProperty.Register("WorkParams", typeof(StackerWorkData), typeof(StackerControl), new FrameworkPropertyMetadata(null, DepParamsChanged));
         // .NET Property wrapper
+        private static readonly DependencyPropertyDescriptor WorkparamsDP_PD = DependencyPropertyDescriptor.FromProperty(WorkParamsDP, typeof(StackerControl));
         [Description("Stacker parameters"), Category("Stacker")]
         public StackerWorkData WorkParams
         {
@@ -1217,6 +1254,10 @@ namespace WpfStackerLibrary
             set_cell_styles();
         }
 
+        private void WPChanged()
+        { 
+        }
+
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             if (!DesignerProperties.GetIsInDesignMode(this))
@@ -1233,12 +1274,22 @@ namespace WpfStackerLibrary
                 if(Telezhka==null)
                     Telezhka = new ItemsChangeObservableCollection<CellContent>(SDA.GetProductsOnTelezhka(StackerID));
                 WorkParams = new StackerWorkData();
+
+                WorkparamsDP_PD.AddValueChanged(this, delegate
+                    { 
+                
+                    });
             }
             else
             {
                 restruct_left();
                 restruct_right();
             }
+        }
+
+        void WorkParams_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         private void UserControl_Loaded_1(object sender, RoutedEventArgs e)

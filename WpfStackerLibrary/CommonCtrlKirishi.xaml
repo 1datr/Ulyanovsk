@@ -181,13 +181,13 @@
             <my:CmdQManager Grid.Column="0" Grid.Row="1" Margin="2,5,2,2" x:Name="CmdQueue" CmdReady="{Binding ElementName=stacker1_man, Path=CmdReady}" StackerState="{Binding ElementName=stacker1_man, Path=StackerState}" />
         </Grid>
 
-        <my:StackerControl Grid.Column="1" Grid.Row="0" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams, Mode=TwoWay}" OnSelectCell="stacker1_OnSelectCell" OnSelectStacker="stacker1_OnSelectStacker" StackerMenu="{Binding ElementName=CmdQueue, Path=StackerMenu}" CellMenu="{Binding ElementName=CmdQueue, Path=CellMenu}" TaraLoaded="{Binding ElementName=stacker1_man, Path=TaraLoaded}"></my:StackerControl>
+        <my:StackerControl Grid.Column="1" Grid.Row="0" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  OnSelectCell="stacker1_OnSelectCell" OnSelectStacker="stacker1_OnSelectStacker" StackerMenu="{Binding ElementName=CmdQueue, Path=StackerMenu}" CellMenu="{Binding ElementName=CmdQueue, Path=CellMenu}" TaraLoaded="{Binding ElementName=stacker1_man, Path=TaraLoaded}" WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams}"></my:StackerControl>
         
         
         <GridSplitter Grid.Column="1" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
         <GridSplitter Grid.Column="1" Grid.Row="0" Width="5"></GridSplitter>
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-            <my:StackerManBNR x:Name="stacker1_man" Height="200" VerticalAlignment="Top" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" CurrCmd="{Binding ElementName=CmdQueue, Path=CurrCmd}" />
+            <my:StackerManBNR x:Name="stacker1_man" Height="200" VerticalAlignment="Top" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" CurrCmd="{Binding ElementName=CmdQueue, Path=CurrCmd}" Power="{Binding ElementName=CmdQueue, Path=Power}" />
             <Border Margin="0,10,0,0"  BorderThickness="1" CornerRadius="5" BorderBrush="#FF0C0C0C">
                 <Grid>
                 <Grid.ColumnDefinitions>
@@ -200,7 +200,7 @@
                 </Grid.RowDefinitions>
                 <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="10,2,10,2" Click="Button_Click_4" Name="BTNswitchmode">Тотальное редактирование</Button>
                 <Button Grid.Column="0" Grid.Row="1" Click="Button_Click_6" Margin="10,2,5,2">Выделить ячейку</Button>
-                <TextBox Grid.Column="1" Grid.Row="1" Name="cell_to_select" Margin="5,2,10,2" HorizontalAlignment="Stretch" ></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Name="cell_to_select" Margin="5,2,10,2" HorizontalAlignment="Stretch" KeyUp="cell_to_select_KeyUp"></TextBox>
             </Grid>
             </Border>
             <GroupBox Header="Модули" Margin="0,8">
@@ -208,7 +208,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"></ColumnDefinition>
                         <ColumnDefinition Width="39*"></ColumnDefinition>
-                        <ColumnDefinition Width="292*" />
+                        <ColumnDefinition Width="88*" />
+                        <ColumnDefinition Width="204*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -228,7 +229,7 @@
                     </Grid.RowDefinitions>
                     
                     <TextBlock Grid.Column="0" Grid.Row="0">1</TextBlock>
-                    <ListBox  Grid.Column="1" ItemsSource="{Binding ElementName=stacker1_man, Path=Module1}" Grid.ColumnSpan="2">
+                    <ListBox  Grid.Column="1" ItemsSource="{Binding ElementName=stacker1_man, Path=Module1}" Grid.ColumnSpan="3">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel></WrapPanel>
@@ -245,7 +246,7 @@
             </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="1">2</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ElementName=stacker1_man, Path=Module2}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ElementName=stacker1_man, Path=Module2}" Grid.ColumnSpan="3">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel></WrapPanel>
@@ -262,7 +263,7 @@
             </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="2">3</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding ElementName=stacker1_man, Path=Module3}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding ElementName=stacker1_man, Path=Module3}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -279,7 +280,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="3">4</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding ElementName=stacker1_man, Path=Module4}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding ElementName=stacker1_man, Path=Module4}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -296,7 +297,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="4">5</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding ElementName=stacker1_man, Path=Module5}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding ElementName=stacker1_man, Path=Module5}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -313,7 +314,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="5">6</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding ElementName=stacker1_man, Path=Module6}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding ElementName=stacker1_man, Path=Module6}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -330,7 +331,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="6">7</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="6" ItemsSource="{Binding ElementName=stacker1_man, Path=Module7}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="6" ItemsSource="{Binding ElementName=stacker1_man, Path=Module7}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -347,7 +348,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="7">8</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="7" ItemsSource="{Binding ElementName=stacker1_man, Path=Module8}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="7" ItemsSource="{Binding ElementName=stacker1_man, Path=Module8}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -364,7 +365,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="8">9</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="8" ItemsSource="{Binding ElementName=stacker1_man, Path=Module9}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="8" ItemsSource="{Binding ElementName=stacker1_man, Path=Module9}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -381,7 +382,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="9">10</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="9" ItemsSource="{Binding ElementName=stacker1_man, Path=Module10}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="9" ItemsSource="{Binding ElementName=stacker1_man, Path=Module10}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -398,7 +399,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="10">11</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="10" ItemsSource="{Binding ElementName=stacker1_man, Path=Module11}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="10" ItemsSource="{Binding ElementName=stacker1_man, Path=Module11}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -415,7 +416,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="11">12</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="11" ItemsSource="{Binding ElementName=stacker1_man, Path=Module12}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="11" ItemsSource="{Binding ElementName=stacker1_man, Path=Module12}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -432,7 +433,7 @@
                     </ListBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="12">13</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="12" ItemsSource="{Binding ElementName=stacker1_man, Path=Module13}" Grid.ColumnSpan="2">
+                    <ListBox Grid.Column="1" Grid.Row="12" ItemsSource="{Binding ElementName=stacker1_man, Path=Module13}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>

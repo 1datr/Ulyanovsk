@@ -15,7 +15,7 @@
         <Label Grid.Column="0" Grid.Row="0">Логин:</Label>
         <Label Grid.Column="0" Grid.Row="1">Пароль:</Label>
         <TextBox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" Text="admin" IsReadOnly="True"></TextBox>
-        <PasswordBox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Name="TBPassw" TabIndex="1" KeyUp="TBPassw_KeyUp" KeyDown="TBPassw_KeyDown"></PasswordBox>
+        <PasswordBox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Name="TBPassw" TabIndex="1" KeyUp="TBPassw_KeyUp" KeyDown="TBPassw_KeyDown" PasswordChanged="TBPassw_PasswordChanged"></PasswordBox>
         <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="55,5,55,5" Click="Button_Click" TabIndex="2" Name="btnEnter">Войти</Button>
     </Grid>
 </Window>

@@ -56,14 +56,22 @@ namespace WpfStackerLibrary
                 try
                 {
                     Int32 oldval = CurrCmdIdx;
-                    if((oldval>-1)&&(oldval<CmdQueue.Count))
-                        CmdQueue[oldval].Selected = false;
 
                     this.SetValue(CurrCmdIdxDP, value);
-                    CurrCmd = CmdQueue[CurrCmdIdx];
+
+                    if ((oldval > -1) && (oldval < CmdQueue.Count))
+                    {
+                        CmdQueue[oldval].Selected = false;
+                        
+                    }
                     
+                    CurrCmd = CmdQueue[CurrCmdIdx];
+
+
                     CmdQueue[CurrCmdIdx].Selected = true;
-                  
+                   
+
+                    DGCmdlist.ItemsSource = DGCmdlist.ItemsSource;
                 }
                 catch (System.Exception exc)
                 { 
@@ -105,9 +113,14 @@ namespace WpfStackerLibrary
 
                     this.SetValue(IsWorkDP, value);
                     if (value)
-                        CurrCmd = CmdQueue[CurrCmdIdx];
+                    {
+                        Power = true;
+                        exe_command();
+                    }
                     else
-                    { }
+                    {
+                        Power = false;
+                    }
 
                 }
                 catch (System.Exception exc)
@@ -148,23 +161,43 @@ namespace WpfStackerLibrary
 
         private void next()
         {
+            //CurrCmd = null;
             try {
                 if (Cycle)
                 {
-                    
-                    CurrCmdIdx++;
-                    if (CurrCmdIdx == CmdQueue.Count)
-                        CurrCmdIdx = 0;
-                    CurrCmd = CmdQueue[CurrCmdIdx];
+                    if (CmdQueue.Count == 0)
+                    {
+                        CurrCmd = null;
+                    }
+                    else
+                    {
+                        CurrCmdIdx++;
+                        if (CurrCmdIdx == CmdQueue.Count)
+                            CurrCmdIdx = 0;
+                        
+                    }
                 }
                 else
                 {
                     CmdQueue.RemoveAt(CurrCmdIdx);
-                    CurrCmd = CmdQueue[CurrCmdIdx];
+                    
                 }
+                exe_command();
             }
             catch (System.Exception exc)
             { }
+        }
+
+        private void exe_command()
+        {
+            if (CmdQueue.Count > CurrCmdIdx)
+            {
+                CurrCmdIdx = CurrCmdIdx;
+                CurrCmd = CmdQueue[CurrCmdIdx];
+            }
+            else
+                CurrCmd = null;
+            DGCmdlist.ItemsSource = DGCmdlist.ItemsSource;
         }
 
         private void prev()
@@ -182,8 +215,9 @@ namespace WpfStackerLibrary
             this.CmdQueue.Add(scmd);
             if (CmdQueue.Count == 1)
             {
-                CurrCmd = CmdQueue[0];
+                
                 CurrCmdIdx = 0;
+                exe_command();
             }
             
         }
@@ -249,31 +283,13 @@ namespace WpfStackerLibrary
                         {
                             if (CmdQueue.Count > 0)
                                 this.IsWork = true;
+                           // next();
                         }
                         else
                             this.IsWork = false;
                             //switch
                     
                         break;
-                    case "CmdQueue": {
-                        try
-                        {
-
-                            if (CmdReady)
-                                if (CmdQueue.Count > 0)
-                                {
-                                    if (CurrCmd == null)
-                                    {
-                                        CurrCmdIdx = 0;
-                                        CurrCmd = CmdQueue[CurrCmdIdx];
-                                    }
-                                }
-                        }
-                        catch (System.Exception exc)
-                        { 
-                        
-                        }
-                        } break;
                     case "StackerState": {
                             switch (oldval.ToString())
                             {
@@ -296,7 +312,7 @@ namespace WpfStackerLibrary
                                     switch (val.ToString())
                                     {
                                         case "Штабелер готов к выполнению команды":
-                                            // Действие завершилось
+                                            // Действие завершилось - переходим к следующему
                                             next();
                                             break;
                                         case "Штабелер находиться в состоянии выполнения команды":
@@ -316,8 +332,8 @@ namespace WpfStackerLibrary
                                     {
                                         case "Штабелер готов к выполнению команды":
                                             // Выполнение команды завершилось
-                                            
-                                                next();
+
+                                            exe_command();
                                                                                             
                                             break;
                                         case "Штабелер находиться в состоянии выполнения команды":
@@ -391,8 +407,8 @@ namespace WpfStackerLibrary
                 return (StackerCommand)GetValue(CurrCmdDP);
             }
             private set { 
-                SetValue(CurrCmdDP, value); 
-            
+                SetValue(CurrCmdDP, value);
+                
             }
         }
 
@@ -407,6 +423,19 @@ namespace WpfStackerLibrary
                 return (bool)GetValue(CmdReadyDP);
             }
             set { SetValue(CmdReadyDP, value); }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty PowerDP = DependencyProperty.Register("Power", typeof(bool), typeof(CmdQManager), new FrameworkPropertyMetadata(false, DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Power of stackerman"), Category("Stacker")]
+        public bool Power
+        {
+            get
+            {
+                return (bool)GetValue(PowerDP);
+            }
+            set { SetValue(PowerDP, value); }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -502,9 +531,29 @@ namespace WpfStackerLibrary
 
         void CmdQueue_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            //throw new NotImplementedException();
-           // DGCmdlist.ItemsSource = null;
-            DGCmdlist.ItemsSource = DGCmdlist.ItemsSource;
+            try
+            {
+
+                if (CmdReady)
+                    if (CmdQueue.Count > 0)
+                    { 
+                        // Нет выполняемых команд
+                        if (CurrCmd == null)
+                        {
+                            CurrCmdIdx = 0;
+                        }
+                        else if (CmdQueue[CurrCmdIdx] != CurrCmd)
+                        {
+                            CurrCmdIdx = 0;
+                        }
+                    }
+                
+            }
+            catch (System.Exception exc)
+            {
+
+            }
+            
         }
 
         void mi_Click_put(object sender, RoutedEventArgs e)
@@ -569,25 +618,7 @@ namespace WpfStackerLibrary
             }
         }
 
-        private void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            try
-            {
-                StackerCommand scmd = (StackerCommand)e.Row.DataContext;
-                if (scmd.Selected)
-                {
-                    e.Row.Background = new SolidColorBrush(Colors.AliceBlue);
-                }
-                else
-                {
-                    e.Row.Background = new SolidColorBrush(Colors.White);
-                }
-            }
-            catch (System.Exception exc)
-            { 
-            }
-        }
-
+        
         private void Image_ImageFailed(object sender, ExceptionRoutedEventArgs e)
         {
 
@@ -596,19 +627,32 @@ namespace WpfStackerLibrary
         private void btn_next_cmd_Click(object sender, RoutedEventArgs e)
         {
             if (CurrCmdIdx < CmdQueue.Count - 1)
+            {
                 CurrCmdIdx++;
+                exe_command();
+            }
         }
 
         private void btn_prev_cmd_Click(object sender, RoutedEventArgs e)
         {
             if (CurrCmdIdx > 0)
+            {
                 CurrCmdIdx--;
+                exe_command();
+            }
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             if (DGCmdlist.SelectedIndex > -1)
-                CmdQueue.RemoveAt(DGCmdlist.SelectedIndex);
+            {
+                if(DGCmdlist.SelectedIndex == this.CurrCmdIdx)
+                    next();
+               
+                else
+                    CmdQueue.RemoveAt(DGCmdlist.SelectedIndex);
+            }
+
         }
 
         private void DGCmdlist_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -617,8 +661,9 @@ namespace WpfStackerLibrary
         }
     }
 
-    public class StackerCommand : INotifyPropertyChanged
+    public class StackerCommand : DependencyObject, INotifyPropertyChanged
     { 
+        /*
         private Int32 _op1 = -1;
         public Int32 Op1 { get { return _op1; } set { _op1 = value; OnPropertyChanged("Op1"); } }
 
@@ -629,7 +674,48 @@ namespace WpfStackerLibrary
         public String CmdName { get { return f_cmdname; } set { f_cmdname = value; OnPropertyChanged("CmdName"); } }
 
         private bool f_selected = false;
-        public bool Selected { get { return f_selected; } set { f_selected = value; OnPropertyChanged("Selected"); } }
+        public bool Selected { get { return f_selected; } set { f_selected = value; OnPropertyChanged("Selected"); } }*/
+
+        public static void OnMyPropertyChanged(DependencyObject dObject, DependencyPropertyChangedEventArgs e)
+        {
+            //MessageBox.Show(e.NewValue.ToString());
+        }
+
+        public static readonly DependencyProperty op1_dp =  DependencyProperty.Register("Op1", typeof(Int32), typeof(StackerCommand), new FrameworkPropertyMetadata(-1, new PropertyChangedCallback(OnMyPropertyChanged)));
+
+        // .NET Property wrapper
+        public Int32 Op1
+        {
+            get { return (Int32)GetValue(op1_dp); }
+            set { SetValue(op1_dp, value); }
+        }
+
+        public static readonly DependencyProperty op2_dp = DependencyProperty.Register("Op2", typeof(Int32), typeof(StackerCommand), new FrameworkPropertyMetadata(-1, new PropertyChangedCallback(OnMyPropertyChanged)));
+
+        // .NET Property wrapper
+        public Int32 Op2
+        {
+            get { return (Int32)GetValue(op2_dp); }
+            set { SetValue(op2_dp, value); }
+        }
+
+        public static readonly DependencyProperty cmdname_dp = DependencyProperty.Register("CmdName", typeof(String), typeof(StackerCommand), new FrameworkPropertyMetadata("park", new PropertyChangedCallback(OnMyPropertyChanged)));
+
+        // .NET Property wrapper
+        public String CmdName
+        {
+            get { return (String)GetValue( cmdname_dp); }
+            set { SetValue(cmdname_dp, value); }
+        }
+
+        public static readonly DependencyProperty Selected_dp = DependencyProperty.Register("Selected", typeof(bool), typeof(StackerCommand), new FrameworkPropertyMetadata(false, new PropertyChangedCallback(OnMyPropertyChanged)));
+
+        // .NET Property wrapper
+        public bool Selected
+        {
+            get { return (bool)GetValue(Selected_dp); }
+            set { SetValue(Selected_dp, value); }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)
@@ -637,6 +723,10 @@ namespace WpfStackerLibrary
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+                if (prop == "Selected")
+                { 
+                
+                }
             }
         }
 
@@ -648,15 +738,15 @@ namespace WpfStackerLibrary
         public override String ToString()
         {
             String str = "";
-            switch (f_cmdname)
+            switch (CmdName)
             { 
                 case "park": str = "Парковать";
                                 break;
-                case "push": str = "Положить в ячейку "+_op2.ToString();
+                case "push": str = "Положить в ячейку "+Op2.ToString();
                                 break;
-                case "take": str = "Взять из ячейки " + _op1.ToString();
+                case "take": str = "Взять из ячейки " + Op1.ToString();
                                 break;
-                case "trans": str = "Переместить из ячейки " + _op1.ToString() +" в ячейку " +Op2.ToString();
+                case "trans": str = "Переместить из ячейки " + Op1.ToString() +" в ячейку " +Op2.ToString();
                                 break;
             }
             return str;
@@ -664,9 +754,9 @@ namespace WpfStackerLibrary
 
         public StackerCommand(String opname="park", Int32 op1_=-1, Int32 op2_=-1)
         {
-            f_cmdname = opname;
-            _op1 = op1_;
-            _op2 = op2_;
+            CmdName = opname;
+            Op1 = op1_;
+            Op2 = op2_;
         }
     }
 }

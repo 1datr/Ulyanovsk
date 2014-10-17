@@ -453,6 +453,14 @@ namespace WpfStackerLibrary
             }
         }
 
+        private void cell_to_select_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Button_Click_6(sender, e);
+            }
+        }
+
         
         
     }
