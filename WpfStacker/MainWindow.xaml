@@ -189,6 +189,37 @@
             </Grid>
             
         </TabItem>
+        <TabItem Header="Координаты">            
+            <StackPanel>
+                <my1:PasswordToggleButton Name="CoordsButton" Content="Включить" Password="1234" SnapsToDevicePixels="True" />
+                <GroupBox IsEnabled="{Binding ElementName=CoordsButton, Path=IsChecked}">
+                    
+                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Column="1" Content="Сместить ряд по X" Height="23" Name="button2" Width="75" Click="button2_Click" />
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                        <Button Content="Сместить X" Height="23" Name="button3" Width="75" Click="button2_Click" />
+                        <TextBox Name="MoveTo" Width="200"></TextBox>
+                        </StackPanel>
+
+                        <TextBox Grid.Column="0" Grid.Row="1" Margin="20,5,5,5" Name="cell_ids"></TextBox>
+                        <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Height="200" Margin="20" Name="TBXML"></TextBox>
+                    </Grid>
+                    
+                </GroupBox>
+                
+            </StackPanel>
+        </TabItem>
     </TabControl>
     
     

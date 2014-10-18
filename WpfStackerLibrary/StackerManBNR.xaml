@@ -73,6 +73,11 @@
             <base:String x:Key="13034">Network configuration error (SA parameter)</base:String>
             <base:String x:Key="50000">Превышение веса</base:String>
             <base:String x:Key="50020">Неверный номер ячейки</base:String>
+            <base:String x:Key="50013">Ошибка определения режима</base:String>
+            <base:String x:Key="50012">Превышение веса</base:String>
+            <base:String x:Key="50066">Ячейка пуста</base:String>
+            <base:String x:Key="50052">Ячейка занята</base:String>
+            <base:String x:Key="50029">Нет тележки</base:String>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -1608,17 +1613,17 @@
                 <WrapPanel >
                     <StackPanel Orientation="Horizontal">
                     <Label>X:</Label>
-                        <TextBlock Padding="0,5,0,5" Name="tbPosX" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=WorkParams.X}"></TextBlock>
+                        <TextBlock Padding="0,5,0,5" Name="tbPosX" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PosX}"></TextBlock>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal">
                     <Label>Y:</Label>
-                        <TextBlock  Padding="0,5,0,5" Name="tbPosY" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=WorkParams.Y}"></TextBlock>
+                        <TextBlock  Padding="0,5,0,5" Name="tbPosY" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PosY}"></TextBlock>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                     <Label>Z:</Label>
-                        <TextBlock Padding="0,5,0,5" Name="tbPosZ" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=WorkParams.Z}"></TextBlock>
+                        <TextBlock Padding="0,5,0,5" Name="tbPosZ" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:StackerManBNR, AncestorLevel=1}, Path=PosZ}"></TextBlock>
                     </StackPanel>
                     </WrapPanel>
 

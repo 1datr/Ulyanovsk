@@ -154,9 +154,30 @@ namespace WpfStackerLibrary
             CmdQueue.kvit();
         }
 
+        public void MoveRowCoords_X(Int32 r, Int32 dX)
+        {
+            stacker1.MoveRowCoords_X(r, dX);
+            
+        }
+
+        public void MoveCoords_X(List<Int32> cells, Int32 dX)
+        {
+            stacker1.MoveCoords_X(cells, dX);
+        
+        }
+
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             stacker1_man.kvit_drives();
+        }
+
+        public ICommand TakeCommand { get; set; }
+        public ICommand PushCommand { get; set; }
+        public ICommand ParkCommand { get; set; }
+
+        public String GetXML()
+        {
+            return stacker1.GetXML();
         }
 
         // Содержимое тележки

@@ -169,6 +169,37 @@ namespace WpfStacker
             }
 
         }
+
+        private void button1_Click_2(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                DefaultExt = ".xml",
+                Filter = "XML documents (.xml)|*.xml"
+            };
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                /* Делаем, что надо */
+              
+            }
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            string[] split = cell_ids.Text.Split(new Char[] { ' ', ',', '.' });
+
+            List<Int32> celllist = new List<int>();
+            foreach (String str in split)
+            {
+                celllist.Add(Convert.ToInt32(str));
+            }
+
+            stacker1.MoveCoords_X(celllist, Convert.ToInt32(MoveTo.Text));
+            TBXML.Text = stacker1.GetXML();
+        }
        
     }
 }

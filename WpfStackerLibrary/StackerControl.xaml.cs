@@ -349,56 +349,89 @@ namespace WpfStackerLibrary
                     break;
                 case "PosX":
                     {
-                        try
+                        ctr++;
+                        ctr %= 2;
+                        if (ctr == 0)
                         {
-                            LoadConfig();
-                            // get less
-                            var rd_less = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) <= PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) descending select c).ToList<XElement>();
-                            Int32 col = GetButtonX(Convert.ToInt32(rd_less[0].Attribute("ID").Value));
-                           
-                            Grid.SetColumn(stacker_base, col);
-                            // get great
-                            var rd_great = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) > PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) select c).ToList<XElement>();
-                            if (rd_great.Count == 0)
+                            try
                             {
-                                Thickness mrg = stacker_base.Margin;
-                                mrg.Left = 0;
-                                stacker_base.Margin = mrg;
-                                Grid.SetColumnSpan(stacker_base, 1);
-                            }
-                            else
-                            {
-                                // less and great coordinates
-                                Int32 x_less = Convert.ToInt32(rd_less[0].Attribute("X").Value);
-                                Int32 x_great = Convert.ToInt32(rd_great[0].Attribute("X").Value);
-                                Int32 delta = x_great - x_less;
-                                Int32 deltaX = PosX - x_less;
-                                // width of cell
-                                Int32 cellwidth = (Int32)rack_left.ColumnDefinitions[0].ActualWidth;
-                                Int32 x = (Int32)(deltaX*cellwidth/delta);
-                                Thickness mrg = stacker_base.Margin;
-                                mrg.Left = x;
-                                stacker_base.Margin = mrg;
-                                Grid.SetColumnSpan(stacker_base, 2);
+                                LoadConfig();
 
-                            }
+                                /*  if (Math.Abs(PosX - lastposx) > 200)
+                                  {*/
+                                rd_less = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) <= PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) descending select c).ToList<XElement>();
+                                Int32 col = GetButtonX(Convert.ToInt32(rd_less[0].Attribute("ID").Value));
 
+                                Grid.SetColumn(stacker_base, col);
+                                // get great
+                                rd_great = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) > PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) select c).ToList<XElement>();
+                                /* }
+                                 else
+                                 { 
+                            
+                                 }*/
+                                // get less
+                                if (rd_great.Count == 0)
+                                {
+                                    Thickness mrg = stacker_base.Margin;
+                                    mrg.Left = 0;
+                                    stacker_base.Margin = mrg;
+                                    // Grid.SetColumnSpan(stacker_base, 1);
+                                }
+                                else
+                                {
+                                    // less and great coordinates
+                                    Int32 x_less = Convert.ToInt32(rd_less[0].Attribute("X").Value);
+                                    Int32 x_great = Convert.ToInt32(rd_great[0].Attribute("X").Value);
+                                    Int32 delta = x_great - x_less;
+                                    Int32 deltaX = PosX - x_less;
+                                    // width of cell
+                                    Int32 cellwidth = (Int32)rack_left.ColumnDefinitions[0].ActualWidth;
+                                    Int32 x = (Int32)(deltaX * cellwidth / delta);
+                                    Thickness mrg = stacker_base.Margin;
+                                    mrg.Left = x;
+                                    stacker_base.Margin = mrg;
+                                    //   Grid.SetColumnSpan(stacker_base, 2);
+
+                                }
+                               
+                            }
+                            catch (System.Exception exc)
+                            { }
                         }
-                        catch (System.Exception exc)
-                        { }
                     }
                     break;
                 case "PosY":
                     {
+                        if (ymax == 0)
+                        {
+                            LoadConfig();
+                            ymax = this.Coords_Points.Max(a => Convert.ToInt32(a.Attribute("Y").Value.ToString()));
+
+                        }
+                        y_rect.Width = 4+(PosY * 8 / ymax);
                     }
                     break;
                 case "PosZ":
                     {
+                        if (zmax == 0)
+                        {
+                            LoadConfig();
+                            zmax = this.Coords_Points.Max(a => Convert.ToInt32(a.Attribute("Z").Value.ToString()));
+                            
+                        }
+                        z_left_rect.Height = 8 - (PosZ * 8 / zmax);
                     }
                     break;
             }
         }
 
+        private Int32 zmax = 0;
+        private Int32 ymax = 0;
+        private Int32 ctr = 0;
+        private Int32 lastposx = 0;
+        private List<XElement> rd_less;
+        private List<XElement> rd_great;
 
         [Description("Stacker state"), Category("Stacker")]
         // Dependency Property
@@ -462,6 +495,8 @@ namespace WpfStackerLibrary
             return Grid.GetRow(GridPoints[cellid]);
         }
 
+        
+
         private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             StackerControl ctrl = (StackerControl)d;
@@ -473,14 +508,29 @@ namespace WpfStackerLibrary
              
         }
 
+        public String GetXML()
+        {
+            String str = "";
+            foreach (XElement xe in Coords_Points)
+            {
+                str = String.Format(@"{0}
+{1}",
+                    str, xe.ToString());
+            }
+            
+            //return xe_coords.ToString();
+            return str.TrimEnd().TrimStart();
+        }
+
         private List<XElement> Coords_Points = null;
+        private XElement xe_coords;
 
         private void LoadConfig()
         {
          try
                     {
                         if (this.Coords_Points != null) return;
-                        XElement xe_coords = XElement.Load("CoordsStacker" + StackerID.ToString() + ".xml");
+                        xe_coords = XElement.Load("CoordsStacker" + StackerID.ToString() + ".xml");
 
                         this.Coords_Points = xe_coords.Elements().ToList<XElement>();
                        
@@ -489,6 +539,55 @@ namespace WpfStackerLibrary
                     catch (System.Exception exc)
                     { 
                     }
+        }
+
+        public IEnumerable<UIElement> getRowLeft(Int32 r)
+        {
+            return rack_left.Children.Cast<UIElement>().Where(c => (Grid.GetRow(c) == (Floors - r)));           
+                 
+        }
+
+        public IEnumerable<UIElement> getRowRight(Int32 r)
+        {
+            
+            return rack_right.Children.Cast<UIElement>().Where(c => (Grid.GetRow(c) == r));
+
+        }
+
+        public void MoveRowCoords_X(Int32 r, Int32 dX)
+        {
+            var rr = getRowLeft(r);
+            var rl = getRowLeft(r);
+        }
+
+        public void MoveCoords_X(List<Int32> cells, Int32 dX)
+        {
+    //        Int32 c = Convert.ToInt32(Coords_Points[0].Attribute("ID").ToString());
+            var res = (from C in Coords_Points where cells.Contains(Convert.ToInt32(C.Attribute("ID").Value.ToString())) select C).ToList<XElement>();
+            foreach (XElement xe in res)
+            {
+                xe.SetAttributeValue("X", Convert.ToInt32(xe.Attribute("X").Value.ToString()) + dX);
+            }
+        }
+
+        public void MoveCoords_Y(List<Int32> cells, Int32 dY)
+        {
+            //        Int32 c = Convert.ToInt32(Coords_Points[0].Attribute("ID").ToString());
+            var res = (from C in Coords_Points where cells.Contains(Convert.ToInt32(C.Attribute("ID").Value.ToString())) select C).ToList<XElement>();
+            foreach (XElement xe in res)
+            {
+                xe.SetAttributeValue("Y", Convert.ToInt32(xe.Attribute("Y").Value.ToString()) + dY);
+            }
+        }
+
+        public void MoveCoords_Z(List<Int32> cells, Int32 dZ)
+        {
+            //        Int32 c = Convert.ToInt32(Coords_Points[0].Attribute("ID").ToString());
+            var res = (from C in Coords_Points where cells.Contains(Convert.ToInt32(C.Attribute("ID").Value.ToString())) select C).ToList<XElement>();
+            foreach (XElement xe in res)
+            {
+                xe.SetAttributeValue("Z", Convert.ToInt32(xe.Attribute("Z").Value.ToString()) + dZ);
+            }
         }
 
         // Dependency Property

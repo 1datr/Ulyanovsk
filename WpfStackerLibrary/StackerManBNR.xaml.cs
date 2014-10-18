@@ -43,6 +43,51 @@ namespace WpfStackerLibrary
             }
         }
 
+        // Dependency Property
+        public static readonly DependencyProperty PosXDP = DependencyProperty.Register("PosX", typeof(Int32), typeof(StackerManBNR), new FrameworkPropertyMetadata(0, DepParamsChanged));
+        // .NET Property wrapper
+        public Int32 PosX
+        {
+            get
+            {
+                return (Int32)GetValue(PosXDP);
+            }
+            private set
+            {
+                SetValue(PosXDP, value);
+            }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty PosYDP = DependencyProperty.Register("PosY", typeof(Int32), typeof(StackerManBNR), new FrameworkPropertyMetadata(0, DepParamsChanged));
+        // .NET Property wrapper
+        public Int32 PosY
+        {
+            get
+            {
+                return (Int32)GetValue(PosYDP);
+            }
+            private set
+            {
+                SetValue(PosYDP, value);
+            }
+        }
+
+        // Dependency Property
+        public static readonly DependencyProperty PosZDP = DependencyProperty.Register("PosZ", typeof(Int32), typeof(StackerManBNR), new FrameworkPropertyMetadata(0, DepParamsChanged));
+        // .NET Property wrapper
+        public Int32 PosZ
+        {
+            get
+            {
+                return (Int32)GetValue(PosZDP);
+            }
+            private set
+            {
+                SetValue(PosZDP, value);
+            }
+        }
+
         private static Int32 SrvID = 1;
 
         // Dependency Property
@@ -469,7 +514,7 @@ namespace WpfStackerLibrary
             InitializeComponent();
         }
 
-        public Int32 PosX {
+       /* public Int32 PosX {
             get {
                 if(Varlist.ContainsKey("gOPC.Output.Xpos"))
                     return Convert.ToInt32(Varlist["gOPC.Output.Xpos"].Value.ToString());
@@ -496,7 +541,7 @@ namespace WpfStackerLibrary
                     return Convert.ToInt32(Varlist["gOPC.Output.Zpos"].Value.ToString());
                 return 0;
             }
-        }
+        }*/
 
         public static readonly DependencyProperty TaraLoadedDP = DependencyProperty.Register("TaraLoaded", typeof(bool), typeof(StackerManBNR), new FrameworkPropertyMetadata(false));
         [Description("Poddon is loaded"), Category("Stacker")]
@@ -866,13 +911,13 @@ namespace WpfStackerLibrary
                     }
                     break;
                 case "gOPC.Output.Xpos":
-                    WorkParams.X = Convert.ToInt32(VarVal(var.Name));
+                    PosX = Convert.ToInt32(VarVal(var.Name));
                     break;
                 case "gOPC.Output.Ypos":
-                    WorkParams.Y = Convert.ToInt32(VarVal(var.Name));
+                    PosY = Convert.ToInt32(VarVal(var.Name));
                     break;
                 case "gOPC.Output.Zpos":
-                    WorkParams.Z = Convert.ToInt32(VarVal(var.Name));
+                    PosZ = Convert.ToInt32(VarVal(var.Name));
                     break;
                 case "gOPC.Input.src_cell" :
                     src_cell = Convert.ToInt32(VarVal(var.Name)); 

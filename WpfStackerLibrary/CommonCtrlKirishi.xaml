@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"              
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Initialized="UserControl_Initialized">
-
+    <UserControl.InputBindings>
+        <KeyBinding Command=""></KeyBinding>
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -181,7 +183,7 @@
             <my:CmdQManager Grid.Column="0" Grid.Row="1" Margin="2,5,2,2" x:Name="CmdQueue" CmdReady="{Binding ElementName=stacker1_man, Path=CmdReady}" StackerState="{Binding ElementName=stacker1_man, Path=StackerState}" />
         </Grid>
 
-        <my:StackerControl Grid.Column="1" Grid.Row="0" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  OnSelectCell="stacker1_OnSelectCell" OnSelectStacker="stacker1_OnSelectStacker" StackerMenu="{Binding ElementName=CmdQueue, Path=StackerMenu}" CellMenu="{Binding ElementName=CmdQueue, Path=CellMenu}" TaraLoaded="{Binding ElementName=stacker1_man, Path=TaraLoaded}" PosX="{Binding ElementName=stacker1_man, Path=WorkParams.X}" WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams}">
+        <my:StackerControl Grid.Column="1" Grid.Row="0" x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  OnSelectCell="stacker1_OnSelectCell" OnSelectStacker="stacker1_OnSelectStacker" StackerMenu="{Binding ElementName=CmdQueue, Path=StackerMenu}" CellMenu="{Binding ElementName=CmdQueue, Path=CellMenu}" TaraLoaded="{Binding ElementName=stacker1_man, Path=TaraLoaded}" PosX="{Binding ElementName=stacker1_man, Path=PosX}" PosY="{Binding ElementName=stacker1_man, Path=PosY}" PosZ="{Binding ElementName=stacker1_man, Path=PosZ}" WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams}">
            
         </my:StackerControl>
         
