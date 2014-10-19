@@ -89,3 +89,7 @@ D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\Microsoft.Practi
 D:\программы\beeVNCKirishi\WpfStackerLibrary\bin\Debug\VncSharp.dll
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\BNRModuleBox.baml
 D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\BNRModuleBox.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\KirishiHelp.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\KirishiHelp.g.cs
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\About.baml
+D:\программы\beeVNCKirishi\WpfStackerLibrary\obj\Debug\About.g.cs

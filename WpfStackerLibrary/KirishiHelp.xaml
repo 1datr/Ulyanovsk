@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="WpfStackerLibrary.KirishiHelp"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="161" d:DesignWidth="255" xmlns:my="clr-namespace:WpfStackerLibrary">
+    <GroupBox Header="Справка" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Button Focusable="False" Grid.Column="0" Grid.Row="0" Margin="2"  Style="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:KirishiHelp, AncestorLevel=1}, Path=StylePriem}" Content="12" IsCancel="True" ForceCursor="True" />           
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin="2" VerticalAlignment="Center">Приемные</TextBlock>
+
+            <Button Focusable="False" Grid.Column="0" Grid.Row="1" Margin="2"  Style="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:KirishiHelp, AncestorLevel=1}, Path=StyleFull}" IsCancel="True" ForceCursor="True" >24</Button>
+            <TextBlock Grid.Column="1" Grid.Row="1" Margin="2" VerticalAlignment="Center">Есть  содержимое</TextBlock>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,2" FontWeight="Bold">F5</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="2" VerticalAlignment="Center">Парковать</TextBlock>
+            
+            <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,2" FontWeight="Bold">F6</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Margin="2" VerticalAlignment="Center">Взять из текущей</TextBlock>
+
+            <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,2" FontWeight="Bold">F7</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Margin="2" VerticalAlignment="Center">Положить в текущую</TextBlock>
+
+            <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,2" FontWeight="Bold">ESC</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="2" VerticalAlignment="Center">Стоп/Старт</TextBlock>
+
+            <Button Grid.Column="2" Grid.Row="0" Margin="5,2" Click="Button_Click">Дополнительно</Button>
+        </Grid>
+    </GroupBox>
+</UserControl>

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-11-486466349
+13-557293602
 1-1616221993
-191323384875
+211748262582
 30-1264058379
-BNRModuleBox.xaml;CmdQManager.xaml;CommonCtrlKirishi.xaml;Console.xaml;PasswWin.xaml;StackerControl.xaml;StackerManBNR.xaml;TakeProdWin.xaml;Themes\Generic.xaml;Vnc.xaml;Win1.xaml;
+About.xaml;BNRModuleBox.xaml;CmdQManager.xaml;CommonCtrlKirishi.xaml;Console.xaml;KirishiHelp.xaml;PasswWin.xaml;StackerControl.xaml;StackerManBNR.xaml;TakeProdWin.xaml;Themes\Generic.xaml;Vnc.xaml;Win1.xaml;
 
 True
 

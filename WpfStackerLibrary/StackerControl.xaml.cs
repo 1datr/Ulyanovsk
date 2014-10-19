@@ -1114,7 +1114,31 @@ namespace WpfStackerLibrary
             { }
         }
 
-       
+        public Style PriemStyle
+        {
+            get {
+                Style s = Resources["PoddonCell"] as Style;
+                return s;
+            }
+        }
+
+        public Style RegularStyle
+        {
+            get
+            {
+                Style s = Resources["RegCell"] as Style;//
+                return s;
+            }
+        }
+
+        public Style OccupiedStyle
+        {
+            get
+            {
+                Style s = Resources["RegCell_Occupied"] as Style;//
+                return s;
+            }
+        }
 
         private ItemsChangeObservableCollection<CellContent> ccc;
         private Button currbtn = null;

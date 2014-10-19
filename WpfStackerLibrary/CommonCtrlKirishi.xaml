@@ -240,9 +240,7 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        
                     </Grid.RowDefinitions>
                     
                     <TextBlock Grid.Column="0" Grid.Row="0">1</TextBlock>
@@ -313,8 +311,9 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="4">5</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding ElementName=stacker1_man, Path=Module5}" Grid.ColumnSpan="3">
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="4">9</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="4" ItemsSource="{Binding ElementName=stacker1_man, Path=Module9}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -330,8 +329,8 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="5">6</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding ElementName=stacker1_man, Path=Module6}" Grid.ColumnSpan="3">
+                    <TextBlock Grid.Column="0" Grid.Row="5">10</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding ElementName=stacker1_man, Path=Module10}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -347,8 +346,8 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="6">7</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="6" ItemsSource="{Binding ElementName=stacker1_man, Path=Module7}" Grid.ColumnSpan="3">
+                    <TextBlock Grid.Column="0" Grid.Row="6">11</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="6" ItemsSource="{Binding ElementName=stacker1_man, Path=Module11}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -364,8 +363,8 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="7">8</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="7" ItemsSource="{Binding ElementName=stacker1_man, Path=Module8}" Grid.ColumnSpan="3">
+                    <TextBlock Grid.Column="0" Grid.Row="7">12</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="7" ItemsSource="{Binding ElementName=stacker1_man, Path=Module12}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -381,76 +380,8 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="8">9</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="8" ItemsSource="{Binding ElementName=stacker1_man, Path=Module9}" Grid.ColumnSpan="3">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel Visibility="{Binding}" Width="15" Margin="0">
-                                    <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
-                                    <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
-                                </DockPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <TextBlock Grid.Column="0" Grid.Row="9">10</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="9" ItemsSource="{Binding ElementName=stacker1_man, Path=Module10}" Grid.ColumnSpan="3">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel Visibility="{Binding}" Width="15" Margin="0">
-                                    <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
-                                    <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
-                                </DockPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <TextBlock Grid.Column="0" Grid.Row="10">11</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="10" ItemsSource="{Binding ElementName=stacker1_man, Path=Module11}" Grid.ColumnSpan="3">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel Visibility="{Binding}" Width="15" Margin="0">
-                                    <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
-                                    <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
-                                </DockPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <TextBlock Grid.Column="0" Grid.Row="11">12</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="11" ItemsSource="{Binding ElementName=stacker1_man, Path=Module12}" Grid.ColumnSpan="3">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel Visibility="{Binding}" Width="15" Margin="0">
-                                    <TextBlock HorizontalAlignment="Left" Margin="-5,0,0,-2" Text="{Binding Path=IntVal}"  Name="tb_val" Visibility="{Binding Path=Vis_Int}" />
-                                    <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Path=BoolVal}" Padding="0" Margin="0" Visibility="{Binding Path=Vis_Bool}" IsEnabled="False" />
-                                </DockPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <TextBlock Grid.Column="0" Grid.Row="12">13</TextBlock>
-                    <ListBox Grid.Column="1" Grid.Row="12" ItemsSource="{Binding ElementName=stacker1_man, Path=Module13}" Grid.ColumnSpan="3">
+                    <TextBlock Grid.Column="0" Grid.Row="8">13</TextBlock>
+                    <ListBox Grid.Column="1" Grid.Row="8" ItemsSource="{Binding ElementName=stacker1_man, Path=Module13}" Grid.ColumnSpan="3">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -474,6 +405,7 @@
                     </LinearGradientBrush>
                 </GroupBox.BorderBrush>
             </GroupBox>
+            <my:KirishiHelp  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" StylePriem="{Binding ElementName=stacker1, Path=PriemStyle}" StyleReg="{Binding ElementName=stacker1, Path=RegularStyle}" StyleFull="{Binding ElementName=stacker1, Path=OccupiedStyle}" />
         </StackPanel>
         
 

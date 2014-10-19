@@ -1,0 +1,12 @@
+﻿<Window x:Class="WpfStackerLibrary.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="О программе" Height="130" Width="294" Loaded="Window_Loaded" ResizeMode="NoResize" >
+    <Grid>
+        <StackPanel>
+            <TextBlock Margin="15,10,15,10"> (c) Техноприбор 2014 <LineBreak /> <Hyperlink Name="ref_texnokon" NavigateUri="http://technopribor.com/" Click="Hyperlink_Click">http://technopribor.com/</Hyperlink></TextBlock>
+            
+            <Button Margin="60,2" Click="Button_Click">Закрыть</Button>
+        </StackPanel>
+    </Grid>
+</Window>
