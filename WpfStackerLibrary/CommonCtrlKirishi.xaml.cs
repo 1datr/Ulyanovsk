@@ -170,10 +170,31 @@ namespace WpfStackerLibrary
         {
             stacker1_man.kvit_drives();
         }
+        /*
+        public static readonly RoutedUICommand RCmdTake = new RoutedUICommand("Take", "Take", typeof(CommonCtrlKirishi));
+        public static readonly RoutedUICommand RCmdPush = new RoutedUICommand("Push", "Push", typeof(CommonCtrlKirishi));
+        public static readonly RoutedUICommand RCmdPark = new RoutedUICommand("Park", "Park", typeof(CommonCtrlKirishi));
+         */
 
-        public ICommand TakeCommand { get; set; }
-        public ICommand PushCommand { get; set; }
-        public ICommand ParkCommand { get; set; }
+
+        private void CanExecuteCustomCommand(object sender,
+    CanExecuteRoutedEventArgs e)
+        {
+            
+             e.CanExecute = true;
+            
+        }
+        /*
+        private void ExecutedTakeCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                take(stacker1.CurrCell);
+            }
+            catch (System.Exception exc)
+            { 
+            }
+        }*/
 
         public String GetXML()
         {
@@ -405,6 +426,7 @@ namespace WpfStackerLibrary
         }
 
         private Binding b = new Binding();
+       
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
@@ -416,6 +438,7 @@ namespace WpfStackerLibrary
             b.Path = new PropertyPath("EditCurrent");
             b.Mode = BindingMode.TwoWay;
             this.SetBinding(IsEditableDP, b);
+
         }
 
         private void stacker1_OnSelectCell(int cellno)
@@ -483,7 +506,40 @@ namespace WpfStackerLibrary
             }
         }
 
-        
+        private void CommandBinding_Executed_Park(object sender, ExecutedRoutedEventArgs e)
+        {
+            park();
+        }
+
+        private void CommandBinding_Executed_Take(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                take(stacker1.CurrCell);
+            }
+            catch (System.Exception exc)
+            { }
+        }
+
+        private void CommandBinding_Executed_Push(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                push(stacker1.CurrCell);
+            }
+            catch (System.Exception exc)
+            { }
+        }
+
+        private void CommandBinding_Executed_Stop(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                stacker1_man.Switch();
+            }
+            catch (System.Exception exc)
+            { }
+        }
         
     }
     

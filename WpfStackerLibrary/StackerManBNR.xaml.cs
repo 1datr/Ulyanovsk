@@ -878,6 +878,13 @@ namespace WpfStackerLibrary
                     break;                
                 case "gOPC.Output.power":
                     Power = Convert.ToBoolean(VarVal("gOPC.Output.power").ToString());
+                    if (Power)                      
+                    {
+                        if (CmdReady)
+                        {
+                            InitCommand();
+                        }
+                    }
                 /*    PowerChangedOuter = true;
 
                     PowerBtnBrush = (Style)this.PowerBtnBrushes[power.ToString()];
@@ -1364,6 +1371,38 @@ namespace WpfStackerLibrary
                 else
                     Varlist["gOPC.Input.power"].Value = true;
             }
+        }
+
+        public void Switch()
+        {
+            try
+            {
+                if (Power)
+                {
+                    if (Varlist["gOPC.Input.power"].Value == false)
+                    {
+                        Varlist["gOPC.Input.power"].Value = true;
+                        System.Threading.Thread.Sleep(1000);
+                        Varlist["gOPC.Input.power"].Value = false;
+                    }
+                    else
+                        Varlist["gOPC.Input.power"].Value = false;
+
+                }
+                else
+                {
+                    if (Varlist["gOPC.Input.power"].Value == true)
+                    {
+                        Varlist["gOPC.Input.power"].Value = false;
+                        System.Threading.Thread.Sleep(1000);
+                        Varlist["gOPC.Input.power"].Value = true;
+                    }
+                    else
+                        Varlist["gOPC.Input.power"].Value = true;
+                }
+            }
+            catch (System.Exception exc)
+            { }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

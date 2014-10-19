@@ -609,6 +609,24 @@ namespace WpfStackerLibrary
         }
 
         // Dependency Property
+        public static readonly DependencyProperty CurrCellDP = DependencyProperty.Register("CurrCell", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(-1, DepParamsChanged));
+        // .NET Property wrapper
+        [Description("Row count"), Category("Stacker")]
+        public Int32 CurrCell
+        {
+            get
+            {
+                return (Int32)GetValue(CurrCellDP);
+            }
+            private set
+            {
+                SetValue(CurrCellDP, value);
+
+
+            }
+        }
+
+        // Dependency Property
         public static readonly DependencyProperty FloorsDP = DependencyProperty.Register("Floors", typeof(Int32), typeof(StackerControl), new FrameworkPropertyMetadata(5, DepParamsChanged));
         // .NET Property wrapper
         [Description("Floor count"), Category("Stacker")]
@@ -1105,6 +1123,8 @@ namespace WpfStackerLibrary
             Button btn = (Button)e.Source;
                         
             fSelectedCell = Convert.ToInt32(btn.Content);
+            CurrCell = fSelectedCell;
+            
             if(currbtn!=null)
                 set_style_of_cell(currbtn);
             currbtn = btn;

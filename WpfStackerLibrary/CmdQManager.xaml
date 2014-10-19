@@ -43,7 +43,7 @@
             </Grid.RowDefinitions>
             <DataGrid  Grid.Column="0" Grid.Row="1"   SelectionMode="Single" Margin="10,10,10,10" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CmdQManager, AncestorLevel=1}, Path=CmdQueue}" HeadersVisibility="Column" AutoGenerateColumns="False" Name="DGCmdlist" IsReadOnly="True" FrozenColumnCount="0" MouseDoubleClick="DGCmdlist_MouseDoubleClick">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Команда">
+                    <DataGridTemplateColumn Width="80"  Header="Команда">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Name="Cmdname" Text="{Binding Path=CmdName}"></TextBlock>
@@ -65,7 +65,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Оп#1">
+                    <DataGridTemplateColumn Width="50"  Header="Оп#1">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Name="CellOp1" Text="{Binding Path=Op1}"></TextBlock>
@@ -78,7 +78,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Оп#2">
+                    <DataGridTemplateColumn Width="50" Header="Оп#2">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Name="CellOp2" Text="{Binding Path=Op2}"></TextBlock>
@@ -91,7 +91,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn Width="*" Header="">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Click="Button_Click_4">
