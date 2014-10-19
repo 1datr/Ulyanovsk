@@ -969,23 +969,28 @@ namespace WpfStackerLibrary
                     } break;
                 case "gModule3":
                     {
-                        var ModVar = Module3;
-                        if (ModVar.Count == 0)
+                        try
                         {
+                            var ModVar = Module3;
+                            if (ModVar.Count == 0)
+                            {
+                                for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
+                                {
+                                    ModuleDigit md = new ModuleDigit();
+                                    ModVar.Add(md);
+                                }
+                            }
                             for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
                             {
-                                ModuleDigit md = new ModuleDigit();
-                                ModVar.Add(md);
+                                Variable thevalue = Varlist[var.Name].Members[i];
+                                if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
+                                    ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
+                                else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
+                                    ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
                             }
                         }
-                        for (int i = 0; i < Varlist[var.Name].StructureMembers.Count; i++)
-                        {
-                            Variable thevalue = Varlist[var.Name].Members[i];
-                            if (thevalue.Value.GetTypeCode() == TypeCode.Boolean)
-                                ModVar[i].BoolVal = Convert.ToBoolean(thevalue.Value.ToString());
-                            else if (thevalue.Value.GetTypeCode() == TypeCode.Int32)
-                                ModVar[i].IntVal = Convert.ToInt32(thevalue.Value.ToString());
-                        }
+                        catch (System.Exception exc)
+                        { }
                     } break;
                 case "gModule4":
                     {

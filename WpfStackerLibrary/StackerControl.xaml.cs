@@ -351,53 +351,25 @@ namespace WpfStackerLibrary
                     {
                         ctr++;
                         ctr %= 2;
+                        LoadConfig();
+
+                        InfoForBgWorker bgwinfo = new InfoForBgWorker();
+                        bgwinfo.Coords_Points = Coords_Points;
+                        bgwinfo.PosX = PosX;
+                        bgwinfo.GridPoints = GridPoints;
+                        bgwinfo.stacker_base = stacker_base;
+                        bgwinfo.stacker = this;
+                        bgwinfo.Col_by_btnid = Col_by_btnid;
+                        bgwinfo.CellWidth = (Int32)rack_left.ColumnDefinitions[0].ActualWidth;
+
+                        if(backgroundWorker.IsBusy)
+                            backgroundWorker.CancelAsync();
+                        if(!backgroundWorker.IsBusy)
+                            backgroundWorker.RunWorkerAsync(bgwinfo);
+
                         if (ctr == 0)
                         {
-                            try
-                            {
-                                LoadConfig();
-
-                                /*  if (Math.Abs(PosX - lastposx) > 200)
-                                  {*/
-                                rd_less = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) <= PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) descending select c).ToList<XElement>();
-                                Int32 col = GetButtonX(Convert.ToInt32(rd_less[0].Attribute("ID").Value));
-
-                                Grid.SetColumn(stacker_base, col);
-                                // get great
-                                rd_great = (from c in this.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) > PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) select c).ToList<XElement>();
-                                /* }
-                                 else
-                                 { 
-                            
-                                 }*/
-                                // get less
-                                if (rd_great.Count == 0)
-                                {
-                                    Thickness mrg = stacker_base.Margin;
-                                    mrg.Left = 0;
-                                    stacker_base.Margin = mrg;
-                                    // Grid.SetColumnSpan(stacker_base, 1);
-                                }
-                                else
-                                {
-                                    // less and great coordinates
-                                    Int32 x_less = Convert.ToInt32(rd_less[0].Attribute("X").Value);
-                                    Int32 x_great = Convert.ToInt32(rd_great[0].Attribute("X").Value);
-                                    Int32 delta = x_great - x_less;
-                                    Int32 deltaX = PosX - x_less;
-                                    // width of cell
-                                    Int32 cellwidth = (Int32)rack_left.ColumnDefinitions[0].ActualWidth;
-                                    Int32 x = (Int32)(deltaX * cellwidth / delta);
-                                    Thickness mrg = stacker_base.Margin;
-                                    mrg.Left = x;
-                                    stacker_base.Margin = mrg;
-                                    //   Grid.SetColumnSpan(stacker_base, 2);
-
-                                }
-                               
-                            }
-                            catch (System.Exception exc)
-                            { }
+                          
                         }
                     }
                     break;
@@ -425,6 +397,8 @@ namespace WpfStackerLibrary
                     break;
             }
         }
+
+        private BackgroundWorker backgroundWorker;
 
         private Int32 zmax = 0;
         private Int32 ymax = 0;
@@ -1032,6 +1006,8 @@ namespace WpfStackerLibrary
             }
         }
 
+        private List<Int32> Col_by_btnid = new List<int>();
+
         private void renum()
         {
             if ((Matr_Left == null) || (Matr_Right == null))
@@ -1040,6 +1016,8 @@ namespace WpfStackerLibrary
             {
                 Int32 c = 0;
                 this.GridPoints.Clear();
+                Col_by_btnid.Clear();
+
                 foreach (Button btn in rack_left.Children)
                 {
                     c = Matr_Left[ Grid.GetRow(btn), Grid.GetColumn(btn)];
@@ -1048,8 +1026,10 @@ namespace WpfStackerLibrary
                   //  btn.Name = "cell_" + c.ToString();
                     maxcell = c;
                     if (!this.GridPoints.ContainsKey(c))
+                    {
                         this.GridPoints.Add(c, btn);
-                    
+                        Col_by_btnid.Add(Grid.GetColumn(btn));
+                    }
                 }
 
                 foreach (Button btn in rack_right.Children)
@@ -1059,9 +1039,11 @@ namespace WpfStackerLibrary
                     
                 //    btn.Name = "cell_" + c.ToString();
                     maxcell = c;
-                    if(!this.GridPoints.ContainsKey(c))
+                    if (!this.GridPoints.ContainsKey(c))
+                    {
                         this.GridPoints.Add(c, btn);
-                   
+                        Col_by_btnid.Add(Grid.GetColumn(btn));
+                    }
                 }
             }
             // set cells if occupied 
@@ -1518,6 +1500,8 @@ namespace WpfStackerLibrary
                 WorkParams = new StackerWorkData();
                 
                 WorkParams.PropertyChanged += new PropertyChangedEventHandler(WorkParams_PropertyChanged);
+
+                backgroundWorker = ((BackgroundWorker)this.FindResource("backgroundWorker"));
             }
             else
             {
@@ -1546,6 +1530,86 @@ namespace WpfStackerLibrary
         {
             if (this.OnSelectStacker_hndlr != null)
                 this.OnSelectStacker_hndlr();
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                InfoForBgWorker input = (InfoForBgWorker)e.Argument;
+
+                var rd_less = (from c in input.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) <= input.PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) descending select c).ToList<XElement>();
+
+                Int32 cellid = Convert.ToInt32(rd_less[0].Attribute("ID").Value);
+                Int32 col = input.Col_by_btnid[cellid];
+
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                // get great
+                var rd_great = (from c in input.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) > input.PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) select c).ToList<XElement>();
+
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                Int32 x = 0;
+                // get less
+                if (rd_great.Count == 0)
+                {
+                   /* Thickness mrg = input.stacker_base.Margin;
+                    mrg.Left = 0;*/
+             //       input.stacker_base.Margin = mrg;
+                    // Grid.SetColumnSpan(stacker_base, 1);
+
+                }
+                else
+                {
+                    // less and great coordinates
+                    Int32 x_less = Convert.ToInt32(rd_less[0].Attribute("X").Value);
+                    Int32 x_great = Convert.ToInt32(rd_great[0].Attribute("X").Value);
+                    Int32 delta = x_great - x_less;
+                    Int32 deltaX = input.PosX - x_less;
+                    // width of cell
+                    Int32 cellwidth = input.CellWidth; 
+                    x = (Int32)(deltaX * cellwidth / delta);        
+                }
+
+                Int32[] res_arr = new Int32[] {col, x};
+
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                e.Result = res_arr;
+
+            }
+            catch (System.Exception exc)
+            {
+                Int32[] res_arr = new Int32[] { 0, 0 };
+                e.Result = res_arr;
+            }
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+            }
+            else
+            {
+                Int32[] res_arr = (Int32[])e.Result;
+
+                Grid.SetColumn(stacker_base, res_arr[0]);
+                Thickness mrg = stacker_base.Margin;
+                mrg.Left = res_arr[1];
+                stacker_base.Margin = mrg;
+            }
         }
 
     
@@ -1774,24 +1838,22 @@ namespace WpfStackerLibrary
                        select CellCont.CellID).Distinct().ToList<Int32>();
             return Res;          
         }
-
-        
-        /*public List<Department> GetAllDepartments()
-        {
-            return objDataContext.Department.ToList<Department>();
-        }
-
-        public List<Employee> GetAllEmployeeBeDeptName(string DeptName)
-        {
-            var Res = (from Emp in objDataContext.Employee
-                       from Dept in objDataContext.Department
-                       where Emp.DeptNo == Dept.DeptNo && Dept.Dname == DeptName
-                       select Emp).ToList<Employee>();
-            return Res;
-        }*/
+               
     }
 
-    
+    public class InfoForBgWorker
+    {
+        public List<XElement> Coords_Points { get; set; }
+        public Int32 PosX { get; set; }
+        public Border stacker_base { get; set; }
+        public StackerControl stacker { get; set; }
+        public Dictionary<Int32, Button> GridPoints { get; set; }
+        public List<Int32> Col_by_btnid { get; set; }
+        public Int32 CellWidth { get; set; } 
+
+        public InfoForBgWorker()
+        { }
+    }
 
     public class cell : INotifyPropertyChanged
     {
