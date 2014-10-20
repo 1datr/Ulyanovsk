@@ -28,11 +28,7 @@ namespace WpfStackerLibrary
     /// </summary>
     public partial class StackerManBNR : UserControl, IStackerMan, INotifyPropertyChanged 
     {
-        /*
-        private Visibility Visibility {
-            get { }
-            set { }
-        }*/
+       
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
@@ -182,27 +178,37 @@ namespace WpfStackerLibrary
         {
             try
             {
+                if (CurrCmd == null)
+                    {
+                        stop();
+                    }
                 if (CurrCmd != null)
                     CurrCmd.PropertyChanged += new PropertyChangedEventHandler(CurrCmd_PropertyChanged);
                 if (CmdReady)
                 {
 
-                    StackerCommand cmd = CurrCmd as StackerCommand;
-                    Message = "Началось выполнение команды \"" + CurrCmd.ToString() + "\"";
-                    WorkParams.cmd = cmd;
-                    //switch
-                    switch (cmd.CmdName)
-                    {
-                        case "park": this.park(); break;
-                        case "take": this.take(cmd.Op1); break;
-                        case "push": this.put(cmd.Op2); break;
-                        case "trans": this.transport(cmd.Op1, cmd.Op2); break;
-                    }
+
+                        StackerCommand cmd = CurrCmd as StackerCommand;
+                        Message = "Началось выполнение команды \"" + CurrCmd.ToString() + "\"";
+                        WorkParams.cmd = cmd;
+                        //switch
+                        switch (cmd.CmdName)
+                        {
+                            case "park": this.park(); break;
+                            case "take": this.take(cmd.Op1); break;
+                            case "push": this.put(cmd.Op2); break;
+                            case "trans": this.transport(cmd.Op1, cmd.Op2); break;
+                        }
 
                 }
             }
             catch (System.Exception exc)
             { }
+        }
+
+        private void stop()
+        {
+            Varlist["gOPC.Input.start"].Value = false;
         }
 
         private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

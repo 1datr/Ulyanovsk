@@ -114,12 +114,12 @@ namespace WpfStackerLibrary
                     this.SetValue(IsWorkDP, value);
                     if (value)
                     {
-                        Power = true;
+                        
                         exe_command();
                     }
                     else
                     {
-                        Power = false;
+                        CurrCmd = null;
                     }
 
                 }
