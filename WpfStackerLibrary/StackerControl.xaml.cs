@@ -358,6 +358,7 @@ namespace WpfStackerLibrary
                         bgwinfo.PosX = PosX;
                         bgwinfo.GridPoints = GridPoints;
                         bgwinfo.stacker_base = stacker_base;
+                        bgwinfo.Base_Floor_Points = Base_Floor_Points;
                         bgwinfo.stacker = this;
                         bgwinfo.Col_by_btnid = Col_by_btnid;
                         bgwinfo.CellWidth = (Int32)rack_left.ColumnDefinitions[0].ActualWidth;
@@ -386,13 +387,18 @@ namespace WpfStackerLibrary
                     break;
                 case "PosZ":
                     {
-                        if (zmax == 0)
+                        try
                         {
-                            LoadConfig();
-                            zmax = this.Coords_Points.Max(a => Convert.ToInt32(a.Attribute("Z").Value.ToString()));
-                            
+                            if (zmax == 0)
+                            {
+                                LoadConfig();
+                                zmax = this.Coords_Points.Max(a => Convert.ToInt32(a.Attribute("Z").Value.ToString()));
+
+                            }
+                            z_left_rect.Height = 8 - (PosZ * 8 / zmax);
                         }
-                        z_left_rect.Height = 8 - (PosZ * 8 / zmax);
+                        catch (System.Exception exc)
+                        { }
                     }
                     break;
             }
@@ -498,6 +504,7 @@ namespace WpfStackerLibrary
 
         private List<XElement> Coords_Points = null;
         private XElement xe_coords;
+        private List<Int32> Base_Floor_Points = new List<Int32>();
 
         private void LoadConfig()
         {
@@ -507,8 +514,30 @@ namespace WpfStackerLibrary
                         xe_coords = XElement.Load("CoordsStacker" + StackerID.ToString() + ".xml");
 
                         this.Coords_Points = xe_coords.Elements().ToList<XElement>();
-                       
-                        
+                        List<Int32> pointlist = new List<int>();
+
+                        for (int x = 0; x < Rows; x++)
+                        {
+                            for (int y = 0; y < Floors; y++)
+                            {
+                                if (Matr_Left[Floors - 1 - y, x] > -1)
+                                {
+                                    pointlist.Add(Matr_Left[Floors - 1 - y, x]);
+                                    break;
+                                }
+                                else if (Matr_Right[y, x] > -1)
+                                {
+                                    pointlist.Add(Matr_Right[y, x]);
+                                    break;
+                                }                                
+                            }
+                        }
+
+                        for (int i = 0; i < pointlist.Count; i++)
+                        {
+                            var res = (from C in Coords_Points where C.Attribute("ID").Value.ToString() == pointlist[i].ToString() select Convert.ToInt32(C.Attribute("X").Value.ToString())).ToList<Int32>();
+                            Base_Floor_Points.Add(res[0]);
+                        }
                     }
                     catch (System.Exception exc)
                     { 
@@ -1007,6 +1036,7 @@ namespace WpfStackerLibrary
         }
 
         private List<Int32> Col_by_btnid = new List<int>();
+        private List<Int32> Row_by_btnid = new List<int>();
 
         private void renum()
         {
@@ -1016,7 +1046,9 @@ namespace WpfStackerLibrary
             {
                 Int32 c = 0;
                 this.GridPoints.Clear();
+                
                 Col_by_btnid.Clear();
+                Row_by_btnid.Clear();
 
                 foreach (Button btn in rack_left.Children)
                 {
@@ -1029,6 +1061,7 @@ namespace WpfStackerLibrary
                     {
                         this.GridPoints.Add(c, btn);
                         Col_by_btnid.Add(Grid.GetColumn(btn));
+                        Row_by_btnid.Add(Rows - 1 - Grid.GetRow(btn));
                     }
                 }
 
@@ -1043,6 +1076,7 @@ namespace WpfStackerLibrary
                     {
                         this.GridPoints.Add(c, btn);
                         Col_by_btnid.Add(Grid.GetColumn(btn));
+                        Row_by_btnid.Add(Grid.GetRow(btn));
                     }
                 }
             }
@@ -1538,8 +1572,62 @@ namespace WpfStackerLibrary
             {
                 InfoForBgWorker input = (InfoForBgWorker)e.Argument;
 
-                var rd_less = (from c in input.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) <= input.PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) descending select c).ToList<XElement>();
+             //   var rd_less = (from c in input.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) <= input.PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) descending select c).ToList<XElement>();
+             //   var rd_less = (from c in input.Base_Floor_Points where c < PosX select c).ToList<Int32>();
+                Int32 x_low = 0;
+                Int32 col = 0;
+                Int32 x = 0;
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                var rd_less = input.Base_Floor_Points.Where(c => (c <= input.PosX)).ToList<Int32>();
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                if (rd_less.Count == 0)
+                    {
+                        col = 0;
 
+                        Int32 x_hi = input.Base_Floor_Points[1];
+                        Int32 delta = x_hi - x_low;
+                        Int32 deltaX = input.PosX - x_low;
+                        // width of cell
+                        Int32 cellwidth = input.CellWidth;
+                        x = (Int32)(deltaX * cellwidth / delta); 
+                    }
+                else if(rd_less.Count==input.Base_Floor_Points.Count)
+                    {
+                        col = rd_less.Count - 1;
+
+                        
+                    }
+                else
+                    {
+                        int count = rd_less.Count;
+                        x_low = rd_less[count-1];
+                        col = rd_less.Count - 1;
+                        Int32 x_hi = input.Base_Floor_Points[count];
+
+                        Int32 delta = x_hi - x_low;
+                        Int32 deltaX = input.PosX - x_low;
+                        // width of cell
+                        Int32 cellwidth = input.CellWidth;
+                        x = (Int32)(deltaX * cellwidth / delta); 
+                    }
+
+                Int32[] res_arr = new Int32[] { col, x };
+
+                if (backgroundWorker.CancellationPending)
+                    {
+                    e.Cancel = true;
+                    return;
+                    }
+                e.Result = res_arr;
+/*
                 Int32 cellid = Convert.ToInt32(rd_less[0].Attribute("ID").Value);
                 Int32 col = input.Col_by_btnid[cellid];
 
@@ -1550,7 +1638,11 @@ namespace WpfStackerLibrary
                 }
                 // get great
                 var rd_great = (from c in input.Coords_Points where ((Convert.ToInt32(c.Attribute("X").Value) > input.PosX) && true) orderby Convert.ToInt32(c.Attribute("X").Value) select c).ToList<XElement>();
-
+                if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
                 if (backgroundWorker.CancellationPending)
                 {
                     e.Cancel = true;
@@ -1561,10 +1653,7 @@ namespace WpfStackerLibrary
                 // get less
                 if (rd_great.Count == 0)
                 {
-                   /* Thickness mrg = input.stacker_base.Margin;
-                    mrg.Left = 0;*/
-             //       input.stacker_base.Margin = mrg;
-                    // Grid.SetColumnSpan(stacker_base, 1);
+               
 
                 }
                 else
@@ -1587,12 +1676,66 @@ namespace WpfStackerLibrary
                     return;
                 }
                 e.Result = res_arr;
-
+                */
             }
             catch (System.Exception exc)
             {
                 Int32[] res_arr = new Int32[] { 0, 0 };
                 e.Result = res_arr;
+            }
+        }
+
+        public void TransX(Int32 low, Int32 hi, bool left = true)
+        {
+            if (left)
+            {
+                Int32 theX = 0;
+                for (Int32 x = 0; x < Rows; x++)
+                {
+                    //Int32 theX = Matr_Left[Floors-1, x];
+                    if (Matr_Left[Floors - 1, x] > -1)
+                    {
+                        var res_base = (from c in this.Coords_Points where (Convert.ToInt32(c.Attribute("ID").Value.ToString()) == Matr_Left[Floors - 1, x]) select c).ToList<XElement>();
+                        theX = Convert.ToInt32(res_base[0].Attribute("X").Value.ToString());
+                    }
+                    for (Int32 y = 0; y < Floors; y++)
+                    {
+                        if (Matr_Left[Floors - 1 - y, x] > -1)
+                        {
+                            var res = (from c in this.Coords_Points where (Convert.ToInt32(c.Attribute("ID").Value.ToString()) == Matr_Left[Floors - 1 - y, x]) select c).ToList<XElement>();
+                            res[0].SetAttributeValue("X", theX);
+                        }
+                        if (y == Floors - 2)
+                            theX += 1;
+                        else
+                            theX += 2;
+                    }
+                }
+            }
+            else
+            {
+                Int32 theX = 0;
+                for (Int32 x = 0; x < Rows; x++)
+                {
+                    //Int32 theX = Matr_Left[Floors-1, x];
+                    if (Matr_Right[0, x] > -1)
+                    {
+                        var res_base = (from c in this.Coords_Points where (Convert.ToInt32(c.Attribute("ID").Value.ToString()) == Matr_Right[0, x]) select c).ToList<XElement>();
+                        theX = Convert.ToInt32(res_base[0].Attribute("X").Value.ToString());
+                    }
+                    for (Int32 y = 0; y < Floors; y++)
+                    {
+                        if (Matr_Right[y, x] > -1)
+                        {
+                            var res = (from c in this.Coords_Points where (Convert.ToInt32(c.Attribute("ID").Value.ToString()) == Matr_Right[y, x]) select c).ToList<XElement>();
+                            res[0].SetAttributeValue("X", theX);
+                        }
+                        if (y == Floors - 2)
+                            theX += 1;
+                        else
+                            theX += 2;
+                    }
+                }
             }
         }
 
@@ -1844,6 +1987,7 @@ namespace WpfStackerLibrary
     public class InfoForBgWorker
     {
         public List<XElement> Coords_Points { get; set; }
+        public List<Int32> Base_Floor_Points { get; set; }
         public Int32 PosX { get; set; }
         public Border stacker_base { get; set; }
         public StackerControl stacker { get; set; }

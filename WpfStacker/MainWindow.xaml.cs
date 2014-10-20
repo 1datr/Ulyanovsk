@@ -200,6 +200,20 @@ namespace WpfStacker
             stacker1.MoveCoords_X(celllist, Convert.ToInt32(MoveTo.Text));
             TBXML.Text = stacker1.GetXML();
         }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            if(x_rack_right.IsChecked==true)
+                stacker2.TransX(Convert.ToInt32(Trans_low_x.Text), Convert.ToInt32(Trans_hi_x.Text),true);
+            else
+                stacker2.TransX(Convert.ToInt32(Trans_low_x.Text), Convert.ToInt32(Trans_hi_x.Text));
+            TBXML.Text = stacker2.GetXML();
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            TBXML.Text = stacker2.GetXML();
+        }
        
     }
 }

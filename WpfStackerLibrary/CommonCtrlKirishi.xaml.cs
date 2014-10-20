@@ -258,6 +258,10 @@ namespace WpfStackerLibrary
             }
         }
 
+        public void TransX(Int32 low, Int32 hi, bool left=true)
+        {
+            stacker1.TransX(low, hi, left);
+        }
 
         // Dependency Property
         public static readonly DependencyProperty IsEditableDP = DependencyProperty.Register("IsEditable", typeof(bool), typeof(CommonCtrlKirishi), new FrameworkPropertyMetadata(false));
