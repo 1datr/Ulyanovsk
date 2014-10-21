@@ -223,6 +223,7 @@
     <Resource Include="Images\order-icon.png" />
     <Resource Include="Images\w256h2561339252558DeleteRed1.png" />
     <Resource Include="Images\vnc.ico" />
+    <Resource Include="Images\115404_32715_128_delete_forbidden_icon.png" />
     <Content Include="ModelStacker.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

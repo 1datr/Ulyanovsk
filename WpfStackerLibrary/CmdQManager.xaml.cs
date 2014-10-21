@@ -130,6 +130,34 @@ namespace WpfStackerLibrary
             }
         }
 
+        public static readonly DependencyProperty RemoveOnKvitDP =
+           DependencyProperty.Register("RemoveOnKvit",
+           typeof(bool), typeof(CmdQManager),
+           new FrameworkPropertyMetadata(true, DepParamsChanged)
+           );
+        // Stacker panel menu
+        [Description("Remove current on kvit"), Category("Stacker")]
+        public bool RemoveOnKvit
+        {
+            get
+            {
+
+                return (bool)this.GetValue(RemoveOnKvitDP);
+            }
+            set
+            {
+                try
+                {
+
+                    this.SetValue(RemoveOnKvitDP, value);                  
+                }
+                catch (System.Exception exc)
+                {
+
+                }
+            }
+        }
+
         public static readonly DependencyProperty CycleDP =
             DependencyProperty.Register("Cycle",
             typeof(bool), typeof(CmdQManager),
@@ -350,6 +378,7 @@ namespace WpfStackerLibrary
                                     switch (val.ToString())
                                     {
                                         case "Штабелер готов к выполнению команды":
+                                            CurrCmd = null;
                                             exe_command();
                                             break;
                                         case "Штабелер находиться в состоянии выполнения команды":
@@ -414,16 +443,24 @@ namespace WpfStackerLibrary
 
         public void kvit()
         {
-            if (Cycle)
+            if (RemoveOnKvit)
             {
-                Cycle = false;
-                next();
-                Cycle = true;
+                if (Cycle)
+                {
+                    Cycle = false;
+                    next();
+                    Cycle = true;
+                }
+                else
+                {
+                    next();
+
+                }
             }
             else
             {
-                next();
-            
+                CurrCmd = null;
+                exe_command();
             }
         }
 

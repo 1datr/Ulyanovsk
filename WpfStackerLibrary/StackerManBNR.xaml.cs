@@ -808,6 +808,7 @@ namespace WpfStackerLibrary
         }
 
         private Int32 mode;
+        private Int32 status;
         private void ValueChanged(object sender, VariableEventArgs e)
         {
            // Error = "";
@@ -826,7 +827,7 @@ namespace WpfStackerLibrary
 
                 case "gOPC.Output.status":
                     cmdExecuting = false;
-                    Int32 status = Convert.ToInt32(VarVal("gOPC.Output.status").ToString());
+                    status = Convert.ToInt32(VarVal("gOPC.Output.status").ToString());
                         switch (status)
                         {
                             case 0:
@@ -886,6 +887,8 @@ namespace WpfStackerLibrary
                     Power = Convert.ToBoolean(VarVal("gOPC.Output.power").ToString());
                     if (Power)                      
                     {
+                        if (status==0) 
+                            StackerState = "Штабелер готов к выполнению команды"; 
                         if (CmdReady)
                         {
                             InitCommand();
