@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BR.AN.PviServices;
 using WpfStackerLibrary;
+using System.IO;
+using System.Diagnostics;
 
 namespace WpfStacker
 {
@@ -186,7 +188,9 @@ namespace WpfStacker
               
             }
         }
-
+        /*
+         * 
+         *  Секция координат
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             string[] split = cell_ids.Text.Split(new Char[] { ' ', ',', '.' });
@@ -213,6 +217,71 @@ namespace WpfStacker
         private void Button_Click_7(object sender, RoutedEventArgs e)
         {
             TBXML.Text = stacker2.GetXML();
+        }
+        */
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            if (BugText.Text == "") return;
+            // add o bug tracker
+            String NewText = "[" + DateTime.Today.ToString("MM.dd.yyyy") + @"]
+" +BugText.Text + @"
+-------------------";
+
+                        String logfilename = "BugTracker.txt";
+
+                        if (!File.Exists(logfilename))
+                        {
+                            // Create a file to write to.
+                            using (StreamWriter sw = File.CreateText(logfilename))
+                            {
+                                sw.WriteLine(NewText);
+                            }
+                        }
+                        else
+                        {
+
+                            // Open the file to read from.
+                            string fullfile = "";
+                            string s = "";
+                            using (StreamReader sr = File.OpenText(logfilename))
+                            {
+
+                                while ((s = sr.ReadLine()) != null)
+                                {
+                                    fullfile = String.Format(@"{0}
+{1}", s, fullfile);
+                                }
+                            }
+
+                            fullfile = String.Format(@"{0}
+{1}", NewText, fullfile);
+
+                            File.WriteAllText(logfilename, fullfile);
+                        }
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Hyperlink hl = e.Source as Hyperlink;
+                Process.Start("\\" + hl.NavigateUri.ToString());
+            }
+            catch (System.Exception ex)
+            { }
+        }
+
+        private void filter_productname_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Button_Click_3(sender, e);
+            }
         }
        
     }

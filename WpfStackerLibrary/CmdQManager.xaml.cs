@@ -350,7 +350,7 @@ namespace WpfStackerLibrary
                                     switch (val.ToString())
                                     {
                                         case "Штабелер готов к выполнению команды":
-                                            
+                                            exe_command();
                                             break;
                                         case "Штабелер находиться в состоянии выполнения команды":
 

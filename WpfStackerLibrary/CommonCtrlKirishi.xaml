@@ -61,7 +61,7 @@
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,5,5"  Text="{Binding ElementName=stacker1_man, Path=Error}"></TextBlock>
                     <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5"  Text="{Binding ElementName=stacker1_man, Path=DriveError}"></TextBlock>
                     <Button Grid.Row="0" Grid.Column="1" Content="Квитировать" Margin="5,5,5,5" Height="25" VerticalAlignment="Top" Click="Button_Click_1"></Button>
-                        <my:PasswordButton Grid.Row="1" Grid.Column="1" Password="1234" Content="Квитировать приводы" Margin="5,5,5,5" Height="25" VerticalAlignment="Top" Click="Button_Click_2" />
+                        <Button Grid.Row="1" Grid.Column="1" Content="Квитировать приводы" Margin="5,5,5,5" Height="25" VerticalAlignment="Top" Click="Button_Click_2" />
                 </Grid>
                 </ScrollViewer>
             </TabItem>
@@ -136,7 +136,7 @@
                     </Grid>                    
                 </TabItem>
 
-                <TabItem Header="Тележка">
+                <TabItem Header="На штабелере">
 
                     <Grid>
                         <Grid.RowDefinitions>

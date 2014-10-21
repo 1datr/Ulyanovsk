@@ -100,7 +100,7 @@
                             <RowDefinition Height="575*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Column="0" Grid.Row="0">
-                        <TextBox Name="filter_productname" Margin="20,5,20,2"></TextBox>
+                        <TextBox Name="filter_productname" Margin="20,5,20,2" KeyUp="filter_productname_KeyUp"></TextBox>
                         <GroupBox Header="Штабелеры:" Margin="20,3,20,3">
                             <StackPanel Orientation="Horizontal">
 
@@ -115,6 +115,7 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Штабелер" Binding="{Binding StackerID}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Что лежит" Width="300" Binding="{Binding Product.Name}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Сколько" Width="100" Binding="{Binding Count}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Ячейка"  Binding="{Binding CellID}"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Дата последнего изменения" Binding="{Binding ChangeDate}"></DataGridTextColumn>
                                 <DataGridTemplateColumn>
@@ -145,30 +146,9 @@
                             <RowDefinition Height="40"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Column="0" Grid.Row="0" Margin="5" Name="full_prod_filter" IsEnabled="{Binding ElementName=TBProdlistEdit, Path=IsChecked}"></TextBox>
-                        <Button Grid.Column="1" Grid.Row="0" Margin="5" Content="Добавить" Click="Button_Click_1" IsEnabled="{Binding ElementName=TBProdlistEdit, Path=IsChecked}"></Button>
-                        
-                            <my1:PasswordToggleButton Grid.Column="2" Grid.Row="0" Width="35" Height="35" Padding="4,2,2,2" Password="1234" FreeReset="True" IsThreeState="False" UseLayoutRounding="False" Name="TBProdlistEdit" >
-                                
-                                <my1:PasswordToggleButton.Template>                                
-                                <ControlTemplate TargetType="{x:Type my1:PasswordToggleButton}">
-                                    <Grid x:Name="controlLayout">
-                                        <Ellipse x:Name="buttonSurface" Fill="AliceBlue"/>
-                                        <Image Name="TBPEImage" Source="/WpfStacker;component/Images/unlock.png"></Image>
-                                    </Grid>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
-                                            <Setter TargetName="TBPEImage" Property="Source" Value="/WpfStacker;component/Images/lock.png"></Setter>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="buttonSurface" Property="Fill" Value="LightBlue"></Setter>                                           
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </my1:PasswordToggleButton.Template>
-                        </my1:PasswordToggleButton>                    
-
-                        <DataGrid Name="prods_grid" SelectionMode="Single" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding ElementName=stacker1, Path=ProductlistFull}" AutoGenerateColumns="False" RowEditEnding="DataGrid_RowEditEnding" CellEditEnding="prods_grid_CellEditEnding" HeadersVisibility="Column" IsEnabled="{Binding ElementName=TBProdlistEdit, Path=IsChecked}">
+                        <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5" Name="full_prod_filter" ></TextBox>
+                        <Button Grid.Column="2" Grid.Row="0" Margin="5" Content="Добавить" Click="Button_Click_1" ></Button>
+                        <DataGrid Name="prods_grid" CanUserAddRows="False" SelectionMode="Single" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding ElementName=stacker1, Path=ProductlistFull}" AutoGenerateColumns="False" RowEditEnding="DataGrid_RowEditEnding" CellEditEnding="prods_grid_CellEditEnding" HeadersVisibility="Column" IsEnabled="{Binding ElementName=TBProdlistEdit, Path=IsChecked}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Path=Name}" Width="190*" />
                                 <DataGridTemplateColumn Width="90*">
@@ -189,7 +169,9 @@
             </Grid>
             
         </TabItem>
+     <!--
         <TabItem Header="Координаты">            
+        
             <StackPanel>
                 <my1:PasswordToggleButton Name="CoordsButton" Content="Включить" Width="200" HorizontalAlignment="Left" Margin="4" Password="1234" SnapsToDevicePixels="True" FreeReset="True" />
                 <GroupBox IsEnabled="{Binding ElementName=CoordsButton, Path=IsChecked}">
@@ -247,6 +229,16 @@
                 </GroupBox>
                 
             </StackPanel>
+        </TabItem>
+        -->
+        <TabItem Header="Баг-трекер">
+            <GroupBox Header="Введите текст ошибки">
+                <StackPanel>
+                    <TextBox Height="500" Name="BugText" TextWrapping="Wrap"  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="2,4,2,4"></TextBox>
+                <Button HorizontalAlignment="Right" Width="200" Click="Button_Click_8">Сохранить</Button>
+                    <TextBlock>Файл багов - <Hyperlink NavigateUri="BugTracker.txt" Click="Hyperlink_Click_1">BugTracker.txt</Hyperlink></TextBlock>
+                </StackPanel>
+            </GroupBox>
         </TabItem>
     </TabControl>
     

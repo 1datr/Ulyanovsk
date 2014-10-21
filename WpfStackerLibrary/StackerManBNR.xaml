@@ -78,6 +78,7 @@
             <base:String x:Key="50066">Ячейка пуста</base:String>
             <base:String x:Key="50052">Ячейка занята</base:String>
             <base:String x:Key="50029">Нет тележки</base:String>
+            <base:String x:Key="50054">Есть груз</base:String>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -1600,8 +1601,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                        <Button Height="25"  Content="Переподключить" Click="Button_Click"></Button>
-                <Button Content="Специальное управление" HorizontalAlignment="Right" Width="150"  Name="btnSpec" Height="25" Margin="5,0,5,5" Click="btnSpec_Click" />
+                    <Button Content="Специальное управление" HorizontalAlignment="Right" Width="150"  Name="btnSpec" Height="25" Margin="5,0,5,5" Click="btnSpec_Click" />
                     <WrapPanel.Resources>
                         <ResourceDictionary x:Name="PowerBtnCaptions" >
                             <base:String x:Key="true">ON</base:String>
