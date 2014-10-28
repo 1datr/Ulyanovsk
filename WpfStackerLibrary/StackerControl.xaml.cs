@@ -125,7 +125,50 @@ namespace WpfStackerLibrary
         }
 
         private Dictionary<Int32, Button> GridPoints = new Dictionary<int, Button>();
- 
+
+        private Int32 fCellWidth = 50;
+        public Int32 CellWidth {
+            get {
+                return fCellWidth;
+            }
+            set {
+                fCellWidth = value;
+                foreach(ColumnDefinition cd in rack_left.ColumnDefinitions)
+                {
+                    GridLength gl = new GridLength(fCellWidth, GridUnitType.Pixel);
+                    cd.Width = gl;
+                }
+
+                foreach(ColumnDefinition cd in rack_right.ColumnDefinitions)
+                {
+                    GridLength gl = new GridLength(fCellWidth, GridUnitType.Pixel);
+                    cd.Width = gl;
+                }
+
+                foreach(ColumnDefinition cd in stacker_rails.ColumnDefinitions)
+                {
+                    GridLength gl = new GridLength(fCellWidth, GridUnitType.Pixel);
+                    cd.Width = gl;
+                }
+            }
+        }
+
+        // Fixed points
+        private ObservableCollection<Int32> fHorizontalGroupings = new ObservableCollection<Int32>();
+        //
+        [Description("Group the cells"), Category("Stacker")]
+        public ObservableCollection<Int32> HorizontalGroupings
+        {
+            get
+            {
+                return fHorizontalGroupings;
+            }
+            set
+            {
+                fHorizontalGroupings = value;
+
+            }
+        }
 
         int SDA_OnDataAccessConnect()
         {                       
@@ -239,14 +282,23 @@ namespace WpfStackerLibrary
                     stacker_rails.ColumnDefinitions.Clear();
                     for (Int32 i = 0; i < Rows; i++)
                     {
-                        rack_left.ColumnDefinitions.Add(new ColumnDefinition());
-                        stacker_rails.ColumnDefinitions.Add(new ColumnDefinition());
+                        ColumnDefinition cd = new ColumnDefinition();
+                        GridLength gl = new GridLength(CellWidth);
+                        cd.Width = gl;
+                        rack_left.ColumnDefinitions.Add(cd);
+                        cd = new ColumnDefinition();
+                        gl = new GridLength(CellWidth);
+                        cd.Width = gl;
+                        stacker_rails.ColumnDefinitions.Add(cd);
                     }
 
                     rack_right.ColumnDefinitions.Clear();
                     for (Int32 i = 0; i < Rows; i++)
                     {
-                        rack_right.ColumnDefinitions.Add(new ColumnDefinition());
+                        ColumnDefinition cd = new ColumnDefinition();
+                        GridLength gl = new GridLength(CellWidth);
+                        cd.Width = gl;
+                        rack_right.ColumnDefinitions.Add(cd);
                     }
                     build_matr();
                     make_cells();

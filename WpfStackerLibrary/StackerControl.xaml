@@ -9,22 +9,28 @@
     <UserControl.Resources>
         <cm:BackgroundWorker x:Key="backgroundWorker" DoWork="BackgroundWorker_DoWork" RunWorkerCompleted="BackgroundWorker_RunWorkerCompleted" WorkerSupportsCancellation="True"></cm:BackgroundWorker>
         <Style x:Key="CurrCell" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="10"></Setter>
             <Setter Property="Background" Value="Coral"></Setter>
         </Style>
         <Style x:Key="CurrCell_Occupied" TargetType="{x:Type Button}" BasedOn="{StaticResource CurrCell}">
+            <Setter Property="FontSize" Value="10"></Setter>
             <Setter Property="Control.FontWeight" Value="Bold"></Setter>
         </Style>
         <Style x:Key="RegCell" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="10"></Setter>
             <Setter Property="Background" Value="AliceBlue"></Setter>
         </Style>
         <Style x:Key="RegCell_Occupied" TargetType="{x:Type Button}" BasedOn="{StaticResource RegCell}">
+            <Setter Property="FontSize" Value="10"></Setter>
             <Setter Property="Control.FontWeight" Value="Bold"></Setter>
         </Style>
         <Style x:Key="PoddonCell" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="10"></Setter>
             <Setter Property="Background" Value="LemonChiffon"></Setter>
         </Style>
 
         <Style x:Key="PoddonCell_Occupied" TargetType="{x:Type Button}" BasedOn="{StaticResource PoddonCell}">
+            <Setter Property="FontSize" Value="10"></Setter>
             <Setter Property="Control.FontWeight" Value="Bold"></Setter>
         </Style>
     </UserControl.Resources>    

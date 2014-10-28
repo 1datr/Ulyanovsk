@@ -64,7 +64,7 @@ namespace WpfStacker
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             stacker1.AddProduct(full_prod_filter.Text);
-            stacker2.refresh();
+          //  stacker2.refresh();
         }
 
         private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
@@ -77,13 +77,13 @@ namespace WpfStacker
             //prods_grid.SelectedItem 
             var editing = e.EditingElement as TextBox;
             stacker1.EditProduct(prods_grid.SelectedItem, editing.Text);
-            stacker2.refresh();
+           // stacker2.refresh();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             stacker1.DeleteProduct(prods_grid.SelectedItem);
-            stacker2.refresh();
+          //  stacker2.refresh();
         }
                 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -153,7 +153,7 @@ namespace WpfStacker
             }
             else if (cc.StackerID == 2)
             {
-                stacker2.take(cc.CellID);
+               // stacker2.take(cc.CellID);
             }
         }
 
@@ -167,7 +167,7 @@ namespace WpfStacker
             }
             else if (cc.StackerID == 2)
             {
-                stacker2.move_free_priem(cc.CellID);
+             //   stacker2.move_free_priem(cc.CellID);
             }
 
         }
