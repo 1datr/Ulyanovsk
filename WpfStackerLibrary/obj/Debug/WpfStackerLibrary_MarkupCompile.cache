@@ -4,7 +4,7 @@
 library
 C#
 .cs
-d:\программы\Ulyanovsk\WpfStackerLibrary\obj\Debug\
+D:\программы\Ulyanovsk\WpfStackerLibrary\obj\Debug\
 WpfStackerLibrary
 none
 false
@@ -13,7 +13,7 @@ DEBUG;TRACE
 141080353192
 1-1616221993
 21-281108103
-302136949374
+30-1209194396
 About.xaml;BNRModuleBox.xaml;CmdQManager.xaml;CommonCtrlKirishi.xaml;Console.xaml;KirishiHelp.xaml;PasswWin.xaml;StackerControl.xaml;StackerManBNR.xaml;TakeProdWin.xaml;Themes\Generic.xaml;Vnc.xaml;Win1.xaml;CommonCtrlUlyanovsk.xaml;
 
 False

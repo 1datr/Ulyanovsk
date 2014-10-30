@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
             
             <Button Focusable="False" Grid.Column="0" Grid.Row="0" Margin="2"  Style="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:KirishiHelp, AncestorLevel=1}, Path=StylePriem}" Content="12" IsCancel="True" ForceCursor="True" />           
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="2" VerticalAlignment="Center">Тележка</TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin="2" VerticalAlignment="Center">Приемная</TextBlock>
 
             <Button Focusable="False" Grid.Column="0" Grid.Row="1" Margin="2"  Style="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:KirishiHelp, AncestorLevel=1}, Path=StyleFull}" IsCancel="True" ForceCursor="True" >24</Button>
             <TextBlock Grid.Column="1" Grid.Row="1" Margin="2" VerticalAlignment="Center">Есть  содержимое</TextBlock>

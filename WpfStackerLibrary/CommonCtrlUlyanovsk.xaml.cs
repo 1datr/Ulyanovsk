@@ -91,12 +91,14 @@ namespace WpfStackerLibrary
                     stacker1.Floors = Floors;
                     stacker1.refresh();
                     break;
+                case "HorizontalGroupings":
+                    break;
             }
         }
 
         private static void DepParamsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            CommonCtrlKirishi ctrl = (CommonCtrlKirishi)d;
+            CommonCtrlUlyanovsk ctrl = (CommonCtrlUlyanovsk)d;
 
            ctrl.SetParam(e.Property.Name, e.NewValue, e.OldValue);
 
@@ -198,6 +200,18 @@ namespace WpfStackerLibrary
             { 
             }
         }*/
+       // private ItemsChangeObservableCollection<Int32> fXGroupPoints = new ItemsChangeObservableCollection<Int32>();
+        public ObservableCollection<Int32> XGroupPoints
+        {
+            get {
+               // return fXGroupPoints;
+                return stacker1.XGroupPoints; 
+            }
+            set {
+               // fXGroupPoints = value;
+                stacker1.XGroupPoints = value;
+            }
+        }
 
         public String GetXML()
         {
@@ -361,6 +375,33 @@ namespace WpfStackerLibrary
 
             }
         }
+              
+        /*private ObservableCollection<Int32> fHorizontalGroupings = new ObservableCollection<Int32>();
+        [Bindable(true), Description("List of PriemCells"), Category("Stacker")]
+        public ObservableCollection<Int32> HorizontalGroupings
+        {
+            get
+            {
+                return fHorizontalGroupings;
+            }
+            set
+            {
+                fHorizontalGroupings = value;
+                this.stacker1.HorizontalGroupings = fHorizontalGroupings;
+            }
+        }*/
+
+        public static readonly DependencyProperty HorizontalGroupingsDP = DependencyProperty.Register("HorizontalGroupings", typeof(ObservableCollection<Int32>), typeof(CommonCtrlUlyanovsk), new FrameworkPropertyMetadata(null, DepParamsChanged));
+        [Bindable(true), Description("List of PriemCells"), Category("Stacker")]
+        public ObservableCollection<Int32> HorizontalGroupings
+        {
+            get
+            {
+                return GetValue(HorizontalGroupingsDP) as ObservableCollection<Int32>;
+            }
+            set { SetValue(HorizontalGroupingsDP, value); }
+        }
+        
 
         private ObservableCollection<Int32> fPriemCells = new ObservableCollection<Int32>();
         [Bindable(true), Description("List of PriemCells"), Category("Stacker")]
@@ -462,6 +503,16 @@ namespace WpfStackerLibrary
             b.Mode = BindingMode.TwoWay;
             this.SetBinding(IsEditableDP, b);
 
+            HorizontalGroupings = new ObservableCollection<int>();
+
+            this.PropertyChanged += new PropertyChangedEventHandler(CommonCtrlUlyanovsk_PropertyChanged);
+
+        }
+
+        void CommonCtrlUlyanovsk_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            
         }
 
         private void stacker1_OnSelectCell(int cellno)

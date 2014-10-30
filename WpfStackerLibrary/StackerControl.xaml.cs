@@ -167,6 +167,7 @@ namespace WpfStackerLibrary
             {
                 fHorizontalGroupings = value;
 
+
             }
         }
 
@@ -279,29 +280,73 @@ namespace WpfStackerLibrary
             {
                 case "Rows":
                     rack_left.ColumnDefinitions.Clear();
+                    rack_right.ColumnDefinitions.Clear();
                     stacker_rails.ColumnDefinitions.Clear();
+                    Int32 idx = 0;
+                    Int32 group = 0;
+                    Int32 j = 0;
                     for (Int32 i = 0; i < Rows; i++)
                     {
                         ColumnDefinition cd = new ColumnDefinition();
-                        GridLength gl = new GridLength(CellWidth);
-                        cd.Width = gl;
-                        rack_left.ColumnDefinitions.Add(cd);
-                        cd = new ColumnDefinition();
-                        gl = new GridLength(CellWidth);
-                        cd.Width = gl;
-                        stacker_rails.ColumnDefinitions.Add(cd);
+                        if ((j > 0) && (group>0))
+                        {
+                            GridLength gl = new GridLength(CellWidth);
+                            cd.Width = gl;
+                            rack_left.ColumnDefinitions.Add(cd);
+
+                            cd = new ColumnDefinition();
+                            gl = new GridLength(CellWidth);
+                            cd.Width = gl;
+                            stacker_rails.ColumnDefinitions.Add(cd);
+
+                            cd = new ColumnDefinition();
+                            gl = new GridLength(CellWidth);
+                            cd.Width = gl;
+                            rack_right.ColumnDefinitions.Add(cd);
+                        }
+                        else
+                        { 
+                            GridLength gl = new GridLength(CellWidth+3);
+                            cd.Width = gl;                            
+                            rack_left.ColumnDefinitions.Add(cd);
+
+                            cd = new ColumnDefinition();
+                            gl = new GridLength(CellWidth+3);
+                            cd.Width = gl;
+                            stacker_rails.ColumnDefinitions.Add(cd);
+
+                            cd = new ColumnDefinition();
+                            gl = new GridLength(CellWidth+3);
+                            cd.Width = gl;
+                            rack_right.ColumnDefinitions.Add(cd);
+                        }
+                        
+                        
+                        
+
+                        if(idx<fHorizontalGroupings.Count)
+                            group = fHorizontalGroupings[idx];
+
+
+                        j++;
+                        if (group == 0)
+                        {
+                            j = 0;
+                            group = 0;
+                        }
+                        else
+                        {
+                            j %= group;
+                            idx++;
+                        }
+
                     }
 
-                    rack_right.ColumnDefinitions.Clear();
-                    for (Int32 i = 0; i < Rows; i++)
-                    {
-                        ColumnDefinition cd = new ColumnDefinition();
-                        GridLength gl = new GridLength(CellWidth);
-                        cd.Width = gl;
-                        rack_right.ColumnDefinitions.Add(cd);
-                    }
+                    
                     build_matr();
                     make_cells();
+
+                    set_grouping_x();
                     break;
                 case "Floors":
                      
@@ -1090,6 +1135,102 @@ namespace WpfStackerLibrary
         private List<Int32> Col_by_btnid = new List<int>();
         private List<Int32> Row_by_btnid = new List<int>();
 
+        private ObservableCollection<Int32> fXGroupPoints = new ObservableCollection<Int32>();
+        public ObservableCollection<Int32> XGroupPoints
+        {
+            get { return fXGroupPoints; }
+            set
+            {
+                fXGroupPoints = value;
+                OnPropertyChanged("XGroupPoints");
+            }
+        }
+
+        private void set_grouping_x()
+        {
+            Int32 idx = 0;
+            Int32 group = 0;
+            Int32 j = 0;
+            if (XGroupPoints.Count == 0) return;
+
+            for (Int32 i = 0; i < Rows; i++)
+            {
+                if (idx < XGroupPoints.Count)
+                    group = XGroupPoints[idx];
+                else
+                    group = 0;
+                ColumnDefinition cd = new ColumnDefinition();
+                if ((j == group-1) && (group > 0))
+                {
+                    GridLength gl = new GridLength(CellWidth + 3);
+                    cd.Width = gl;
+                    rack_left.ColumnDefinitions[i].Width = gl;
+
+                    cd = new ColumnDefinition();
+                    gl = new GridLength(CellWidth + 3);
+                    cd.Width = gl;
+                    stacker_rails.ColumnDefinitions[i].Width = gl;
+
+                    cd = new ColumnDefinition();
+                    gl = new GridLength(CellWidth + 3);
+                    cd.Width = gl;
+                    rack_right.ColumnDefinitions[i].Width = gl;
+                    // set margins of the rows to 3
+                    IEnumerable<UIElement> itemsInRow = rack_left.Children.Cast<UIElement>().Where(c => (Grid.GetColumn(c) == i));
+                    foreach (Button btn in itemsInRow)
+                    {
+                        Thickness mrg = btn.Margin;
+                        mrg.Right = 3;
+                        btn.Margin = mrg;
+                    }
+                    itemsInRow = rack_right.Children.Cast<UIElement>().Where(c => (Grid.GetColumn(c) == i));
+                    foreach (Button btn in itemsInRow)
+                    {
+                        Thickness mrg = btn.Margin;
+                        mrg.Right = 3;
+                        btn.Margin = mrg;
+                    }
+                    
+                }
+                else
+                {
+                    GridLength gl = new GridLength(CellWidth);
+                    cd.Width = gl;
+                    rack_left.ColumnDefinitions[i].Width = gl;
+
+                    cd = new ColumnDefinition();
+                    gl = new GridLength(CellWidth);
+                    cd.Width = gl;
+                    stacker_rails.ColumnDefinitions[i].Width = gl;
+
+                    cd = new ColumnDefinition();
+                    gl = new GridLength(CellWidth);
+                    cd.Width = gl;
+                    rack_right.ColumnDefinitions[i].Width = gl;
+                    // set margins of the rows to 3
+                    IEnumerable<UIElement> itemsInRow = rack_left.Children.Cast<UIElement>().Where(c => (Grid.GetColumn(c) == i));
+                    foreach (Button btn in itemsInRow)
+                    {
+                        Thickness mrg = btn.Margin;
+                        mrg.Right = 0;
+                        btn.Margin = mrg;
+                    }
+                    itemsInRow = rack_right.Children.Cast<UIElement>().Where(c => (Grid.GetColumn(c) == i));
+                    foreach (Button btn in itemsInRow)
+                    {
+                        Thickness mrg = btn.Margin;
+                        mrg.Right = 0;
+                        btn.Margin = mrg;
+                    }
+                }
+                j++;
+                if(group>0)
+                    j %= group;
+                if (j == 0)
+                    idx++;
+            }
+        }
+
         private void renum()
         {
             if ((Matr_Left == null) || (Matr_Right == null))
@@ -1588,12 +1729,20 @@ namespace WpfStackerLibrary
                 WorkParams.PropertyChanged += new PropertyChangedEventHandler(WorkParams_PropertyChanged);
 
                 backgroundWorker = ((BackgroundWorker)this.FindResource("backgroundWorker"));
+
+                XGroupPoints.CollectionChanged += new NotifyCollectionChangedEventHandler(XGroupPoints_CollectionChanged);
+               // set_grouping_x();
             }
             else
             {
                 restruct_left();
                 restruct_right();
             }
+        }
+
+        void XGroupPoints_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            set_grouping_x();
         }
 
         void WorkParams_PropertyChanged(object sender, PropertyChangedEventArgs e)

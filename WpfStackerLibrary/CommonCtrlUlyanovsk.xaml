@@ -50,20 +50,18 @@
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+              
             </Grid.RowDefinitions>
             <TabControl Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="TabsCellContent" >
 
                 <TabItem Header="{Binding Path=SelCellStr, ElementName=stacker1}">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="45" ></RowDefinition>
                             <RowDefinition Height="140"></RowDefinition>
                             <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        
-                        <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,10,5,10" Click="Button_Click_4" Name="BTNswitchmode">Тотальное редактирование</Button>
-                         
-                        <Border BorderThickness="2" CornerRadius="5" Grid.Column="0" Grid.Row="1">
+                        </Grid.RowDefinitions>                      
+                                                 
+                        <Border BorderThickness="2" CornerRadius="5" Grid.Column="0" Grid.Row="0">
                             <Grid IsManipulationEnabled="{Binding ElementName=stacker1, Path=EditCurrent}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
@@ -85,7 +83,7 @@
                                 <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,5,5,5" IsEnabled="{Binding ElementName=stacker1, Path=EditCurrent}" Name="btn_add_prod" Click="btn_add_prod_Click">Добавить</Button>
                             </Grid>
                         </Border>
-                        <Border Grid.Row="2" Grid.Column="0">
+                        <Border Grid.Row="1" Grid.Column="0">
                                                      
                                 <DataGrid  ItemsSource="{Binding ElementName=stacker1, Path=SelectedCellContent}" HorizontalAlignment="Stretch" Margin="2,2,2,2" AutoGenerateColumns="False" HeadersVisibility="Column" SelectionMode="Single" Name="DGVProducts" IsManipulationEnabled="True" IsReadOnly="True">
                                     <DataGrid.Columns>
@@ -169,10 +167,20 @@
             
             <GridSplitter Grid.Column="0" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
 
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Button  Grid.Column="0" Grid.Row="0"  Margin="12,3,12,3" Click="Button_Click_4" Name="BTNswitchmode">Тотальное редактирование</Button>
+                <my:CmdQManager Grid.Column="0" Grid.Row="1"  Margin="2,0,2,2" x:Name="CmdQueue" VerticalAlignment="Stretch" CmdReady="{Binding ElementName=stacker1_man, Path=CmdReady}" StackerState="{Binding ElementName=stacker1_man, Path=StackerState}" />
+
+            </Grid>
             
-
-
-            <my:CmdQManager Grid.Column="0" Grid.Row="1" Margin="2,5,2,2" x:Name="CmdQueue" CmdReady="{Binding ElementName=stacker1_man, Path=CmdReady}" StackerState="{Binding ElementName=stacker1_man, Path=StackerState}" />
+            
+           
+                
         </Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <my:StackerControl x:Name="stacker1" Rows="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Rows}" Floors="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=Floors}" Margin="2,2,4,4" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" Filter="{Binding ElementName=PFilter, Path=Text}"  OnSelectCell="stacker1_OnSelectCell" OnSelectStacker="stacker1_OnSelectStacker" StackerMenu="{Binding ElementName=CmdQueue, Path=StackerMenu}" CellMenu="{Binding ElementName=CmdQueue, Path=CellMenu}" TaraLoaded="{Binding ElementName=stacker1_man, Path=TaraLoaded}" PosX="{Binding ElementName=stacker1_man, Path=PosX}" PosY="{Binding ElementName=stacker1_man, Path=PosY}" PosZ="{Binding ElementName=stacker1_man, Path=PosZ}" WorkParams="{Binding ElementName=stacker1_man, Path=WorkParams}">
@@ -180,10 +188,10 @@
             </my:StackerControl>
         </ScrollViewer>
         
-        <GridSplitter Grid.Column="0" Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
+        <GridSplitter Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Top"></GridSplitter>
         <GridSplitter Grid.Column="1" Grid.Row="0" Width="5"></GridSplitter>
 
-            <my:StackerManBNR x:Name="stacker1_man"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" CurrCmd="{Binding ElementName=CmdQueue, Path=CurrCmd}" Power="{Binding ElementName=CmdQueue, Path=Power}" />
+        <my:StackerManBNR Margin="2,4,2,2" x:Name="stacker1_man"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" StackerID="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:CommonCtrlKirishi, AncestorLevel=1}, Path=StackerID}" CurrCmd="{Binding ElementName=CmdQueue, Path=CurrCmd}" Power="{Binding ElementName=CmdQueue, Path=Power}" />
            
             <TabControl HorizontalAlignment="Stretch" Margin="2,2,2,2" Grid.Column="1" Grid.Row="1" >
                 <TabItem Header="Ошибки">
