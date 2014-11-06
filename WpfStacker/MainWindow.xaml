@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:WpfStackerLibrary.ViewModel;assembly=WpfStackerLibrary"
-        Title="АРМ Ульяновск" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:WpfStacker" Loaded="Window_Loaded" Width="1131" Height="824" Icon="/WpfStacker;component/Images/favicon_kinef.ico">
+        Title="АРМ УМЗ склад" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:WpfStacker" Loaded="Window_Loaded" Width="1131" Height="824" Icon="/WpfStacker;component/Images/logo%20UMZ.gif">
     <Window.Resources>     
     </Window.Resources>
 
