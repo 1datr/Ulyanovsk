@@ -1,0 +1,111 @@
+[11.11.2014 10:37:50] PVI variables connected
+[11.11.2014 10:37:50] PVI variables connected
+[11.11.2014 10:37:50] PVI CPU connected
+[11.11.2014 10:37:50] PVI service connected
+[11.11.2014 10:34:31] Штабелер выключен
+[11.11.2014 10:34:30] PVI variables connecting ...
+[11.11.2014 10:34:30] PVI CPU connecting ...
+[11.11.2014 10:33:56] PVI variables connected
+[11.11.2014 10:33:56] PVI variables connected
+[11.11.2014 10:33:56] PVI CPU connected
+[11.11.2014 10:33:56] PVI service connected
+[11.11.2014 10:31:46] Штабелер выключен
+[11.11.2014 10:31:45] PVI variables connecting ...
+[11.11.2014 10:31:45] PVI CPU connecting ...
+[11.11.2014 10:28:29] PVI variables connected
+[11.11.2014 10:28:29] PVI variables connected
+[11.11.2014 10:28:29] PVI CPU connected
+[11.11.2014 10:28:29] PVI service connected
+[11.11.2014 10:19:37] Штабелер выключен
+[11.11.2014 10:19:37] PVI variables connecting ...
+[11.11.2014 10:19:37] PVI CPU connecting ...
+[11.11.2014 10:17:59] PVI variables connected
+[11.11.2014 10:17:58] PVI variables connected
+[11.11.2014 10:17:58] PVI CPU connected
+[11.11.2014 10:17:58] PVI service connected
+[11.11.2014 10:11:55] Началось выполнение команды "Парковать"
+[11.11.2014 10:11:52] Штабелер выключен
+[11.11.2014 10:11:51] PVI variables connecting ...
+[11.11.2014 10:11:51] PVI CPU connecting ...
+[11.11.2014 10:10:54] Штабелер готов к выполнению команды
+[11.11.2014 10:10:20] Началось выполнение команды "Взять из ячейки 36"
+[11.11.2014 10:10:15] Ошибка: Неизвестная ошибка (50077)
+[11.11.2014 10:10:06] Штабелер находиться в состоянии выполнения команды
+[11.11.2014 10:09:51] Ошибка: Неизвестная ошибка (50067)
+[11.11.2014 10:09:43] Началось выполнение команды "Взять из ячейки 696"
+[11.11.2014 10:09:16] Штабелер находиться в состоянии выполнения команды
+[11.11.2014 10:09:13] Штабелер не готов выполненять команду
+[11.11.2014 10:09:07] Ошибка привода
+[11.11.2014 10:09:07] PVI variables connected
+[11.11.2014 10:09:06] PVI CPU connected
+[11.11.2014 10:09:06] PVI service connected
+[11.11.2014 10:03:29] PVI CPU connecting ...
+[11.11.2014 10:02:15] PVI CPU connecting ...
+[11.11.2014 10:02:05] PVI CPU connecting ...
+[11.11.2014 10:00:02] PVI CPU connecting ...
+[11.11.2014 9:58:03] Error:No connection available to the PLC  (4808)
+[11.11.2014 9:57:57] PVI service connected
+[11.11.2014 9:57:43] PVI CPU connecting ...
+[11.11.2014 9:53:28] PVI CPU connecting ...
+[11.11.2014 9:49:58] Error:No connection available to the PLC  (4808)
+[11.11.2014 9:49:53] PVI service connected
+[11.11.2014 9:48:57] PVI CPU connecting ...
+[11.11.2014 9:48:14] Error:No connection available to the PLC  (4808)
+[11.11.2014 9:48:09] PVI service connected
+[11.11.2014 9:47:37] PVI CPU connecting ...
+[11.11.2014 9:47:37] PVI service connected
+[11.11.2014 9:47:37] PVI service connected
+[11.11.2014 9:47:43] Error:No connection available to the PLC  (4808)
+[11.11.2014 9:48:09] PVI CPU connecting ...
+[11.11.2014 9:48:57] PVI service connected
+[11.11.2014 9:49:02] Error:No connection available to the PLC  (4808)
+[11.11.2014 9:49:53] PVI CPU connecting ...
+[11.11.2014 9:53:28] PVI service connected
+[11.11.2014 9:57:43] PVI service connected
+[11.11.2014 9:57:49] Error:No connection available to the PLC  (4808)
+[11.11.2014 9:57:57] PVI CPU connecting ...
+[11.11.2014 10:00:02] PVI service connected
+[11.11.2014 10:02:05] PVI service connected
+[11.11.2014 10:02:15] PVI service connected
+[11.11.2014 10:03:29] PVI service connected
+[11.11.2014 10:03:34] Error:No connection available to the PLC  (4808)
+[11.11.2014 10:09:06] PVI CPU connecting ...
+[11.11.2014 10:09:06] PVI variables connecting ...
+[11.11.2014 10:09:07] Ошибка: Превышение веса (50000)
+[11.11.2014 10:09:07] PVI variables connected
+[11.11.2014 10:09:14] Штабелер выключен
+[11.11.2014 10:09:16] Штабелер готов к выполнению команды
+[11.11.2014 10:09:43] Штабелер находиться в состоянии выполнения команды
+[11.11.2014 10:10:06] Штабелер готов к выполнению команды
+[11.11.2014 10:10:13] Ошибка: Неизвестная ошибка (50067)
+[11.11.2014 10:10:16] Штабелер готов к выполнению команды
+[11.11.2014 10:10:20] Штабелер находиться в состоянии выполнения команды
+[11.11.2014 10:11:51] PVI service connected
+[11.11.2014 10:11:51] PVI CPU connected
+[11.11.2014 10:11:52] PVI variables connected
+[11.11.2014 10:11:52] PVI variables connected
+[11.11.2014 10:11:55] Штабелер находиться в состоянии выполнения команды
+[11.11.2014 10:17:58] PVI CPU connecting ...
+[11.11.2014 10:17:58] PVI variables connecting ...
+[11.11.2014 10:17:59] Штабелер выключен
+[11.11.2014 10:19:37] PVI service connected
+[11.11.2014 10:19:37] PVI CPU connected
+[11.11.2014 10:19:37] PVI variables connected
+[11.11.2014 10:19:37] PVI variables connected
+[11.11.2014 10:28:29] PVI CPU connecting ...
+[11.11.2014 10:28:29] PVI variables connecting ...
+[11.11.2014 10:28:29] Штабелер выключен
+[11.11.2014 10:31:45] PVI service connected
+[11.11.2014 10:31:45] PVI CPU connected
+[11.11.2014 10:31:45] PVI variables connected
+[11.11.2014 10:31:46] PVI variables connected
+[11.11.2014 10:33:56] PVI CPU connecting ...
+[11.11.2014 10:33:56] PVI variables connecting ...
+[11.11.2014 10:33:56] Штабелер выключен
+[11.11.2014 10:34:30] PVI service connected
+[11.11.2014 10:34:30] PVI CPU connected
+[11.11.2014 10:34:30] PVI variables connected
+[11.11.2014 10:34:31] PVI variables connected
+[11.11.2014 10:37:50] PVI CPU connecting ...
+[11.11.2014 10:37:50] PVI variables connecting ...
+[11.11.2014 10:37:50] Штабелер выключен

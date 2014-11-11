@@ -37,9 +37,11 @@
                     <sys:Int32>2</sys:Int32>
                 </my1:CommonCtrlUlyanovsk.XGroupPoints>            
                 <my1:CommonCtrlUlyanovsk.PriemCells>
-                    <sys:Int32>168</sys:Int32>
+                    <sys:Int32>0</sys:Int32>
                 </my1:CommonCtrlUlyanovsk.PriemCells>
-                
+                <my1:CommonCtrlUlyanovsk.FixedPoints>
+                    <my1:GridPoint X="15" Y="11" Cell="0"></my1:GridPoint>
+                </my1:CommonCtrlUlyanovsk.FixedPoints>                
             </my1:CommonCtrlUlyanovsk>
         </TabItem>
 

@@ -93,6 +93,8 @@ namespace WpfStackerLibrary
                     break;
                 case "HorizontalGroupings":
                     break;
+                case "FixedParams": 
+                    break;
             }
         }
 
@@ -333,12 +335,12 @@ namespace WpfStackerLibrary
         {
             get
             {
-                return fFixedPoints;
+                return stacker1.FixedPoints;// fFixedPoints;
             }
             set
             {
                 fFixedPoints = value;
-
+                stacker1.FixedPoints = value;
             }
         }
 

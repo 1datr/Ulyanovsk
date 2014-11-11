@@ -45,6 +45,8 @@ namespace WpfStackerLibrary
 
         void fFixedPoints_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Matr_Left = null;
+            Matr_Right = null;
             build_matr();
             renum();
         }
@@ -189,7 +191,10 @@ namespace WpfStackerLibrary
             set
             {
                 fFixedPoints = value;
-
+             /*   Matr_Left = null;
+                Matr_Right = null;
+                renum();
+                set_cell_styles();*/
             }
         }
 
@@ -1003,7 +1008,7 @@ namespace WpfStackerLibrary
                     }
                     else
                     {
-                        List<GridPoint> GP = fFixedPoints.Where(p => ((p.Cell == c) && (p.right == true))).ToList<GridPoint>();
+                        List<GridPoint> GP = fFixedPoints.Where(p => ((p.Cell == c) && (p.right == false /*true*/))).ToList<GridPoint>();
                         if (GP.Count() > 0) // point found - set it in matr
                         {
                             move = false;
@@ -1055,7 +1060,7 @@ namespace WpfStackerLibrary
                     }
                     else
                     {
-                        List<GridPoint> GP = fFixedPoints.Where(p => ((p.Cell == c) && (p.right == false))).ToList<GridPoint>();
+                        List<GridPoint> GP = fFixedPoints.Where(p => ((p.Cell == c) && (p.right == true /*false*/))).ToList<GridPoint>();
                         if (GP.Count() > 0) // point found - set it in matr
                         {
                             move = false;
